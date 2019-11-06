@@ -17,6 +17,7 @@ public class Control {
 	}
 
 	public void squareClicked(int r, int c) {
+		//Resets user move when the same square is clicked twice
 		if (r == mouseRowI && c == mouseColI) {
 			mouseRowI = -1;
 			mouseColI = -1;
