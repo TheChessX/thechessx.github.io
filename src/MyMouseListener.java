@@ -17,6 +17,8 @@ public class MyMouseListener extends MouseAdapter {
 	  int c = (e.getX() - 8)/51 - 1;
 	  if (r >= 0 && r <= 7 && c >= 0 && c <= 7) {
 		  control.squareClicked(r, c);
+	  } else {
+		  control.evaluate();
 	  }
    }
 }

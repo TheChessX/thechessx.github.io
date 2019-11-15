@@ -7,12 +7,14 @@ public class Control {
 	private int mouseColI = -1;
 	private int mouseRowF = -1;
 	private int mouseColF = -1;
+	private Evaluation evaluation;
 	
 	public Control() {
 		this.pos = new Position();
 		this.board = new Board(pos);
 		this.mouse = new MyMouseListener(this);
 		board.getFrame().addMouseListener(mouse);
+		this.evaluation = new Evaluation();
 		//Initialize vars here
 	}
 
@@ -39,5 +41,13 @@ public class Control {
 			mouseRowF = -1;
 			mouseColF = -1;
 		}
+	}
+	
+	public void evaluate() {
+		double kingSafetyScore = evaluation.evaluateKingSafety(board.getPosition());
+		System.out.println("King Safety (white): " + kingSafetyScore);
+		
+		double pieceValueScore = evaluation.evaluatePieceValue(board.getPosition());
+		System.out.println("Piece Value: " + pieceValueScore);
 	}
 }
