@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import data.Position;
+import data.Move;
 
 public class Board extends JPanel {
 	private final JFrame frame;
@@ -13,7 +15,7 @@ public class Board extends JPanel {
 	private Piece[][] pieces;
 	//private boolean init = true;
 	private Square[][] squares;
-	
+
 	public Board(Position pos) {
 		this.setPreferredSize(new Dimension(510, 510));
 		this.frame = new JFrame("ChessX");
@@ -33,13 +35,13 @@ public class Board extends JPanel {
 		}
 		this.pieces = setUp(pos);
 		this.pos = pos;
-		
+
 		//frame.add(squares);
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		//if (init) {
 			for (int i = 0; i < 9; i++) {
 				g.drawLine(51, 51*(i+1), 459, 51*(i+1));
@@ -70,16 +72,16 @@ public class Board extends JPanel {
 			 */
 		//}
 	}
-	
+
 	public Piece[][] setUp(Position pos) {
 		Piece[][] pieceArray = new Piece[8][8];
 		//if (init) {
 			//Piece[][] pieces = new Piece[8][8];
 			for (int c = 0; c < 8; c++) {
 				for (int r = 0; r < 8; r++) {
-					if (pos.position[r][c] != 0) {
+					if (pos.getSquare(r, c) != 0) {
 						//System.out.println("making piece");
-						pieceArray[r][c] = new Piece(pos.position[r][c], c, r);
+						pieceArray[r][c] = new Piece(pos.getSquare(r, c), c, r);
 						frame.add(pieceArray[r][c]);
 						frame.revalidate();
 						//pieceArray[r][c].repaint();
@@ -88,24 +90,24 @@ public class Board extends JPanel {
 			}
 			//init = false;
 			//return pieces;
-			
+
 			//init = false;
 		//}
 		return pieceArray;
 	}
-	
+
 	public void move(Move mov) {
 		System.out.println();
-		
-		int rI = mov.yInitial;
-		int cI = mov.xInitial;
-		int rF = mov.yFinal;
-		int cF = mov.xFinal;
+
+		int rI = mov.getyInitial();
+		int cI = mov.getxInitial();
+		int rF = mov.getyFinal();
+		int cF = mov.getxFinal();
 		//Call vars directly from Move?
-		pos.position[rF][cF] = pos.position[rI][cI];
-		pos.position[rI][cI] = 0;
+		pos.setSquare(rF, cF, pos.getSquare(rI, cI));
+		pos.setSquare(rI, cI, (byte) 0);
 		//refresh();
-		
+
 		squares[rI][cI].repaint();
 		revalidate();
 		squares[rF][cF].repaint();
@@ -117,8 +119,8 @@ public class Board extends JPanel {
 //		}
 		SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
-	            
-	        	 
+
+
 	         }
 	      });
 		pieces[rI][cI].movePiece(rF, cF);
@@ -129,14 +131,14 @@ public class Board extends JPanel {
 //		} catch (InterruptedException e){
 //			System.out.println("InterruptedException");
 //		}
-		
+
 		pieces[rI][cI] = null;
 		paintPiece(rF, cF);
 		revalidate();
 		//pieces = setUp(pos);
 		//System.out.println("finish set up");
 		/* frame.remove(pieces[rI][cI]);
-		
+
 		if (pieces[rF][cF] != null) {
 			frame.remove(pieces[rF][cF]);
 		}
@@ -147,18 +149,18 @@ public class Board extends JPanel {
 		refresh();
 		*/
 		//refresh();
-		
+
 	}
-	
+
 	public void refresh() {
 	      frame.revalidate();
 	      frame.repaint();
    }
-	
+
 	public Piece[][] getPieces() {
 		return pieces;
 	}
-	
+
 	public JFrame getFrame() {
 		return frame;
 	}

@@ -1,3 +1,5 @@
+import data.Position;
+import data.Move;
 
 public class Control {
 	private Position pos;
@@ -7,7 +9,7 @@ public class Control {
 	private int mouseColI = -1;
 	private int mouseRowF = -1;
 	private int mouseColF = -1;
-	
+
 	public Control() {
 		this.pos = new Position();
 		this.board = new Board(pos);

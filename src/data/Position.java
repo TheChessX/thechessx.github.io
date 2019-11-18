@@ -68,7 +68,7 @@ public class Position {
     public boolean isLegalMove(Move move) {
         for (Move m : getAllLegalMoves()) {
             if (m.equals(move)) {
-                return true
+                return true;
             }
         }
         return false;
