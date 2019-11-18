@@ -49,5 +49,8 @@ public class Control {
 		
 		double pieceValueScore = evaluation.evaluatePieceValue(board.getPosition());
 		System.out.println("Piece Value: " + pieceValueScore);
+		
+		double centerControlScore = evaluation.evaluateCenterControl(board.getPosition());
+		System.out.println("Center Control: " + centerControlScore);
 	}
 }

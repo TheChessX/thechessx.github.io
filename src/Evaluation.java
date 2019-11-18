@@ -14,6 +14,11 @@ public class Evaluation {
 	public final double bishopV = 3.45;	/*						 */
 	public final double queenV = 9;		/*						 */
 	
+	public double PawnCOV = 0.1; //value for pawns in 2,2 to 2,5, 5,2 to 5,5
+	public double PawnCIV = 0.2; //value for pawns in center four squares
+	public double KnightCOV = 0.4; 
+	public double KnightCIV = 0.5;
+	
 	public Evaluation() {
 		
 	}
@@ -140,5 +145,47 @@ public class Evaluation {
 			}
 		}
 		return kingLocation;
+	}
+	
+	public double evaluateCenterControl(Position pos) {
+		double score = 0.0;
+		for (int i = 2; i < 6; i++) {
+			for (int j = 2; j < 6; j++) {
+				if (i == 3 && j == 3 || i == 3 && j == 4 || i == 4 && j == 3 || i == 4 && j == 4) {
+					 if (pos.position[i][j] == 1) {
+					 	 score = score + PawnCIV;
+
+					 } else if (pos.position[i][j] == 7) {
+					 	 score = score - PawnCIV;
+
+					 } else if (pos.position[i][j] == 2) {
+					 	 score = score + KnightCIV;
+
+					 } else if (pos.position[i][j] == 8) {
+					 	 score = score - KnightCIV;
+					 }
+
+				} else {
+					if (pos.position[i][j] == 1) {
+					 	 score = score + PawnCOV;
+
+					} else if (pos.position[i][j] == 7) {
+					 	 score = score - PawnCOV;
+
+					} else if (pos.position[i][j] == 2) {
+					 	 score = score + KnightCOV;
+
+					} else if (pos.position[i][j] == 8) {
+					 	 score = score - KnightCOV;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return score;
 	}
 }
