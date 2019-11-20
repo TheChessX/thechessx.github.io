@@ -1,5 +1,6 @@
 package data;
 
+
 public class Move {
     private final int xInitial;
     private final int xFinal;

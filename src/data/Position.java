@@ -1,5 +1,6 @@
 package data;
 
+
 import java.util.ArrayList;
 
 public class Position {
@@ -25,13 +26,13 @@ public class Position {
         Board is stored as x,y with top left being 0,0
          */
     private byte[][] position; //indexed 0 to 7
-    boolean blackToMove;
+    private boolean blackToMove;
     ArrayList moveList = new ArrayList<Move>();
 
     public Position() { // initializes starting position
         position = new byte[8][8];
-        inputStartingPieces();
-        blackToMove = false;
+        position = inputStartingPieces();
+        setBlackToMove(false);
     }
 
     public Position(Position p) {
@@ -41,7 +42,7 @@ public class Position {
                 position[i][j] = p.position[i][j];
             }
         }
-        blackToMove = p.blackToMove;
+        setBlackToMove(p.isBlackToMove());
     }
 
     public void setSquare(int xPos, int yPos, byte value) {
@@ -454,41 +455,24 @@ public class Position {
     }
 
 
-    private void inputStartingPieces() {
-        position[0][0] = 10; // back row
-        position[1][0] = 8;
-        position[2][0] = 9;
-        position[3][0] = 11;
-        position[4][0] = 12;
-        position[5][0] = 9;
-        position[6][0] = 8;
-        position[7][0] = 10;
-
-        position[0][1] = 7; // black pawns
-        position[1][1] = 7;
-        position[2][1] = 7;
-        position[3][1] = 7;
-        position[4][1] = 7;
-        position[5][1] = 7;
-        position[6][1] = 7;
-        position[7][1] = 7;
-
-        position[0][6] = 1; // white pawns
-        position[1][6] = 1;
-        position[2][6] = 1;
-        position[3][6] = 1;
-        position[4][6] = 1;
-        position[5][6] = 1;
-        position[6][6] = 1;
-        position[7][6] = 1;
-
-        position[0][7] = 4; // front row
-        position[1][7] = 2;
-        position[2][7] = 3;
-        position[3][7] = 6;
-        position[4][7] = 5;
-        position[5][7] = 3;
-        position[6][7] = 2;
-        position[7][7] = 4;
+    private byte[][] inputStartingPieces() {
+    	return new byte[][] {
+				{10, 8, 9, 11, 12, 9, 8, 10},
+				{7, 7, 7, 7, 7, 7, 7, 7},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{1, 1, 1, 1, 1, 1, 1, 1},
+				{4, 2, 3, 5, 6, 3, 2, 4}
+			};
     }
+
+	public boolean isBlackToMove() {
+		return blackToMove;
+	}
+
+	public void setBlackToMove(boolean blackToMove) {
+		this.blackToMove = blackToMove;
+	}
 }
