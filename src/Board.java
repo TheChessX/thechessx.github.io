@@ -172,4 +172,7 @@ public class Board extends JPanel {
 		    }
 		  });
 	}
+	Position getPosition() {
+		return pos;
+	}
 }
