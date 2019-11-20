@@ -98,11 +98,13 @@ public class Board extends JPanel {
 
 	public void move(Move mov) {
 		System.out.println();
-
-		int rI = mov.getyInitial();
-		int cI = mov.getxInitial();
-		int rF = mov.getyFinal();
-		int cF = mov.getxFinal();
+		
+		int rI = mov.getxInitial();
+		int cI = mov.getyInitial();
+		int rF = mov.getxFinal();
+		int cF = mov.getyFinal();
+		
+		System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
 		//Call vars directly from Move?
 		pos.setSquare(rF, cF, pos.getSquare(rI, cI));
 		pos.setSquare(rI, cI, (byte) 0);
