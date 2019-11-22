@@ -41,7 +41,7 @@ public class Board extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-
+		//super.paintComponent(g);
 		//if (init) {
 			for (int i = 0; i < 9; i++) {
 				g.drawLine(51, 51*(i+1), 459, 51*(i+1));
@@ -108,6 +108,8 @@ public class Board extends JPanel {
 		//Call vars directly from Move?
 		pos.setSquare(rF, cF, pos.getSquare(rI, cI));
 		pos.setSquare(rI, cI, (byte) 0);
+		pos.setBlackToMove(!pos.isBlackToMove());
+		System.out.println("Black to move now " + pos.isBlackToMove());
 		//refresh();
 
 		squares[rI][cI].repaint();
@@ -151,7 +153,7 @@ public class Board extends JPanel {
 		refresh();
 		*/
 		//refresh();
-
+		
 	}
 
 	public void refresh() {
@@ -174,7 +176,7 @@ public class Board extends JPanel {
 		    }
 		  });
 	}
-	Position getPosition() {
+	public Position getPosition() {
 		return pos;
 	}
 }

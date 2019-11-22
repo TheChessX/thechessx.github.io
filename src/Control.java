@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import data.Position;
 import data.Move;
 
@@ -37,7 +39,16 @@ public class Control {
 			Move move = new Move(mouseRowI, mouseColI, mouseRowF, mouseColF);
 			//System.out.println(move);
 			//System.out.println("HELLO4");
-			board.move(move);
+			if (board.getPosition().isLegalMove(move)) {
+				board.move(move);
+			} else {
+				System.out.println("Illegal move");
+				ArrayList<Move> legalMoves = board.getPosition().getAllLegalMoves();
+				for (Move mov: legalMoves) {
+					System.out.println(mov);
+				}
+			}
+			//board.move(move);
 			mouseRowI = -1;
 			mouseColI = -1;
 			mouseRowF = -1;

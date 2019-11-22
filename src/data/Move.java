@@ -33,11 +33,11 @@ public class Move {
     @Override
     public String toString() { // ASCII 'a' is 97
         StringBuilder standardNotation = new StringBuilder();
-        standardNotation.append((char) (xInitial + 97));
-        standardNotation.append(yInitial + 1);
+        standardNotation.append((char) (yInitial + 97));
+        standardNotation.append(9 - (xInitial + 1));
         standardNotation.append(" to ");
-        standardNotation.append((char) (xFinal + 97));
-        standardNotation.append(yFinal + 1);
+        standardNotation.append((char) (yFinal + 97));
+        standardNotation.append(9 - (xFinal + 1));
         return standardNotation.toString();
     }
 
