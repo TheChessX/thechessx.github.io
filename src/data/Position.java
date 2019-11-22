@@ -294,7 +294,7 @@ public class Position {
         if (yPos != 7 && xPos != 7 && position[xPos + 1][yPos + 1] <= 6 && position[xPos + 1][yPos + 1] != 0) { // one capture
             moveList.add(new Move(xPos, yPos, xPos + 1, yPos + 1));
         }
-        if (yPos != 7 && yPos != 0 && xPos < 7 && position[xPos + 1][yPos - 1] <= 6 && position[xPos + 1][yPos + 1] != 0) { // other capture
+        if (yPos != 7 && yPos != 0 && xPos < 7 && position[xPos + 1][yPos - 1] <= 6 && position[xPos + 1][yPos - 1] != 0) { // other capture
             moveList.add(new Move(xPos, yPos, xPos + 1, yPos - 1));
         }
     }
