@@ -53,11 +53,12 @@ public class Evaluation {
 			}
 		}
 	
-		DecimalFormat df = new DecimalFormat("#.##");
-		score = Double.valueOf(df.format(score));
-		if (score == 0.0) {
-			score = 0.0;
-		}
+//		DecimalFormat df = new DecimalFormat("#.##");
+//		score = Double.valueOf(df.format(score));
+//		if (score == 0.0) {
+//			score = 0.0;
+//		}
+		score = round(score, 2);
 		return score;
 	}
 	
@@ -122,6 +123,7 @@ public class Evaluation {
 			score += distanceScore;
 		}
 		
+		score = round(score, 2);
 		return score;
 	}
 	
@@ -188,6 +190,20 @@ public class Evaluation {
 
 		}
 
+		score = round(score, 2);
 		return score;
+	}
+	
+	private double round(double x, double n) {
+		String format = "#.";
+		for (int i = 0; i < n; i ++) {
+			format += "#";
+		}
+		DecimalFormat df = new DecimalFormat(format);
+		double rounded = Double.valueOf(df.format(x));
+		if (rounded == 0.0) {
+			rounded = 0.0;
+		}
+		return rounded;
 	}
 }

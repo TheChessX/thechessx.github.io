@@ -6,12 +6,23 @@ public class Move {
     private final int xFinal;
     private final int yInitial;
     private final int yFinal;
+    
+    private final byte promotionID;
 
     public Move(int xInitial, int yInitial, int xFinal, int yFinal) {
         this.xInitial = xInitial;
         this.xFinal = xFinal;
         this.yInitial = yInitial;
         this.yFinal = yFinal;
+        this.promotionID = 0;
+    }
+    
+    public Move(int xInitial, int yInitial, int xFinal, int yFinal, byte promotionID) {
+        this.xInitial = xInitial;
+        this.xFinal = xFinal;
+        this.yInitial = yInitial;
+        this.yFinal = yFinal;
+        this.promotionID = promotionID;
     }
 
     public int getxInitial() {
@@ -38,6 +49,18 @@ public class Move {
         standardNotation.append(" to ");
         standardNotation.append((char) (yFinal + 97));
         standardNotation.append(9 - (xFinal + 1));
+        if (this.promotionID != 0) {
+        	standardNotation.append(" =");
+        	if (promotionID == 2 || promotionID == 8) {
+        		standardNotation.append("N");
+        	} else if (promotionID == 3 || promotionID == 9) {
+        		standardNotation.append("B");
+        	} else if (promotionID == 4 || promotionID == 10) {
+        		standardNotation.append("R");
+        	} else {
+        		standardNotation.append("Q");
+        	}
+        }
         return standardNotation.toString();
     }
 
@@ -51,5 +74,9 @@ public class Move {
         } else {
             return false;
         }
+    }
+    
+    public byte getPromotionID() {
+    	return promotionID;
     }
 }
