@@ -49,6 +49,15 @@ public class Piece extends JPanel {
 		return "id: " + id + " (" + r + ", " + c + ")";
 	}
 	
+	public void promote(byte promotionID) {
+		this.id = promotionID;
+		try {
+	    	img = ImageIO.read(new File("./src/img/" + id + ".png"));
+	    } catch (IOException e) {
+	    	System.out.println("image not found when piece was being initialized");
+	    }
+	}
+	
 //	public void changeA(int a) {
 //		this.a = a;
 //	}

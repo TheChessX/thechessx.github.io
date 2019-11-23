@@ -108,7 +108,11 @@ public class Board extends JPanel {
 		
 		System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
 		//Call vars directly from Move?
-		pos.setSquare(rF, cF, pos.getSquare(rI, cI));
+		if (mov.getPromotionID() != 0) {
+			pos.setSquare(rF, cF, mov.getPromotionID());
+		} else {
+			pos.setSquare(rF, cF, pos.getSquare(rI, cI));
+		}
 		pos.setSquare(rI, cI, (byte) 0);
 		pos.setBlackToMove(!pos.isBlackToMove());
 		System.out.println("Black to move now " + pos.isBlackToMove());
@@ -131,6 +135,9 @@ public class Board extends JPanel {
 	      });
 		pieces[rI][cI].movePiece(rF, cF);
 		pieces[rF][cF] = pieces[rI][cI];
+		if (mov.getPromotionID() != 0) {
+			pieces[rF][cF].promote(mov.getPromotionID());
+		}
 		//System.out.println("Repaint piece about to be called");
 //		try {
 //			Thread.sleep(5000);

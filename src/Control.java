@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import data.Position;
 import data.Move;
 
@@ -37,6 +40,28 @@ public class Control {
 			mouseRowF = r;
 			mouseColF = c;
 			Move move = new Move(mouseRowI, mouseColI, mouseRowF, mouseColF);
+			if (board.getPosition().isLegalMove(move) && (mouseRowF == 0 && (board.getPosition().getSquare(mouseRowI, mouseColI) == 1) || (mouseRowF == 7 && board.getPosition().getSquare(mouseRowI, mouseColI) == 7))) {
+				Object[] options = {"Knight",
+				                    "Bishop",
+				                    "Rook",
+				                    "Queen"};
+				int n = JOptionPane.showOptionDialog(board.getFrame(),
+				    "Promote to",
+				    "Promotion",
+				    JOptionPane.YES_NO_CANCEL_OPTION,
+				    JOptionPane.QUESTION_MESSAGE,
+				    null,
+				    options,
+				    options[3]);
+				n += 2;
+				if (board.getPosition().isBlackToMove()) {
+					n += 6;
+				}
+				if (n == 1 || n == 7) { //User closes promotion dialog box
+					mouseRowI = -1; //Treats as illegal move
+				}
+				move = new Move(mouseRowI, mouseColI, mouseRowF, mouseColF, (byte) n);
+			}
 			//System.out.println(move);
 			//System.out.println("HELLO4");
 			if (board.getPosition().isLegalMove(move)) {
