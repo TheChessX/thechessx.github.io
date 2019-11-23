@@ -58,7 +58,7 @@ public class Control {
 	
 	public void evaluate() {
 		double kingSafetyScore = evaluation.evaluateKingSafety(board.getPosition());
-		System.out.println("King Safety (white): " + kingSafetyScore);
+		System.out.println("King Safety: " + kingSafetyScore);
 		
 		double pieceValueScore = evaluation.evaluatePieceValue(board.getPosition());
 		System.out.println("Piece Value: " + pieceValueScore);

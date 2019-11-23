@@ -48,8 +48,10 @@ public class Board extends JPanel {
 				g.drawLine(51*(i+1), 51, 51*(i+1), 459);
 			}
 			for (int c = 0; c < 8; c++) {
-				g.drawString("" + c, 51*(c+1) + 25, 40);
-				g.drawString("" + c, 40, 51*(c+1) + 25);
+				g.drawString("" + (char) (c + 97), 51*(c+1) + 25, 40);
+				g.drawString("" + (char) (c + 97), 51*(c+1) + 25, 480);
+				g.drawString("" + (9 - (c + 1)), 35, 51*(c+1) + 30);
+				g.drawString("" + (9 - (c + 1)), 470, 51*(c+1) + 30);
 			}
 			/*g.setColor(new Color(150, 0, 200));
 			for (int c = 0; c < 8; c++) {
