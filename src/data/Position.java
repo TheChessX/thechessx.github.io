@@ -590,7 +590,7 @@ public class Position {
 		this.blackToMove = blackToMove;
 	}
 	
-	private int[] findKing(Position pos) {
+	public int[] findKing(Position pos) {
 		byte targetKing;
 		if (pos.isBlackToMove()) {
 			targetKing = 6;

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -164,13 +165,29 @@ public class Board extends JPanel {
 		*/
 		//refresh();
 		if (pos.getAllLegalMoves().size() == 0) {
-			String win;
-			if (pos.isBlackToMove()) {
-				win = "White";
+			boolean checkmate = false;
+			pos.setBlackToMove(!pos.isBlackToMove());
+			int[] kingLocation = pos.findKing(pos);
+    		int kingR = kingLocation[0];
+    		int kingC = kingLocation[1];
+    		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+    		for (Move potentialNextMove: potentialLegalMoves) {
+    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+    				checkmate = true;
+    				break;
+    			}
+    		}
+			if (checkmate) {
+	    		String win;
+				if (pos.isBlackToMove()) {
+					win = "Black";
+				} else {
+					win = "White";
+				}
+				JOptionPane.showMessageDialog(frame, "Checkmate! " + win + " wins.");
 			} else {
-				win = "Black";
+				JOptionPane.showMessageDialog(frame, "Stalemate! It's a draw.");
 			}
-			JOptionPane.showMessageDialog(frame, "Checkmate! " + win + " wins.");
 		}
 	}
 
