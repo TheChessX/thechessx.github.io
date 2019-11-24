@@ -64,6 +64,47 @@ public class Position {
                 }
             }
         }
+    	boolean legal = true;
+    	for (int i = 0; i < moveList.size(); i++) {
+    		legal = true;
+    		Move potentialMov = (Move) moveList.get(i);
+    		Position potentialPos = new Position(this);
+    		if (potentialMov.getPromotionID() != 0) {
+    			potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialMov.getPromotionID());
+    		} else {
+    			potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()));
+    		}
+    		potentialPos.setSquare(potentialMov.getxInitial(), potentialMov.getyInitial(), (byte) 0);
+    		potentialPos.setBlackToMove(!this.blackToMove);
+    		int[] kingLocation = findKing(potentialPos);
+    		int kingR = kingLocation[0];
+    		int kingC = kingLocation[1];
+    		ArrayList<Move> potentialLegalMoves = potentialPos.getAllLegalMovesNoCheck();
+    		for (Move potentialNextMove: potentialLegalMoves) {
+    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+    				legal = false;
+    				break;
+    			}
+    		}
+    		if (!legal) {
+    			moveList.remove(i);
+    			i--;
+    		}
+    	}
+        return moveList;
+    }
+    
+    public ArrayList<Move> getAllLegalMovesNoCheck() {
+        moveList = new ArrayList<Move>();
+    	if (moveList.size() == 0) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (position[i][j] != 0) {
+                        addMovesForPiece(i, j);
+                    }
+                }
+            }
+        }
         return moveList;
     }
 
@@ -177,7 +218,9 @@ public class Position {
             canMoveRightUp = false;
             if (currentx < 7 && currenty < 7 && (position[currentx + 1][currenty + 1] == 0 || position[currentx + 1][currenty + 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty + 1));
-                canMoveRightUp = true;
+                if (!(position[currentx + 1][currenty + 1] >= 7)) {
+                	canMoveRightUp = true;
+                }
                 currentx++;
                 currenty++;
             }
@@ -189,7 +232,9 @@ public class Position {
             canMoveRightDown = false;
             if (currentx < 7 && currenty > 0 && (position[currentx + 1][currenty - 1] == 0 || position[currentx + 1][currenty - 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty - 1));
-                canMoveRightDown = true;
+                if (!(position[currentx + 1][currenty - 1] >= 7)) {
+                	canMoveRightDown = true;
+                }
                 currentx++;
                 currenty--;
             }
@@ -201,7 +246,9 @@ public class Position {
             canMoveLeftUp = false;
             if (currentx > 0 && currenty < 7 && (position[currentx - 1][currenty + 1] == 0 || position[currentx - 1][currenty + 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty + 1));
-                canMoveLeftUp = true;
+                if (!(position[currentx - 1][currenty + 1] >= 7)) {
+                	canMoveLeftUp = true;
+                }
                 currentx--;
                 currenty++;
             }
@@ -213,9 +260,11 @@ public class Position {
             canMoveLeftDown = false;
             if (currentx > 0 && currenty > 0 && (position[currentx - 1][currenty - 1] == 0 || position[currentx - 1][currenty - 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty - 1));
-                canMoveLeftDown = true;
+                if (!(position[currentx - 1][currenty - 1] >= 7)) {
+                	canMoveLeftDown = true;
+                }
                 currentx--;
-                currenty--;
+                currenty--; 
             }
         }
     }
@@ -228,7 +277,9 @@ public class Position {
             canMoveRight = false;
             if (currentx < 7 && (position[currentx + 1][currenty] == 0 || position[currentx + 1][currenty] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty));
-                canMoveRight = true;
+                if (!(position[currentx + 1][currenty] >= 7)) {
+                	canMoveRight = true;
+                }
                 currentx++;
             }
         }
@@ -239,7 +290,9 @@ public class Position {
             canMoveLeft = false;
             if (currentx > 0 && (position[currentx - 1][currenty] == 0 || position[currentx - 1][currenty] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty));
-                canMoveLeft = true;
+                if (!(position[currentx - 1][currenty] >= 7)) {
+                	canMoveLeft = true;
+                }
                 currentx--;
             }
         }
@@ -250,7 +303,9 @@ public class Position {
             canMoveUp = false;
             if (currenty > 0 && (position[currentx][currenty - 1] == 0 || position[currentx][currenty - 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx, currenty - 1));
-                canMoveUp = true;
+                if (!(position[currentx][currenty - 1] >= 7)) {
+                	canMoveUp = true;
+                }
                 currenty--;
             }
         }
@@ -261,7 +316,9 @@ public class Position {
             canMoveDown = false;
             if (currenty < 7 && (position[currentx][currenty + 1] == 0 || position[currentx][currenty + 1] >= 7)) {
                 moveList.add(new Move(xPos, yPos, currentx, currenty + 1));
-                canMoveDown = true;
+                if (!(position[currentx][currenty + 1] >= 7)) {
+                	canMoveDown = true;
+                }
                 currenty++;
             }
         }
@@ -370,7 +427,9 @@ public class Position {
             canMoveRightUp = false;
             if (currentx < 7 && currenty < 7 && (position[currentx + 1][currenty + 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty + 1));
-                canMoveRightUp = true;
+                if (position[currentx + 1][currenty + 1] == 0) {
+                	canMoveRightUp = true;
+                }
                 currentx++;
                 currenty++;
             }
@@ -382,7 +441,9 @@ public class Position {
             canMoveRightDown = false;
             if (currentx < 7 && currenty > 0 && (position[currentx + 1][currenty - 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty - 1));
-                canMoveRightDown = true;
+                if (position[currentx + 1][currenty - 1] == 0) {
+                	canMoveRightDown = true;
+                }
                 currentx++;
                 currenty--;
             }
@@ -394,7 +455,9 @@ public class Position {
             canMoveLeftUp = false;
             if (currentx > 0 && currenty < 7 && (position[currentx - 1][currenty + 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty + 1));
-                canMoveLeftUp = true;
+                if (position[currentx - 1][currenty + 1] == 0) {
+                	canMoveLeftUp = true;
+                }
                 currentx--;
                 currenty++;
             }
@@ -406,7 +469,9 @@ public class Position {
             canMoveLeftDown = false;
             if (currentx > 0 && currenty > 0 && (position[currentx - 1][currenty - 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty - 1));
-                canMoveLeftDown = true;
+                if (position[currentx - 1][currenty - 1] == 0) {
+                	canMoveLeftDown = true;
+                }
                 currentx--;
                 currenty--;
             }
@@ -421,7 +486,9 @@ public class Position {
             canMoveRight = false;
             if (currentx < 7 && (position[currentx + 1][currenty] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx + 1, currenty));
-                canMoveRight = true;
+                if (position[currentx + 1][currenty] == 0) {
+                	canMoveRight = true;
+                }
                 currentx++;
             }
         }
@@ -432,7 +499,9 @@ public class Position {
             canMoveLeft = false;
             if (currentx > 0 && (position[currentx - 1][currenty] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx - 1, currenty));
-                canMoveLeft = true;
+                if (position[currentx - 1][currenty] == 0) {
+                	canMoveLeft = true;
+                }
                 currentx--;
             }
         }
@@ -443,7 +512,9 @@ public class Position {
             canMoveUp = false;
             if (currenty > 0 && (position[currentx][currenty - 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx, currenty - 1));
-                canMoveUp = true;
+                if (position[currentx][currenty - 1] == 0) {
+                	canMoveUp = true;
+                }
                 currenty--;
             }
         }
@@ -454,7 +525,9 @@ public class Position {
             canMoveDown = false;
             if (currenty < 7 && (position[currentx][currenty + 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx, currenty + 1));
-                canMoveDown = true;
+                if (position[currentx][currenty + 1] == 0) {
+                	canMoveDown = true;
+                }
                 currenty++;
             }
         }
@@ -515,5 +588,25 @@ public class Position {
 
 	public void setBlackToMove(boolean blackToMove) {
 		this.blackToMove = blackToMove;
+	}
+	
+	private int[] findKing(Position pos) {
+		byte targetKing;
+		if (pos.isBlackToMove()) {
+			targetKing = 6;
+		} else {
+			targetKing = 12;
+		}
+		int[] kingLocation = {-1, -1};
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (pos.getSquare(r, c) == targetKing) {
+					kingLocation[0] = r;
+					kingLocation[1] = c;
+					return kingLocation;
+				}
+			}
+		}
+		return kingLocation;
 	}
 }

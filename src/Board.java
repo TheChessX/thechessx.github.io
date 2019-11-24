@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -162,7 +163,15 @@ public class Board extends JPanel {
 		refresh();
 		*/
 		//refresh();
-		
+		if (pos.getAllLegalMoves().size() == 0) {
+			String win;
+			if (pos.isBlackToMove()) {
+				win = "White";
+			} else {
+				win = "Black";
+			}
+			JOptionPane.showMessageDialog(frame, "Checkmate! " + win + " wins.");
+		}
 	}
 
 	public void refresh() {
