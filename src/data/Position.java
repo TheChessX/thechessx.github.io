@@ -452,7 +452,7 @@ public class Position {
         boolean canMoveDown = true;
         while (canMoveDown && currenty < 7) {
             canMoveDown = false;
-            if (currentx < 7 && (position[currentx][currenty + 1] <= 6)) {
+            if (currenty < 7 && (position[currentx][currenty + 1] <= 6)) {
                 moveList.add(new Move(xPos, yPos, currentx, currenty + 1));
                 canMoveDown = true;
                 currenty++;
