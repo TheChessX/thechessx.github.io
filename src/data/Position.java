@@ -28,6 +28,8 @@ public class Position {
     private byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
     ArrayList moveList = new ArrayList<Move>();
+    
+    private int enPassantColumn = -1;
 
     public Position() { // initializes starting position
         position = new byte[8][8];
@@ -168,7 +170,10 @@ public class Position {
             	}
             }
     	} else {
-	    	if (xPos > 0 && position[xPos - 1][yPos] == 0) { // move forward 1
+	    	if (enPassantColumn != -1 && Math.abs(yPos - enPassantColumn) == 1 && xPos == 3) {
+	    		moveList.add(new Move(xPos, yPos, 2, enPassantColumn));
+	    	}
+    		if (xPos > 0 && position[xPos - 1][yPos] == 0) { // move forward 1
 	            moveList.add(new Move(xPos, yPos, xPos - 1, yPos));
 	        }
 	        if (xPos == 6 && position[xPos - 1][yPos] == 0 && position[xPos - 2][yPos] == 0) { // moving forward by 2
@@ -377,7 +382,10 @@ public class Position {
 	        	}
 	        }
         } else {
-	    	if (xPos < 7 && position[xPos + 1][yPos] == 0) { // move forward 1
+        	if (enPassantColumn != -1 && Math.abs(yPos - enPassantColumn) == 1 && xPos == 4) {
+	    		moveList.add(new Move(xPos, yPos, 5, enPassantColumn));
+	    	}
+        	if (xPos < 7 && position[xPos + 1][yPos] == 0) { // move forward 1
 	            moveList.add(new Move(xPos, yPos, xPos + 1, yPos));
 	        }
 	        if (xPos == 1 && position[xPos + 1][yPos] == 0 && position[xPos + 2][yPos] == 0) { // moving forward by 2
@@ -608,5 +616,9 @@ public class Position {
 			}
 		}
 		return kingLocation;
+	}
+	
+	public void setEnPassantColumn(int c) {
+		this.enPassantColumn = c;
 	}
 }

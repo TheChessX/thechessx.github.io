@@ -110,12 +110,26 @@ public class Board extends JPanel {
 		
 		System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
 		//Call vars directly from Move?
+		
+		if ((pos.getSquare(rI, cI) == 1 && rI == 6 && rF == 4)||(pos.getSquare(rI, cI) == 7 && rI == 1 && rF == 3)) {
+			pos.setEnPassantColumn(cF);
+		} else {
+			pos.setEnPassantColumn(-1);
+		}
+		
 		if (mov.getPromotionID() != 0) {
 			pos.setSquare(rF, cF, mov.getPromotionID());
 		} else {
+			if ((pos.getSquare(rI, cI) == 1 && rI == 3 && rF == 2 && cI != cF && pos.getSquare(rF, cF) == 0)||(pos.getSquare(rI, cI) == 7 && rI == 4 && rF == 5 && cI != cF && pos.getSquare(rF, cF) == 0)) {
+				pos.setSquare(rI, cF, (byte) 0);
+				squares[rI][cF].repaint();
+				revalidate();
+			}
 			pos.setSquare(rF, cF, pos.getSquare(rI, cI));
 		}
 		pos.setSquare(rI, cI, (byte) 0);
+		
+		//TODO detect en passant move and remove captured pawn
 		pos.setBlackToMove(!pos.isBlackToMove());
 		System.out.println("Black to move now " + pos.isBlackToMove());
 		//refresh();
@@ -124,6 +138,7 @@ public class Board extends JPanel {
 		revalidate();
 		squares[rF][cF].repaint();
 		revalidate();
+		//TODO also repaint the square for the captured en passant pawn
 //		try {
 //			Thread.sleep(5000);
 //		} catch (InterruptedException e) {
