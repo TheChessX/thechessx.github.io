@@ -50,7 +50,7 @@ public class Move {
         standardNotation.append((char) (yFinal + 97));
         standardNotation.append(9 - (xFinal + 1));
         if (this.promotionID != 0) {
-        	standardNotation.append(" =");
+        	standardNotation.append("=");
         	if (promotionID == 2 || promotionID == 8) {
         		standardNotation.append("N");
         	} else if (promotionID == 3 || promotionID == 9) {
