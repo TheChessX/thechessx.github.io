@@ -68,10 +68,10 @@ public class Control {
 				board.move(move);
 			} else {
 				System.out.println("Illegal move");
-				ArrayList<Move> legalMoves = board.getPosition().getAllLegalMoves();
-				for (Move mov: legalMoves) {
-					System.out.println(mov);
-				}
+//				ArrayList<Move> legalMoves = board.getPosition().getAllLegalMoves();
+//				for (Move mov: legalMoves) {
+//					System.out.println(mov);
+//				}
 			}
 			//board.move(move);
 			mouseRowI = -1;

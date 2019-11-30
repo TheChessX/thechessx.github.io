@@ -101,12 +101,47 @@ public class Board extends JPanel {
 	}
 
 	public void move(Move mov) {
-		System.out.println();
+		//System.out.println();
 		
 		int rI = mov.getxInitial();
 		int cI = mov.getyInitial();
 		int rF = mov.getxFinal();
 		int cF = mov.getyFinal();
+		
+		String moveNotation = "";
+		if (pos.getSquare(rI, cI) % 6 == 2) {
+			moveNotation += "N";
+		} else if (pos.getSquare(rI, cI) % 6 == 3) {
+			moveNotation += "B";
+		} else if (pos.getSquare(rI, cI) % 6 == 4) {
+			moveNotation += "R";
+		} else if (pos.getSquare(rI, cI) % 6 == 5) {
+			moveNotation += "Q";
+		} else if (pos.getSquare(rI, cI) % 6 == 0) {
+			moveNotation += "K";
+		}
+		
+		//Adds clarifying notation if ambiguous
+		ArrayList<Move> allMoves = pos.getAllLegalMoves();
+		for (Move m: allMoves) {
+			if (m.getxFinal() == rF && m.getyFinal() == cF && pos.getSquare(m.getxInitial(), m.getyInitial()) == pos.getSquare(rI, cI) && pos.getSquare(rI, cI) % 6 != 1 && m.getyInitial() != cI) {
+				moveNotation += (char) (cI + 97);
+				break;
+			}
+		}
+		for (Move m: allMoves) {
+			if (m.getxFinal() == rF && m.getyFinal() == cF && pos.getSquare(m.getxInitial(), m.getyInitial()) == pos.getSquare(rI, cI) && pos.getSquare(rI, cI) % 6 != 1 && m.getyInitial() == cI && m.getxInitial() != rI) {
+				moveNotation += 9 - (rI + 1);
+				break;
+			}
+		}
+		
+		if (pos.getSquare(rF, cF) != 0) {
+			if (pos.getSquare(rI, cI) % 6 == 1) {
+				moveNotation += (char) (cI + 97);
+			}
+			moveNotation += "x";
+		}
 		
 		//System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
 		//Call vars directly from Move?
@@ -141,6 +176,8 @@ public class Board extends JPanel {
 				pos.setSquare(rI, cF, (byte) 0);
 				squares[rI][cF].repaint();
 				revalidate();
+				moveNotation += (char) (cI + 97);
+				moveNotation += "x";
 			}
 			pos.setSquare(rF, cF, pos.getSquare(rI, cI));
 		}
@@ -155,6 +192,8 @@ public class Board extends JPanel {
 		squares[rF][cF].repaint();
 		revalidate();
 
+		moveNotation += mov.toString();
+		
 		if (cI == 4 && cF == 6 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
 			pos.setSquare(rF, 5, pos.getSquare(rI, 7));
 			pos.setSquare(rI, 7, (byte) 0);
@@ -166,6 +205,7 @@ public class Board extends JPanel {
 			pieces[rF][5] = pieces[rI][7];
 			pieces[rI][7] = null;
 			paintPiece(rF, 5);
+			moveNotation = "O-O";
 		} else if (cI == 4 && cF == 2 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
 			pos.setSquare(rF, 3, pos.getSquare(rI, 0));
 			pos.setSquare(rI, 0, (byte) 0);
@@ -177,6 +217,7 @@ public class Board extends JPanel {
 			pieces[rF][3] = pieces[rI][0];
 			pieces[rI][0] = null;
 			paintPiece(rF, 3);
+			moveNotation = "O-O-O";
 		}
 		
 //		try {
@@ -214,6 +255,7 @@ public class Board extends JPanel {
 		refresh();
 		*/
 		//refresh();
+		
 		if (pos.getAllLegalMoves().size() == 0) {
 			//boolean checkmate = false;
 			pos.setBlackToMove(!pos.isBlackToMove());
@@ -235,10 +277,19 @@ public class Board extends JPanel {
 					win = "White";
 				}
 				JOptionPane.showMessageDialog(frame, "Checkmate! " + win + " wins.");
+				moveNotation += "#";
 			} else {
 				JOptionPane.showMessageDialog(frame, "Stalemate! It's a draw.");
 			}
+		} else {
+			pos.setBlackToMove(!pos.isBlackToMove());
+			if (pos.inCheck(pos)) {
+				moveNotation += "+";
+			}
+			pos.setBlackToMove(!pos.isBlackToMove());
 		}
+		
+		System.out.println(moveNotation);
 	}
 
 	public void refresh() {

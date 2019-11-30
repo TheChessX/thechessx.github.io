@@ -44,9 +44,9 @@ public class Move {
     @Override
     public String toString() { // ASCII 'a' is 97
         StringBuilder standardNotation = new StringBuilder();
-        standardNotation.append((char) (yInitial + 97));
-        standardNotation.append(9 - (xInitial + 1));
-        standardNotation.append(" to ");
+//        standardNotation.append((char) (yInitial + 97));
+//        standardNotation.append(9 - (xInitial + 1));
+//        standardNotation.append(" to ");
         standardNotation.append((char) (yFinal + 97));
         standardNotation.append(9 - (xFinal + 1));
         if (this.promotionID != 0) {
