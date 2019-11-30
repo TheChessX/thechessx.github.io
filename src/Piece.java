@@ -34,7 +34,7 @@ public class Piece extends JPanel {
 //			System.out.println("InterruptedException");
 //		}
 		g.drawImage(img, 51*(c+1) + 1, 51*(r+1) + 1, null);
-		System.out.println("Painted piece");
+		//System.out.println("Painted piece");
 	}
 	
 	public Piece movePiece(int r, int c) {

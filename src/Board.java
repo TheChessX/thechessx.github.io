@@ -108,8 +108,25 @@ public class Board extends JPanel {
 		int rF = mov.getxFinal();
 		int cF = mov.getyFinal();
 		
-		System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
+		//System.out.println("rI: " + rI + "cI: " + cI + "rF: " + rF + "cF: " + cF);
 		//Call vars directly from Move?
+		
+		//Removes castling ability if King or Rook moves
+		if (rI == 7 && cI == 4) {
+			pos.setWhiteCastleK(false);
+			pos.setWhiteCastleQ(false);
+		} else if (rI == 0 && cI == 4) {
+			pos.setBlackCastleK(false);
+			pos.setBlackCastleQ(false);
+		} else if (rI == 7 && cI == 0) {
+			pos.setWhiteCastleQ(false);
+		} else if (rI == 7 && cI == 7) {
+			pos.setWhiteCastleK(false);
+		} else if (rI == 0 && cI == 0) {
+			pos.setBlackCastleQ(false);
+		} else if (rI == 0 && cI == 7) {
+			pos.setBlackCastleK(false);
+		}
 		
 		if ((pos.getSquare(rI, cI) == 1 && rI == 6 && rF == 4)||(pos.getSquare(rI, cI) == 7 && rI == 1 && rF == 3)) {
 			pos.setEnPassantColumn(cF);
@@ -129,27 +146,45 @@ public class Board extends JPanel {
 		}
 		pos.setSquare(rI, cI, (byte) 0);
 		
-		//TODO detect en passant move and remove captured pawn
 		pos.setBlackToMove(!pos.isBlackToMove());
-		System.out.println("Black to move now " + pos.isBlackToMove());
+		//System.out.println("Black to move now " + pos.isBlackToMove());
 		//refresh();
 
 		squares[rI][cI].repaint();
 		revalidate();
 		squares[rF][cF].repaint();
 		revalidate();
-		//TODO also repaint the square for the captured en passant pawn
+
+		if (cI == 4 && cF == 6 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
+			pos.setSquare(rF, 5, pos.getSquare(rI, 7));
+			pos.setSquare(rI, 7, (byte) 0);
+			squares[rI][7].repaint();
+			revalidate();
+			squares[rF][5].repaint();
+			revalidate();
+			pieces[rI][7].movePiece(rF, 5);
+			pieces[rF][5] = pieces[rI][7];
+			pieces[rI][7] = null;
+			paintPiece(rF, 5);
+		} else if (cI == 4 && cF == 2 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
+			pos.setSquare(rF, 3, pos.getSquare(rI, 0));
+			pos.setSquare(rI, 0, (byte) 0);
+			squares[rI][0].repaint();
+			revalidate();
+			squares[rF][3].repaint();
+			revalidate();
+			pieces[rI][0].movePiece(rF, 3);
+			pieces[rF][3] = pieces[rI][0];
+			pieces[rI][0] = null;
+			paintPiece(rF, 3);
+		}
+		
 //		try {
 //			Thread.sleep(5000);
 //		} catch (InterruptedException e) {
 //			System.out.println("InterruptedException");
 //		}
-		SwingUtilities.invokeLater(new Runnable() {
-	         public void run() {
-
-
-	         }
-	      });
+//		
 		pieces[rI][cI].movePiece(rF, cF);
 		pieces[rF][cF] = pieces[rI][cI];
 		if (mov.getPromotionID() != 0) {
@@ -180,19 +215,19 @@ public class Board extends JPanel {
 		*/
 		//refresh();
 		if (pos.getAllLegalMoves().size() == 0) {
-			boolean checkmate = false;
+			//boolean checkmate = false;
 			pos.setBlackToMove(!pos.isBlackToMove());
 			int[] kingLocation = pos.findKing(pos);
-    		int kingR = kingLocation[0];
-    		int kingC = kingLocation[1];
-    		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
-    		for (Move potentialNextMove: potentialLegalMoves) {
-    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
-    				checkmate = true;
-    				break;
-    			}
-    		}
-			if (checkmate) {
+//    		int kingR = kingLocation[0];
+//    		int kingC = kingLocation[1];
+//    		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+//    		for (Move potentialNextMove: potentialLegalMoves) {
+//    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+//    				checkmate = true;
+//    				break;
+//    			}
+//    		}
+			if (pos.inCheck(pos)) {
 	    		String win;
 				if (pos.isBlackToMove()) {
 					win = "Black";

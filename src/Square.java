@@ -24,6 +24,6 @@ public class Square extends JPanel {
 		//System.out.println("got here");
 		g.setColor(color);
 		g.fillRect(51*(c+1) + 1, 51*(r+1) + 1, 50, 50);
-		System.out.println("Painted square" + "(" + r + ", " + c + ")");
+		//System.out.println("Painted square" + "(" + r + ", " + c + ")");
 	}
 }

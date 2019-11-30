@@ -31,6 +31,13 @@ public class Position {
     
     private int enPassantColumn = -1;
 
+    private boolean whiteCastleK = true;
+    private boolean whiteCastleQ = true;
+    private boolean blackCastleK = true;
+    private boolean blackCastleQ = true;
+    
+    private boolean castleTest = false;
+    
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
@@ -66,9 +73,9 @@ public class Position {
                 }
             }
         }
-    	boolean legal = true;
+    	//boolean legal = true;
     	for (int i = 0; i < moveList.size(); i++) {
-    		legal = true;
+    		//legal = true;
     		Move potentialMov = (Move) moveList.get(i);
     		Position potentialPos = new Position(this);
     		if (potentialMov.getPromotionID() != 0) {
@@ -78,17 +85,17 @@ public class Position {
     		}
     		potentialPos.setSquare(potentialMov.getxInitial(), potentialMov.getyInitial(), (byte) 0);
     		potentialPos.setBlackToMove(!this.blackToMove);
-    		int[] kingLocation = findKing(potentialPos);
-    		int kingR = kingLocation[0];
-    		int kingC = kingLocation[1];
-    		ArrayList<Move> potentialLegalMoves = potentialPos.getAllLegalMovesNoCheck();
-    		for (Move potentialNextMove: potentialLegalMoves) {
-    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
-    				legal = false;
-    				break;
-    			}
-    		}
-    		if (!legal) {
+//    		int[] kingLocation = findKing(potentialPos);
+//    		int kingR = kingLocation[0];
+//    		int kingC = kingLocation[1];
+//    		ArrayList<Move> potentialLegalMoves = potentialPos.getAllLegalMovesNoCheck();
+//    		for (Move potentialNextMove: potentialLegalMoves) {
+//    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+//    				legal = false;
+//    				break;
+//    			}
+//    		}
+    		if (inCheck(potentialPos)) {
     			moveList.remove(i);
     			i--;
     		}
@@ -335,7 +342,42 @@ public class Position {
     }
 
     private void addMovesWhiteKing(int xPos, int yPos) { // adds 8 king moves, if legal. TODO prevent king from entering check.
-        // move up
+        //Castling
+    	if (!castleTest && whiteCastleK && position[7][5] == 0 && position[7][6] == 0) {
+    		Position castleTestPos = new Position(this);
+    		castleTestPos.castleTest = true;
+    		castleTestPos.setBlackToMove(!this.blackToMove);
+    		ArrayList<Move> oppMoves = castleTestPos.getAllLegalMovesNoCheck();
+    		boolean castle = true;
+    		for(Move mov: oppMoves) {
+    			if (mov.getxFinal() == 7 && mov.getyFinal() >= 4 && mov.getyFinal() <= 6) {
+    				castle = false;
+    				break;
+    			}
+    		}
+    		if (castle) {
+    			moveList.add(new Move(7, 4, 7, 6));
+    		}
+    	}
+    	
+    	if (!castleTest && whiteCastleQ && position[7][3] == 0 && position[7][2] == 0 && position[7][1] == 0) {
+    		Position castleTestPos = new Position(this);
+    		castleTestPos.castleTest = true;
+    		castleTestPos.setBlackToMove(!this.blackToMove);
+    		ArrayList<Move> oppMoves = castleTestPos.getAllLegalMovesNoCheck();
+    		boolean castle = true;
+    		for(Move mov: oppMoves) {
+    			if (mov.getxFinal() == 7 && mov.getyFinal() >= 1 && mov.getyFinal() <= 4) {
+    				castle = false;
+    				break;
+    			}
+    		}
+    		if (castle) {
+    			moveList.add(new Move(7, 4, 7, 2));
+    		}
+    	}
+    	
+    	// move up
         if (xPos != 0 && yPos != 0 && (position[xPos - 1][yPos - 1] == 0 || position[xPos - 1][yPos - 1] >= 7)) {
             moveList.add(new Move(xPos, yPos, xPos - 1, yPos - 1));
         }
@@ -547,7 +589,42 @@ public class Position {
     }
 
     private void addMovesBlackKing(int xPos, int yPos) {
-        // move up
+    	//Castling
+    	if (!castleTest && blackCastleK && position[0][5] == 0 && position[0][6] == 0) {
+    		Position castleTestPos = new Position(this);
+    		castleTestPos.castleTest = true;
+    		castleTestPos.setBlackToMove(!this.blackToMove);
+    		ArrayList<Move> oppMoves = castleTestPos.getAllLegalMovesNoCheck();
+    		boolean castle = true;
+    		for(Move mov: oppMoves) {
+    			if (mov.getxFinal() == 0 && mov.getyFinal() >= 4 && mov.getyFinal() <= 6) {
+    				castle = false;
+    				break;
+    			}
+    		}
+    		if (castle) {
+    			moveList.add(new Move(0, 4, 0, 6));
+    		}
+    	}
+    	
+    	if (!castleTest && blackCastleQ && position[0][3] == 0 && position[0][2] == 0 && position[0][1] == 0) {
+    		Position castleTestPos = new Position(this);
+    		castleTestPos.castleTest = true;
+    		castleTestPos.setBlackToMove(!this.blackToMove);
+    		ArrayList<Move> oppMoves = castleTestPos.getAllLegalMovesNoCheck();
+    		boolean castle = true;
+    		for(Move mov: oppMoves) {
+    			if (mov.getxFinal() == 0 && mov.getyFinal() >= 1 && mov.getyFinal() <= 4) {
+    				castle = false;
+    				break;
+    			}
+    		}
+    		if (castle) {
+    			moveList.add(new Move(0, 4, 0, 2));
+    		}
+    	}
+    	
+    	// move up
         if (xPos != 0 && yPos != 0 && position[xPos - 1][yPos - 1] <= 6) {
             moveList.add(new Move(xPos, yPos, xPos - 1, yPos - 1));
         }
@@ -620,5 +697,50 @@ public class Position {
 	
 	public void setEnPassantColumn(int c) {
 		this.enPassantColumn = c;
+	}
+
+	public boolean isWhiteCastleQ() {
+		return whiteCastleQ;
+	}
+
+	public void setWhiteCastleQ(boolean whiteCastleQ) {
+		this.whiteCastleQ = whiteCastleQ;
+	}
+
+	public boolean isWhiteCastleK() {
+		return whiteCastleK;
+	}
+
+	public void setWhiteCastleK(boolean whiteCastleK) {
+		this.whiteCastleK = whiteCastleK;
+	}
+
+	public boolean isBlackCastleQ() {
+		return blackCastleQ;
+	}
+
+	public void setBlackCastleQ(boolean blackCastleQ) {
+		this.blackCastleQ = blackCastleQ;
+	}
+
+	public boolean isBlackCastleK() {
+		return blackCastleK;
+	}
+
+	public void setBlackCastleK(boolean blackCastleK) {
+		this.blackCastleK = blackCastleK;
+	}
+	
+	public boolean inCheck(Position pos) {
+		int[] kingLocation = findKing(pos);
+		int kingR = kingLocation[0];
+		int kingC = kingLocation[1];
+		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+		for (Move potentialNextMove: potentialLegalMoves) {
+			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
