@@ -135,6 +135,18 @@ public class Board extends JPanel {
 				break;
 			}
 		}
+		if (moveNotation.length() == 3) {
+			boolean needLetter = false;
+			for (Move m: allMoves) {
+				if (m.getxFinal() == rF && m.getyFinal() == cF && pos.getSquare(m.getxInitial(), m.getyInitial()) == pos.getSquare(rI, cI) && pos.getSquare(rI, cI) % 6 != 1 && m.getyInitial() != cI && m.getxInitial() == rI) {
+					needLetter = true;
+					break;
+				}
+			}
+			if (!needLetter) {
+				moveNotation = "" + moveNotation.charAt(0) + moveNotation.charAt(2);
+			}
+		}
 		
 		if (pos.getSquare(rF, cF) != 0) {
 			if (pos.getSquare(rI, cI) % 6 == 1) {
