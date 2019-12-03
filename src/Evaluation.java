@@ -1,5 +1,7 @@
 import java.text.DecimalFormat;
 
+import javax.swing.JOptionPane;
+
 import data.Position;
 
 /* Distance from center
@@ -205,5 +207,25 @@ public class Evaluation {
 			rounded = 0.0;
 		}
 		return rounded;
+	}
+	
+	public double evaluate(Position pos) {
+		if (pos.getAllLegalMoves().size() == 0) {
+			if (pos.switchTurn().inCheck(pos.switchTurn())) {
+	    		if (pos.isBlackToMove()) {
+	    			return 1000000;
+	    		} else {
+	    			return -1000000;
+	    		}
+			} else {
+				return 0;
+			}
+		}
+		
+		double score = evaluatePieceValue(pos)
+				+ evaluateCenterControl(pos) 
+				+ evaluateKingSafety(pos)
+				+ evaluateKingSafety(pos.switchTurn());
+		return score;
 	}
 }
