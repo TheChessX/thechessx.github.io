@@ -81,7 +81,7 @@ public class Engine {
 		if (posList1.size() > 0) {
 			score1 = posList1.get(0).getScore();
 		} else {
-			score1 = eval.evaluate(pos);
+			score1 = eval.evaluate(pos) * 10;
 		}
 		if (pos.isBlackToMove()) {
 			for (Position pos1: posList1) {

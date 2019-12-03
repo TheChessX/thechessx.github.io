@@ -43,6 +43,7 @@ public class Position {
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
+        //position = inputCustomPosition();
         setBlackToMove(false);
     }
 
@@ -655,7 +656,6 @@ public class Position {
         }
     }
 
-
     private byte[][] inputStartingPieces() {
     	return new byte[][] {
 				{10, 8, 9, 11, 12, 9, 8, 10},
@@ -666,6 +666,19 @@ public class Position {
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{1, 1, 1, 1, 1, 1, 1, 1},
 				{4, 2, 3, 5, 6, 3, 2, 4}
+			};
+    }
+    
+    private byte[][] inputCustomPosition() {
+    	return new byte[][] {
+				{0, 0, 0, 11, 12, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 6, 0, 0, 0}
 			};
     }
 
