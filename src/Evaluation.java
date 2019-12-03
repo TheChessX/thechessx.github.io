@@ -224,8 +224,8 @@ public class Evaluation {
 		
 		double score = evaluatePieceValue(pos)
 				+ evaluateCenterControl(pos) 
-				+ evaluateKingSafety(pos)
-				+ evaluateKingSafety(pos.switchTurn());
+				+ 0.3 * evaluateKingSafety(pos)
+				+ 0.3 * evaluateKingSafety(pos.switchTurn());
 		return score;
 	}
 }

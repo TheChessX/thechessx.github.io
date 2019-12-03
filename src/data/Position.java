@@ -43,7 +43,7 @@ public class Position {
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
-        //position = inputCustomPosition();
+        // = inputCustomPosition();
         setBlackToMove(false);
     }
 
