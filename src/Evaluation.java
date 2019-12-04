@@ -1,7 +1,9 @@
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import data.Move;
 import data.Position;
 
 /* Distance from center
@@ -293,16 +295,17 @@ public class Evaluation {
 		return rounded;
 	}
 	
-	public double evaluateMobility(Position pos) {
+	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
 		pos.setBlackToMove(!pos.isBlackToMove());
-		double score = pos.getAllLegalMoves().size()/100.0;
+		double score = moves.size()/100.0;
 		pos.setBlackToMove(!pos.isBlackToMove());
 		//System.out.println(score);
 		return score;
 	}
 	
 	public double evaluate(Position pos) {
-		if (pos.getAllLegalMoves().size() == 0) {
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		if (moves.size() == 0) {
 			if (pos.inCheck()) {
 				//System.out.println("Checkmate detected");
 	    		if (pos.isBlackToMove()) {
@@ -317,8 +320,8 @@ public class Evaluation {
 		
 		double score = evaluatePieceValue(pos)
 				+ evaluateCenterControl(pos) 
-				+ evaluateKingSafety(pos);
-				//+ evaluateMobility(pos);
+				+ evaluateKingSafety(pos)
+				+ evaluateMobility(pos, moves);
 		return score;
 	}
 }

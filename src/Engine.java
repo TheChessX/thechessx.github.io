@@ -6,9 +6,11 @@ import data.Position;
 
 public class Engine {
 	private Evaluation eval;
+	private int presetDepth;
 	
 	public Engine() {
 		this.eval = new Evaluation();
+		this.presetDepth = 2;
 	}
 	
 	public Move play(Position pos) {
@@ -34,7 +36,7 @@ public class Engine {
 		for (Move m: moves) {
 			Position potentialPos = pos.positionAfterMove(m);
 			//System.out.println(m);
-			m.setScore(treeEvalN(potentialPos, 3));
+			m.setScore(treeEvalN(potentialPos, presetDepth));
 		}
 		Move bestMove = moves.get(0);
 		if (pos.isBlackToMove()) {
@@ -110,7 +112,10 @@ public class Engine {
 				score1 = treeEvalN(posList1.get(0), depth - 1);
 			}
 		} else {
-			score1 = eval.evaluate(pos) * 10;
+			score1 = eval.evaluate(pos);
+			if (depth == presetDepth) {
+				score1 *= 10;
+			}
 		}
 		if (pos.isBlackToMove()) {
 			for (Position pos1: posList1) {
