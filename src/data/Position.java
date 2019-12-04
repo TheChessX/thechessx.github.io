@@ -43,7 +43,7 @@ public class Position {
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
-        // = inputCustomPosition();
+        //position = inputCustomPosition();
         setBlackToMove(false);
     }
 
@@ -671,7 +671,7 @@ public class Position {
     
     private byte[][] inputCustomPosition() {
     	return new byte[][] {
-				{0, 0, 0, 11, 12, 0, 0, 0},
+				{10, 0, 0, 0, 12, 0, 0, 10},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},
@@ -701,6 +701,26 @@ public class Position {
 		for (int r = 0; r < 8; r++) {
 			for (int c = 0; c < 8; c++) {
 				if (pos.getSquare(r, c) == targetKing) {
+					kingLocation[0] = r;
+					kingLocation[1] = c;
+					return kingLocation;
+				}
+			}
+		}
+		return kingLocation;
+	}
+	
+	public int[] findOwnKing() {
+		byte targetKing;
+		if (this.isBlackToMove()) {
+			targetKing = 12;
+		} else {
+			targetKing = 6;
+		}
+		int[] kingLocation = {-1, -1};
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (this.getSquare(r, c) == targetKing) {
 					kingLocation[0] = r;
 					kingLocation[1] = c;
 					return kingLocation;
@@ -751,6 +771,21 @@ public class Position {
 		int kingR = kingLocation[0];
 		int kingC = kingLocation[1];
 		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+		for (Move potentialNextMove: potentialLegalMoves) {
+			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean inCheck() {
+		int[] kingLocation = findOwnKing();
+		int kingR = kingLocation[0];
+		int kingC = kingLocation[1];
+		this.blackToMove = !this.blackToMove;
+		ArrayList<Move> potentialLegalMoves = this.getAllLegalMovesNoCheck();
+		this.blackToMove = !this.blackToMove;
 		for (Move potentialNextMove: potentialLegalMoves) {
 			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
 				return true;

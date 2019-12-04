@@ -33,7 +33,8 @@ public class Engine {
 //		}
 		for (Move m: moves) {
 			Position potentialPos = pos.positionAfterMove(m);
-			m.setScore(treeEvalN(potentialPos, 1));
+			//System.out.println(m);
+			m.setScore(treeEvalN(potentialPos, 3));
 		}
 		Move bestMove = moves.get(0);
 		if (pos.isBlackToMove()) {
@@ -117,7 +118,15 @@ public class Engine {
 				if (depth == 0) {
 					pos1Score = eval.evaluate(pos1);
 				} else {
-					pos1Score = treeEvalN(pos1, depth - 1);
+					if (eval.evaluate(pos1) > score1 + 1) {
+						if (depth > 1) {
+							pos1Score = treeEvalN(pos1, 1);
+						} else {
+							pos1Score = score1;
+						}
+					} else {
+						pos1Score = treeEvalN(pos1, depth - 1);
+					}
 				}
 				if (pos1Score < score1) {
 					score1 = pos1Score;
@@ -129,7 +138,15 @@ public class Engine {
 				if (depth == 0) {
 					pos1Score = eval.evaluate(pos1);
 				} else {
-					pos1Score = treeEvalN(pos1, depth - 1);
+					if (eval.evaluate(pos1) < score1 - 1) {
+						if (depth > 1) {
+							pos1Score = treeEvalN(pos1, 1);
+						} else {
+							pos1Score = score1;
+						}
+					} else {
+						pos1Score = treeEvalN(pos1, depth - 1);
+					}
 				}
 				if (pos1Score > score1) {
 					score1 = pos1Score;
