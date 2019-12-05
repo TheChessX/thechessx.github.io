@@ -1,5 +1,9 @@
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import data.Move;
 import data.Position;
 
 /* Distance from center
@@ -10,16 +14,23 @@ import data.Position;
  */
 
 public class Evaluation {
-	public final double pawnV = 1;		/*///////////////////////*/
-	public final double rookV = 5;		/*	Values of pieces	 */
-	public final double knightV = 3.05;	/*						 */
-	public final double bishopV = 3.45;	/*						 */
-	public final double queenV = 9;		/*						 */
+	//Piece Values
+	public final double pawnV = 1;
+	public final double rookV = 5;
+	public final double knightV = 3.05;
+	public final double bishopV = 3.45;
+	public final double queenV = 9;
 	
-	public double PawnCOV = 0.1; //value for pawns in 2,2 to 2,5, 5,2 to 5,5
-	public double PawnCIV = 0.2; //value for pawns in center four squares
+	//Center Control
+	public double PawnCOV = 0.2; //outside ring
+	public double PawnCIV = 0.5; //inside ring
 	public double KnightCOV = 0.4; 
 	public double KnightCIV = 0.5;
+	
+	//King Safety
+	public double pawnKS = 0.15;
+	public double knightKS = 0.1;
+	public double queenKS = 0.05;
 	
 	public Evaluation() {
 		
@@ -77,17 +88,17 @@ public class Evaluation {
 				if (r > -1 && r < 8 && c > -1 && c < 8) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
-						score += 1;
+						score += pawnKS;
 					} if (piece == 7) {
-						score += -1;
-					} if (piece == 2 || piece == 3 || piece == 4) {
-						score += 1.5;
-					} if (piece == 8 || piece == 9 || piece == 10) {
-						score += -1.5;
+						score -= pawnKS;
+					} if (piece == 2 || piece == 3) {
+						score += knightKS;
+					} if (piece == 8 || piece == 9) {
+						score -= knightKS;
 					} if (piece == 5) {
-						score += 3;
+						score += queenKS;
 					} if (piece == 11) {
-						score += -3;
+						score -= queenKS;
 					}
 				}
 			}
@@ -99,28 +110,85 @@ public class Evaluation {
 				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > kingR -2 && r < kingR + 2 && c > kingC - 2 && c < kingC + 2)) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
-						score += 0.5;
+						score += pawnKS/2;
 					} if (piece == 7) {
-						score += -0.5;
-					} if (piece == 2 || piece == 3 || piece == 4) {
-						score += 0.75;
-					} if (piece == 8 || piece == 9 || piece == 10) {
-						score += -0.75;
+						score -= pawnKS/2;
+					} if (piece == 2 || piece == 3) {
+						score += knightKS/2;
+					} if (piece == 8 || piece == 9) {
+						score -= knightKS/2;
 					} if (piece == 5) {
-						score += 1.5;
+						score += queenKS/2;
 					} if (piece == 11) {
-						score += -1.5;
+						score -= queenKS/2;
 					}
 				}
 			}
 		}
 		
 		//Checks for distance from center
-		double distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/2.0;
+		double distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
 		if (pos.isBlackToMove()) {
 			score -= distanceScore;
 		} else {
 			score += distanceScore;
+		}
+		
+		//Finds King
+		kingLocation = findOppKing(pos);
+		kingR = kingLocation[0];
+		kingC = kingLocation[1];
+		
+		//Checks first circle around King
+		for (int r = kingR - 1; r < kingR + 2; r++) {
+			for (int c = kingC - 1; c < kingC + 2; c++) {
+				if (r > -1 && r < 8 && c > -1 && c < 8) {
+					piece = pos.getSquare(r, c);
+					if (piece == 1) {
+						score += pawnKS;
+					} if (piece == 7) {
+						score -= pawnKS;
+					} if (piece == 2 || piece == 3) {
+						score += knightKS;
+					} if (piece == 8 || piece == 9) {
+						score -= knightKS;
+					} if (piece == 5) {
+						score += queenKS;
+					} if (piece == 11) {
+						score -= queenKS;
+					}
+				}
+			}
+		}
+		
+		//Checks second circle around King
+		for (int r = kingR - 2; r < kingR + 3; r++) {
+			for (int c = kingC - 2; c < kingC + 3; c++) {
+				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > kingR -2 && r < kingR + 2 && c > kingC - 2 && c < kingC + 2)) {
+					piece = pos.getSquare(r, c);
+					if (piece == 1) {
+						score += pawnKS/2;
+					} if (piece == 7) {
+						score -= pawnKS/2;
+					} if (piece == 2 || piece == 3) {
+						score += knightKS/2;
+					} if (piece == 8 || piece == 9) {
+						score -= knightKS/2;
+					} if (piece == 5) {
+						score += queenKS/2;
+					} if (piece == 11) {
+						score -= queenKS/2;
+					}
+				}
+			}
+		}
+		
+		//Checks for distance from center
+		distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
+		if (pos.isBlackToMove()) {
+			score += distanceScore;
+		} else {
+			score -= distanceScore;
 		}
 		
 		score = round(score, 2);
@@ -137,6 +205,26 @@ public class Evaluation {
 			targetKing = 12;
 		} else {
 			targetKing = 6;
+		}
+		int[] kingLocation = {-1, -1};
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (pos.getSquare(r, c) == targetKing) {
+					kingLocation[0] = r;
+					kingLocation[1] = c;
+					return kingLocation;
+				}
+			}
+		}
+		return kingLocation;
+	}
+	
+	private int[] findOppKing(Position pos) {
+		byte targetKing;
+		if (pos.isBlackToMove()) {
+			targetKing = 6;
+		} else {
+			targetKing = 12;
 		}
 		int[] kingLocation = {-1, -1};
 		for (int r = 0; r < 8; r++) {
@@ -205,5 +293,35 @@ public class Evaluation {
 			rounded = 0.0;
 		}
 		return rounded;
+	}
+	
+	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
+		pos.setBlackToMove(!pos.isBlackToMove());
+		double score = moves.size()/100.0;
+		pos.setBlackToMove(!pos.isBlackToMove());
+		//System.out.println(score);
+		return score;
+	}
+	
+	public double evaluate(Position pos) {
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		if (moves.size() == 0) {
+			if (pos.inCheck()) {
+				//System.out.println("Checkmate detected");
+	    		if (pos.isBlackToMove()) {
+	    			return 1000000;
+	    		} else {
+	    			return -1000000;
+	    		}
+			} else {
+				return 0;
+			}
+		}
+		
+		double score = evaluatePieceValue(pos)
+				+ evaluateCenterControl(pos) 
+				+ evaluateKingSafety(pos)
+				+ evaluateMobility(pos, moves);
+		return score;
 	}
 }

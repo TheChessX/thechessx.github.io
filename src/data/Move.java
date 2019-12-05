@@ -8,6 +8,8 @@ public class Move {
     private final int yFinal;
     
     private final byte promotionID;
+    
+    private double score;
 
     public Move(int xInitial, int yInitial, int xFinal, int yFinal) {
         this.xInitial = xInitial;
@@ -78,5 +80,13 @@ public class Move {
     
     public byte getPromotionID() {
     	return promotionID;
+    }
+    
+    public double getScore() {
+    	return score;
+    }
+    
+    public void setScore(double score) {
+    	this.score = score;
     }
 }

@@ -15,6 +15,7 @@ public class Control {
 	private int mouseRowF = -1;
 	private int mouseColF = -1;
 	private Evaluation evaluation;
+	private Engine engine;
   
 	public Control() {
 		this.pos = new Position();
@@ -22,6 +23,7 @@ public class Control {
 		this.mouse = new MyMouseListener(this);
 		board.getFrame().addMouseListener(mouse);
 		this.evaluation = new Evaluation();
+		this.engine = new Engine();
 		//Initialize vars here
 	}
 
@@ -81,14 +83,17 @@ public class Control {
 		}
 	}
 	
-	public void evaluate() {
-		double kingSafetyScore = evaluation.evaluateKingSafety(board.getPosition());
-		System.out.println("King Safety: " + kingSafetyScore);
-		
-		double pieceValueScore = evaluation.evaluatePieceValue(board.getPosition());
-		System.out.println("Piece Value: " + pieceValueScore);
-		
-		double centerControlScore = evaluation.evaluateCenterControl(board.getPosition());
-		System.out.println("Center Control: " + centerControlScore);
+	public void engineMove() {
+//		double kingSafetyScore = evaluation.evaluateKingSafety(board.getPosition());
+//		System.out.println("King Safety: " + kingSafetyScore);
+//		
+//		double pieceValueScore = evaluation.evaluatePieceValue(board.getPosition());
+//		System.out.println("Piece Value: " + pieceValueScore);
+//		
+//		double centerControlScore = evaluation.evaluateCenterControl(board.getPosition());
+//		System.out.println("Center Control: " + centerControlScore);
+		Move mov = engine.play(board.getPosition());
+		board.move(mov);
+		//System.out.println("Engine move: " + mov);
 	}
 }

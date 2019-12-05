@@ -38,9 +38,12 @@ public class Position {
     
     private boolean castleTest = false;
     
+    private double score;
+    
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
+        //position = inputCustomPosition();
         setBlackToMove(false);
     }
 
@@ -126,6 +129,198 @@ public class Position {
         return false;
     }
 
+    public boolean isBlackToMove() {
+		return blackToMove;
+	}
+
+	public void setBlackToMove(boolean blackToMove) {
+		this.blackToMove = blackToMove;
+	}
+	
+	public int[] findKing(Position pos) {
+		byte targetKing;
+		if (pos.isBlackToMove()) {
+			targetKing = 6;
+		} else {
+			targetKing = 12;
+		}
+		int[] kingLocation = {-1, -1};
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (pos.getSquare(r, c) == targetKing) {
+					kingLocation[0] = r;
+					kingLocation[1] = c;
+					return kingLocation;
+				}
+			}
+		}
+		return kingLocation;
+	}
+	
+	public int[] findOwnKing() {
+		byte targetKing;
+		if (this.isBlackToMove()) {
+			targetKing = 12;
+		} else {
+			targetKing = 6;
+		}
+		int[] kingLocation = {-1, -1};
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (this.getSquare(r, c) == targetKing) {
+					kingLocation[0] = r;
+					kingLocation[1] = c;
+					return kingLocation;
+				}
+			}
+		}
+		return kingLocation;
+	}
+	
+	public void setEnPassantColumn(int c) {
+		this.enPassantColumn = c;
+	}
+
+	public boolean isWhiteCastleQ() {
+		return whiteCastleQ;
+	}
+
+	public void setWhiteCastleQ(boolean whiteCastleQ) {
+		this.whiteCastleQ = whiteCastleQ;
+	}
+
+	public boolean isWhiteCastleK() {
+		return whiteCastleK;
+	}
+
+	public void setWhiteCastleK(boolean whiteCastleK) {
+		this.whiteCastleK = whiteCastleK;
+	}
+
+	public boolean isBlackCastleQ() {
+		return blackCastleQ;
+	}
+
+	public void setBlackCastleQ(boolean blackCastleQ) {
+		this.blackCastleQ = blackCastleQ;
+	}
+
+	public boolean isBlackCastleK() {
+		return blackCastleK;
+	}
+
+	public void setBlackCastleK(boolean blackCastleK) {
+		this.blackCastleK = blackCastleK;
+	}
+	
+	public boolean inCheck(Position pos) {
+		int[] kingLocation = findKing(pos);
+		int kingR = kingLocation[0];
+		int kingC = kingLocation[1];
+		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+		for (Move potentialNextMove: potentialLegalMoves) {
+			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean inCheck() {
+		int[] kingLocation = findOwnKing();
+		int kingR = kingLocation[0];
+		int kingC = kingLocation[1];
+		this.blackToMove = !this.blackToMove;
+		ArrayList<Move> potentialLegalMoves = this.getAllLegalMovesNoCheck();
+		this.blackToMove = !this.blackToMove;
+		for (Move potentialNextMove: potentialLegalMoves) {
+			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Position positionAfterMove(Move mov) {
+		Position pos = new Position(this);
+		pos.whiteCastleK = this.whiteCastleK;
+		pos.whiteCastleQ = this.whiteCastleQ;
+		pos.blackCastleK = this.blackCastleK;
+		pos.blackCastleQ = this.blackCastleQ;
+		
+		int rI = mov.getxInitial();
+		int cI = mov.getyInitial();
+		int rF = mov.getxFinal();
+		int cF = mov.getyFinal();
+		
+		if (rI == 7 && cI == 4) {
+			pos.setWhiteCastleK(false);
+			pos.setWhiteCastleQ(false);
+		} else if (rI == 0 && cI == 4) {
+			pos.setBlackCastleK(false);
+			pos.setBlackCastleQ(false);
+		} else if (rI == 7 && cI == 0) {
+			pos.setWhiteCastleQ(false);
+		} else if (rI == 7 && cI == 7) {
+			pos.setWhiteCastleK(false);
+		} else if (rI == 0 && cI == 0) {
+			pos.setBlackCastleQ(false);
+		} else if (rI == 0 && cI == 7) {
+			pos.setBlackCastleK(false);
+		}
+		
+		if ((pos.getSquare(rI, cI) == 1 && rI == 6 && rF == 4)||(pos.getSquare(rI, cI) == 7 && rI == 1 && rF == 3)) {
+			pos.setEnPassantColumn(cF);
+		} else {
+			pos.setEnPassantColumn(-1);
+		}
+		
+		if (mov.getPromotionID() != 0) {
+			pos.setSquare(rF, cF, mov.getPromotionID());
+		} else {
+			if ((pos.getSquare(rI, cI) == 1 && rI == 3 && rF == 2 && cI != cF && pos.getSquare(rF, cF) == 0)||(pos.getSquare(rI, cI) == 7 && rI == 4 && rF == 5 && cI != cF && pos.getSquare(rF, cF) == 0)) {
+				pos.setSquare(rI, cF, (byte) 0);
+			}
+			pos.setSquare(rF, cF, pos.getSquare(rI, cI));
+		}
+		pos.setSquare(rI, cI, (byte) 0);
+		
+		pos.setBlackToMove(!pos.isBlackToMove());
+		
+		if (cI == 4 && cF == 6 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
+			pos.setSquare(rF, 5, pos.getSquare(rI, 7));
+			pos.setSquare(rI, 7, (byte) 0);
+		} else if (cI == 4 && cF == 2 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
+			pos.setSquare(rF, 3, pos.getSquare(rI, 0));
+			pos.setSquare(rI, 0, (byte) 0);
+		}
+		
+		return pos;
+	}
+	
+	public Position switchTurn() {
+		Position newPos = new Position(this);
+		newPos.blackToMove = !this.blackToMove;
+		return newPos;
+	}
+	
+	public ArrayList<Position> getNextPositions() {
+		ArrayList<Position> posList = new ArrayList<Position>();
+		ArrayList<Move> movList = this.getAllLegalMoves();
+		for (Move m: movList) {
+			posList.add(positionAfterMove(m));
+		}
+		return posList;
+	}
+	
+	public void setScore(double score) {
+		this.score = score;
+	}
+	
+	public double getScore() {
+		return score;
+	}
+    
     private void addMovesForPiece(int xPos, int yPos) {
         byte pieceNum = position[xPos][yPos];
         if (!blackToMove) {
@@ -653,7 +848,6 @@ public class Position {
         }
     }
 
-
     private byte[][] inputStartingPieces() {
     	return new byte[][] {
 				{10, 8, 9, 11, 12, 9, 8, 10},
@@ -666,81 +860,17 @@ public class Position {
 				{4, 2, 3, 5, 6, 3, 2, 4}
 			};
     }
-
-	public boolean isBlackToMove() {
-		return blackToMove;
-	}
-
-	public void setBlackToMove(boolean blackToMove) {
-		this.blackToMove = blackToMove;
-	}
-	
-	public int[] findKing(Position pos) {
-		byte targetKing;
-		if (pos.isBlackToMove()) {
-			targetKing = 6;
-		} else {
-			targetKing = 12;
-		}
-		int[] kingLocation = {-1, -1};
-		for (int r = 0; r < 8; r++) {
-			for (int c = 0; c < 8; c++) {
-				if (pos.getSquare(r, c) == targetKing) {
-					kingLocation[0] = r;
-					kingLocation[1] = c;
-					return kingLocation;
-				}
-			}
-		}
-		return kingLocation;
-	}
-	
-	public void setEnPassantColumn(int c) {
-		this.enPassantColumn = c;
-	}
-
-	public boolean isWhiteCastleQ() {
-		return whiteCastleQ;
-	}
-
-	public void setWhiteCastleQ(boolean whiteCastleQ) {
-		this.whiteCastleQ = whiteCastleQ;
-	}
-
-	public boolean isWhiteCastleK() {
-		return whiteCastleK;
-	}
-
-	public void setWhiteCastleK(boolean whiteCastleK) {
-		this.whiteCastleK = whiteCastleK;
-	}
-
-	public boolean isBlackCastleQ() {
-		return blackCastleQ;
-	}
-
-	public void setBlackCastleQ(boolean blackCastleQ) {
-		this.blackCastleQ = blackCastleQ;
-	}
-
-	public boolean isBlackCastleK() {
-		return blackCastleK;
-	}
-
-	public void setBlackCastleK(boolean blackCastleK) {
-		this.blackCastleK = blackCastleK;
-	}
-	
-	public boolean inCheck(Position pos) {
-		int[] kingLocation = findKing(pos);
-		int kingR = kingLocation[0];
-		int kingC = kingLocation[1];
-		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
-		for (Move potentialNextMove: potentialLegalMoves) {
-			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
-				return true;
-			}
-		}
-		return false;
-	}
+    
+    private byte[][] inputCustomPosition() {
+    	return new byte[][] {
+				{0, 0, 0, 11, 12, 11, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 6, 0, 0, 0}
+			};
+    }
 }
