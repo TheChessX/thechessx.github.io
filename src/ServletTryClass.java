@@ -27,14 +27,8 @@ public class ServletTryClass extends HttpServlet{
             out.println(docType +
                     "<html>\n" +
                     "<head><title>" + title + "</title></head>\n" +
-                    "<body bgcolor = \"#f0f0f0\">\n" +
-                    "<h1 align = \"center\">" + title + "</h1>\n" +
-                    "<ul>\n" +
-                    "  <li><b>First Name</b>: "
-                    + request.getParameter("first_name") + "\n" +
-                    "  <li><b>Last Name</b>: "
-                    + request.getParameter("last_name") + "\n" +
-                    "</ul>\n" +
+                    "<body>" +
+                    request.getParameter("square1") + "\n" +
                     "</body>" +
                     "</html>"
             );
