@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="WebChess:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebChess_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="WebChess/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="WebChess" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
