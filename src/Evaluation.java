@@ -1,8 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import data.Move;
 import data.Position;
 
@@ -23,9 +21,9 @@ public class Evaluation {
 	
 	//Center Control
 	public double PawnCOV = 0.2; //outside ring
-	public double PawnCIV = 0.5; //inside ring
-	public double KnightCOV = 0.4; 
-	public double KnightCIV = 0.5;
+	public double PawnCIV = 0.6; //inside ring
+	public double KnightCOV = 0.2; 
+	public double KnightCIV = 0.4;
 	
 	//King Safety
 	public double pawnKS = 0.15;
@@ -296,10 +294,19 @@ public class Evaluation {
 	}
 	
 	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
-		pos.setBlackToMove(!pos.isBlackToMove());
 		double score = moves.size()/100.0;
-		pos.setBlackToMove(!pos.isBlackToMove());
+		if (pos.isBlackToMove()) {
+			score *= -1;
+		}
+//		pos.setBlackToMove(!pos.isBlackToMove());
+//		if (pos.isBlackToMove()) {
+//			score -= pos.getAllLegalMoves().size()/100.0;
+//		} else {
+//			score += pos.getAllLegalMoves().size()/100.0;
+//		}
+//		pos.setBlackToMove(!pos.isBlackToMove());
 		//System.out.println(score);
+		score = round(score, 2);
 		return score;
 	}
 	
@@ -322,6 +329,7 @@ public class Evaluation {
 				+ evaluateCenterControl(pos) 
 				+ evaluateKingSafety(pos)
 				+ evaluateMobility(pos, moves);
+		score = round(score, 2);
 		return score;
 	}
 }

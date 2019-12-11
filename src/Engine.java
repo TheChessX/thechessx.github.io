@@ -10,7 +10,7 @@ public class Engine {
 	
 	public Engine() {
 		this.eval = new Evaluation();
-		this.presetDepth = 2;
+		this.presetDepth = 5; //Looks n plays ahead
 	}
 	
 	public Move play(Position pos) {
@@ -33,11 +33,14 @@ public class Engine {
 //				}
 //			}
 //		}
+		//System.out.println("checkpoint 1");
 		for (Move m: moves) {
 			Position potentialPos = pos.positionAfterMove(m);
 			//System.out.println(m);
-			m.setScore(treeEvalN(potentialPos, presetDepth));
+			m.setScore(treeEvalNX(potentialPos, -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
+			//System.out.println(m);
 		}
+		//System.out.println("checkpoint last");
 		Move bestMove = moves.get(0);
 		if (pos.isBlackToMove()) {
 			for (Move m: moves) {
@@ -52,6 +55,7 @@ public class Engine {
 				}
 			}
 		}
+		//System.out.println(bestMove.getScore());
 		return bestMove;
 	}
 	
@@ -104,6 +108,8 @@ public class Engine {
 	
 	public double treeEvalN(Position pos, int depth) {
 		ArrayList<Position> posList1 = pos.getNextPositions();
+		
+		//System.out.println(posList1.size());
 		double score1;
 		if (posList1.size() > 0) {
 			if (depth == 0) {
@@ -113,22 +119,23 @@ public class Engine {
 			}
 		} else {
 			score1 = eval.evaluate(pos);
-			if (depth == presetDepth) {
-				score1 *= 10;
-			}
+			score1 *= (depth + 1);
 		}
 		if (pos.isBlackToMove()) {
 			for (Position pos1: posList1) {
 				double pos1Score;
 				if (depth == 0) {
 					pos1Score = eval.evaluate(pos1);
+					//System.out.println("finish evaluation");
 				} else {
-					if (eval.evaluate(pos1) > score1 + 1) {
+					if (eval.evaluate(pos1) > score1 + 0.5) {
 						if (depth > 1) {
-							pos1Score = treeEvalN(pos1, 1);
+							//pos1Score = treeEvalN(pos1, 1);
+							pos1Score = score1;
 						} else {
 							pos1Score = score1;
 						}
+						//System.out.println("discard low evaluation move");
 					} else {
 						pos1Score = treeEvalN(pos1, depth - 1);
 					}
@@ -143,9 +150,10 @@ public class Engine {
 				if (depth == 0) {
 					pos1Score = eval.evaluate(pos1);
 				} else {
-					if (eval.evaluate(pos1) < score1 - 1) {
+					if (eval.evaluate(pos1) < score1 - 0.5) {
 						if (depth > 1) {
-							pos1Score = treeEvalN(pos1, 1);
+							//pos1Score = treeEvalN(pos1, 1);
+							pos1Score = score1;
 						} else {
 							pos1Score = score1;
 						}
@@ -159,5 +167,49 @@ public class Engine {
 			}
 		}
 		return score1;
+	}
+	
+	public double treeEvalNX(Position pos, double alpha, double beta, int depth) {
+		if (depth == 0) {
+			return eval.evaluate(pos);
+		}
+		
+		ArrayList<Position> posList1 = pos.getNextPositions();
+		
+		if (posList1.size() == 0) {
+			return eval.evaluate(pos) * (depth + 1);
+		}
+
+		double score;
+		if (pos.isBlackToMove()) {
+			score = 1000000 * depth + 1;
+			for (Position pos1: posList1) {
+				double pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1);
+				if (pos1Score < score) {
+					score = pos1Score;
+				}
+				if (score < beta) {
+					beta = score;
+				}
+				if (alpha >= beta) {
+					break;
+				}
+			}
+		} else {
+			score = -1000000 * depth - 1;
+			for (Position pos1: posList1) {
+				double pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1);
+				if (pos1Score > score) {
+					score = pos1Score;
+				}
+				if (score > alpha) {
+					alpha = score;
+				}
+				if (alpha >= beta) {
+					break;
+				}
+			}
+		}
+		return score;
 	}
 }

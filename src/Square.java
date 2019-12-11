@@ -15,7 +15,7 @@ public class Square extends JPanel {
 		if ((r+c)%2 == 0) {
 			color = new Color(255, 255, 255);
 		} else {
-			color = new Color(150, 0, 200); //purple
+			color = new Color(0, 100, 200); //color
 		}
 	}
 	

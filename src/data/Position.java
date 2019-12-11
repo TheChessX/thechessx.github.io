@@ -27,7 +27,7 @@ public class Position {
          */
     private byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
-    ArrayList moveList = new ArrayList<Move>();
+    ArrayList<Move> moveList = new ArrayList<Move>();
     
     private int enPassantColumn = -1;
 
@@ -863,7 +863,7 @@ public class Position {
     
     private byte[][] inputCustomPosition() {
     	return new byte[][] {
-				{0, 0, 0, 11, 12, 11, 0, 0},
+				{0, 11, 0, 0, 12, 0, 0, 11},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},

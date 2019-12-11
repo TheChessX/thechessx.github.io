@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import data.Position;
@@ -14,7 +11,6 @@ public class Control {
 	private int mouseColI = -1;
 	private int mouseRowF = -1;
 	private int mouseColF = -1;
-	private Evaluation evaluation;
 	private Engine engine;
   
 	public Control() {
@@ -22,7 +18,6 @@ public class Control {
 		this.board = new Board(pos);
 		this.mouse = new MyMouseListener(this);
 		board.getFrame().addMouseListener(mouse);
-		this.evaluation = new Evaluation();
 		this.engine = new Engine();
 		//Initialize vars here
 	}

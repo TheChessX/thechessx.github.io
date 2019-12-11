@@ -102,12 +102,11 @@ public class Board extends JPanel {
 
 	public void move(Move mov) {
 		//System.out.println();
-		
 		int rI = mov.getxInitial();
 		int cI = mov.getyInitial();
 		int rF = mov.getxFinal();
 		int cF = mov.getyFinal();
-		
+		//System.out.println("" + rI + cI + rF + cF);
 		String moveNotation = "";
 		if (pos.getSquare(rI, cI) % 6 == 2) {
 			moveNotation += "N";
@@ -271,7 +270,7 @@ public class Board extends JPanel {
 		if (pos.getAllLegalMoves().size() == 0) {
 			//boolean checkmate = false;
 			pos.setBlackToMove(!pos.isBlackToMove());
-			int[] kingLocation = pos.findKing(pos);
+//			int[] kingLocation = pos.findKing(pos);
 //    		int kingR = kingLocation[0];
 //    		int kingC = kingLocation[1];
 //    		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
