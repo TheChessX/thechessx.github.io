@@ -7,7 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 
-public class ServletTryClass extends HttpServlet{
+
+public class ChessServlet extends HttpServlet{
 
         private String message;
         private Position currentPosition;
@@ -24,23 +25,35 @@ public class ServletTryClass extends HttpServlet{
                 throws ServletException, IOException {
 
             // Set response content type
-            response.setContentType("text/html");
+            response.setContentType("application/json;charset=UTF-8");
+
 
             // Actual logic goes here.
             PrintWriter out = response.getWriter();
-            int xInitial = Integer.valueOf(request.getParameter("square1")) / 8;
-            int yInitial = Integer.valueOf(request.getParameter("square1")) % 8;
-            int xFinal = Integer.valueOf(request.getParameter("square2")) / 8;
-            int yFinal = Integer.valueOf(request.getParameter("square2")) % 8;
+            int square1 = Integer.valueOf(request.getParameter("square1"));
+            int square2 = Integer.valueOf(request.getParameter("square2"));
+            int xInitial =  square1 / 8;
+            int yInitial = square1 % 8;
+            int xFinal = square2 / 8;
+            int yFinal = square2 % 8;
             Move currentMove = new Move(xInitial, yInitial, xFinal, yFinal);
 
+
             if (currentPosition.isLegalMove(currentMove)) {
-                out.println("The move is legal!!!");
+                currentPosition = currentPosition.positionAfterMove(currentMove);
+                currentPosition.switchTurn();
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        out.println(currentPosition.getSquare(i, j) + " ");
+                    }
+                }
+
             } else {
-                out.println("The move is not legal");
+                out.println("NotLegal");
             }
 
-
+            out.flush();
+            out.close();
 
         }
 

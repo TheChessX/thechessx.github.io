@@ -11,44 +11,7 @@
     <title>ChessX</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <%-- <script src="${pageContext.request.contextPath}/master.js" type="text/javascript"></script> --%>
-    <script>
-        var squareClickedOn = -1;
-        window.onload=function() {
-            var squares = document.getElementsByClassName("square");
-            for (var i = 0; i < squares.length; i++) {
-                (function () {
-                    squares[i].addEventListener("click", helpFunc(i));
-                }());
-            }
-
-        }
-        function myFunction(i) {
-            document.getElementById("text").innerText = i;
-            if (squareClickedOn != -1) {
-                $.post("/Hello",
-                    {
-                        square1:squareClickedOn,
-                        square2:i,
-                    },
-                    function (data, status) {
-                        alert("Data: " + data + "Status: " + status);
-                    });
-                squareClickedOn = -1;
-            } else {
-                squareClickedOn = i;
-            }
-
-        }
-        function helpFunc(index) {
-            return function() {
-                myFunction(index);
-            };
-        }
-
-
-
-    </script>
+    <script src="/master.js?version=47" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>

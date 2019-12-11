@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>ServletTryClass</servlet-class>
+        <servlet-class>ChessServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
