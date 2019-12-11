@@ -33,7 +33,6 @@ public class Engine {
 //				}
 //			}
 //		}
-		//System.out.println("checkpoint 1");
 		for (Move m: moves) {
 			Position potentialPos = pos.positionAfterMove(m);
 			//System.out.println(m);
