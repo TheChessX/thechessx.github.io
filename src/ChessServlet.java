@@ -10,13 +10,12 @@ import javax.servlet.http.*;
 
 public class ChessServlet extends HttpServlet{
 
-        private String message;
         private Position currentPosition;
         private Engine bigC;
 
         public void init() throws ServletException {
             // Do required initialization
-            message = "Hello World";
+
             currentPosition = new Position();
             bigC = new Engine();
         }
@@ -25,7 +24,7 @@ public class ChessServlet extends HttpServlet{
                 throws ServletException, IOException {
 
             // Set response content type
-            response.setContentType("application/json;charset=UTF-8");
+            response.setContentType("text/html");
 
 
             // Actual logic goes here.
@@ -44,12 +43,13 @@ public class ChessServlet extends HttpServlet{
                 currentPosition.switchTurn();
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        out.println(currentPosition.getSquare(i, j) + " ");
+                        out.print(currentPosition.getSquare(i, j) + " ");
                     }
                 }
 
             } else {
-                out.println("NotLegal");
+                out.print("Not legal" + currentPosition);
+                currentPosition = new Position();
             }
 
             out.flush();

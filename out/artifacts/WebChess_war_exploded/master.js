@@ -11,17 +11,14 @@ window.onload=function() {
 function myFunction(i) {
     document.getElementById("text").innerText = i;
     if (squareClickedOn != -1) {
-        movePiece(squareClickedOn, i);
         $.post("/Hello",
             {
                 square1:squareClickedOn,
                 square2:i
-            }, function(data, status) {
-                alert("Data: " + data + "Status: " + status);
-                if (data == "legal") {
-                    squares[squareClickedOn].empty();
-                    alert("asdfasdf");
-                }
+            }).always(function(data, status) {
+                //alert("Got here");
+                //alert("Data: " + data + " Status: " + status);
+                setUpPosition(data);
             });
         squareClickedOn = -1;
     } else {
@@ -35,50 +32,21 @@ function helpFunc(index) {
     };
 }
 
-function movePiece(square1, square2) {
-    var piece = squares[square1].children[0];
-    var name = piece.className;
-    var x = document.createElement("IMG");
-    x.setAttribute("width", "50");
-    x.setAttribute("height", "50");
-    $(piece).hide();
-
-    if (name == "piece whitePawn") {
-        x.setAttribute("src", "/img/1.png");
+function setUpPosition(data) {
+    var positionString = data.toString();
+    for (var i = 0; i < 64; i++) {
+        if (squares[i].children[0] != null) {
+            squares[i].removeChild(squares[i].children[0]);
+        }
+        firstSpace = positionString.indexOf(" ");
+        var pieceAtPosI = positionString.substring(0, firstSpace);
+        if (pieceAtPosI != 0) {
+            var image = document.createElement("img");
+            image.setAttribute('src', "/img/" + pieceAtPosI + ".png");
+            image.setAttribute('height', "50px");
+            image.setAttribute('width', '50px');
+            squares[i].appendChild(image);
+        }
+        positionString = positionString.replace(positionString.substring(0, firstSpace + 1), "");
     }
-    if (name == "piece whiteKnight") {
-        x.setAttribute("src", "/img/2.png");
-    }
-    if (name == "piece whiteBishop") {
-        x.setAttribute("src", "/img/3.png");
-    }
-    if (name == "piece whiteRook") {
-        x.setAttribute("src", "/img/4.png");
-    }
-    if (name == "piece whiteQueen") {
-        x.setAttribute("src", "/img/5.png");
-    }
-    if (name == "piece whiteKing") {
-        x.setAttribute("src", "/img/6.png");
-    }
-    if (name == "piece blackPawn") {
-        x.setAttribute("src", "/img/7.png");
-    }
-    if (name == "piece blackKnight") {
-        x.setAttribute("src", "/img/8.png");
-    }
-    if (name == "piece blackBishop") {
-        x.setAttribute("src", "/img/9.png");
-    }
-    if (name == "piece blackRook") {
-        x.setAttribute("src", "/img/10.png");
-    }
-    if (name == "piece blackQueen") {
-        x.setAttribute("src", "/img/11.png");
-    }
-    if (name == "piece blackKing") {
-        x.setAttribute("src", "/img/12.png");
-    }
-
-    squares[square2].appendChild(x);
 }

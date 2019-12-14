@@ -57,7 +57,19 @@ public class Position {
         setBlackToMove(p.isBlackToMove());
     }
 
-    public void setSquare(int xPos, int yPos, byte value) {
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				sb.append(position[i][j]);
+				sb.append(" ");
+			}
+		}
+		return sb.toString();
+	}
+
+	public void setSquare(int xPos, int yPos, byte value) {
         position[xPos][yPos] = value;
     }
 

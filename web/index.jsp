@@ -10,8 +10,8 @@
   <head>
     <title>ChessX</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="/master.js?version=47" type="text/javascript"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
+    <script src="/master.js?version=42" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
@@ -163,11 +163,5 @@
         </td>
       </tr>
     </table>
-    <form action = "Hello" method = "POST">
-        First Name: <input type = "text" name = "first_name">
-        <br />
-        Last Name: <input type = "text" name = "last_name" />
-        <input type = "submit" value = "Submit" />
-    </form>
   </body>
 </html>
