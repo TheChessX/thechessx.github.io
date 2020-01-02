@@ -6,8 +6,6 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-
-
 public class ChessServlet extends HttpServlet{
 
         private Position currentPosition;
@@ -37,7 +35,6 @@ public class ChessServlet extends HttpServlet{
             int yFinal = square2 % 8;
             Move currentMove = new Move(xInitial, yInitial, xFinal, yFinal);
 
-
             if (currentPosition.isLegalMove(currentMove)) {
                 currentPosition = currentPosition.positionAfterMove(currentMove);
                 currentPosition.switchTurn();
@@ -48,7 +45,7 @@ public class ChessServlet extends HttpServlet{
                 }
 
             } else {
-                out.print("Not legal" + currentPosition);
+                out.print("Not legal");
                 currentPosition = new Position();
             }
 
@@ -59,10 +56,8 @@ public class ChessServlet extends HttpServlet{
 
         public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
             doGet(request, response);
         }
-
 
         public void destroy() {
             // do nothing.

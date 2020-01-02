@@ -4,6 +4,7 @@ body {
 .square {
     width: 50px;
     height: 50px;
+    padding: 0px;
 }
 .blackSquare {
     background-color: purple;
@@ -12,6 +13,6 @@ body {
     background-color: whitesmoke;
 }
 .piece {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
 }

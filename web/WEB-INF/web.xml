@@ -4,21 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>HelloWorld</servlet-name>
+        <servlet-name>Chess</servlet-name>
         <servlet-class>ChessServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
-        <url-pattern>/Hello/</url-pattern>
+        <servlet-name>Chess</servlet-name>
+        <url-pattern>/Hello</url-pattern>
     </servlet-mapping>
-    <security-constraint>
-             <web-resource-collection>
-                 <web-resource-name>AuthServer</web-resource-name>
-                 <url-pattern>/Hello</url-pattern>
-             </web-resource-collection>
-             <user-data-constraint>
-                 <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-             </user-data-constraint>
-    </security-constraint>
+
 </web-app>

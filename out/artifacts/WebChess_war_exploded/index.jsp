@@ -9,9 +9,9 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?9">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="/master.js?version=42" type="text/javascript"></script>
+    <script src="master.js?5" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
