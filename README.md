@@ -17,3 +17,7 @@ heroku
 heroku plugins:install java
 
 heroku war:deploy IdeaProjects/ChessX/out/artifacts/WebChess_war/WebChess_war.war --app thechessx
+
+To run locally:
+
+java -jar webapp-runner/assembly/target/webapp-runner.jar IdeaProjects/ChessX/out/artifacts/WebChess_war/WebChess_war.war
