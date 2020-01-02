@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="WebChess:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebChess_war</output-path>
+    <root id="archive" name="WebChess_war.war">
+      <element id="artifact" artifact-name="WebChess:war exploded" />
+    </root>
+  </artifact>
+</component>

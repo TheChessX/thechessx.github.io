@@ -9,14 +9,12 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?9">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?10">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?5" type="text/javascript"></script>
+    <script src="master.js?6" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
-    <p id="text">This is text</p>
-    <button id="ButtonID">Button</button>
     <table>
       <tr>
         <td class="whiteSquare square">

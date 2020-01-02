@@ -12,7 +12,7 @@ public class Engine {
 
 	public Engine() {
 		this.eval = new Evaluation();
-		this.presetDepth = 2;
+		this.presetDepth = 1;
 	}
 
 	public Move play(Position pos) {
