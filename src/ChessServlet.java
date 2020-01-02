@@ -54,11 +54,6 @@ public class ChessServlet extends HttpServlet{
             } else {
                 Move currentMove = chessEngine.play(currentPosition);
                 out.print("CompMoved");
-//                if (currentMove.getPromotionID() != 0) {
-//                    out.print("Y");
-//                } else {
-//                    out.print("N");
-//                }
                 currentPosition = currentPosition.positionAfterMove(currentMove);
                 currentPosition.switchTurn();
                 for (int i = 0; i < 8; i++) {
@@ -73,8 +68,6 @@ public class ChessServlet extends HttpServlet{
             // Returns a string with the following parameters:
             // First 4 characters: who's move (user or comp) is being processed by the request
             // if User, next 5 chars are legal or NotLe, if comp they are ignored
-            // Next char is Promotion: Y/N Todo add
-            // Next char is checkmate: 0 - white, 1 - draw, 2 - black TODO add
             // If the move is legal, the new position follows
         }
 

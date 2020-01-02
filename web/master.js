@@ -19,18 +19,22 @@ function myFunction(i) {
                 //alert("Got here");
                 //alert("Data: " + data + " Status: " + status);
                 var dataString = data.toString();
-                setUpPosition(dataString.substring(4, dataString.length));
-                if (dataString.substring(0, 4) == "User") {
-                    $.post("Hello",
-                        {
-                            square1:squareClickedOn,
-                            square2:i,
-                            userMove:false
-                        }).always(function(data, status) {
-                        var dataString = data.toString();
-                        setUpPosition(dataString.substring(4, dataString.length));
+                if (dataString.substring(4, 9) == "NotLe") {
+                    alert("The move that you made is illegal. Please try again.")
+                } else {
+                    setUpPosition(dataString.substring(4, dataString.length));
+                    if (dataString.substring(0, 4) == "User") {
+                        $.post("Hello",
+                            {
+                                square1: squareClickedOn,
+                                square2: i,
+                                userMove: false
+                            }).always(function (data, status) {
+                            var dataString = data.toString();
+                            setUpPosition(dataString.substring(4, dataString.length));
 
-                    });
+                        });
+                    }
                 }
             });
         squareClickedOn = -1;
@@ -47,9 +51,6 @@ function helpFunc(index) {
 
 function setUpPosition(data) {
     var positionString = data.toString();
-    if (positionString.substring(0, 5) == "NotLe") {
-        alert("The move that you made is illegal. Please try again.")
-    } else {
         positionString = positionString.substring(5, positionString.length);
         for (var i = 0; i < 64; i++) {
             if (squares[i].children[0] != null) {
@@ -66,5 +67,4 @@ function setUpPosition(data) {
             }
             positionString = positionString.replace(positionString.substring(0, firstSpace + 1), "");
         }
-    }
 }
