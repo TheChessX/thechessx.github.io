@@ -6,7 +6,7 @@ Install maven 3.6.3
 
 Add maven to path (.bash_profile add export PATH=$PATH: maven-path )
 
-Jdk 13
+Jdk 8
 
 webapp runner: https://github.com/heroku/webapp-runner clone and build
 
