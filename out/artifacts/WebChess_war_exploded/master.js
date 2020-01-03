@@ -13,8 +13,14 @@ window.onload=function() {
             }).always(function (data, status) {
                 setUpPositionSimple(data);
         })
-    })
-}
+    });
+    $.post("Hello",
+        {
+            loadPage:true
+        }).always(function (data, status) {
+        setUpPositionSimple(data);
+    });
+};
 function myFunction(secondSquareClicked) {
     if (squareClickedOn != -1) {
         $.post("Hello",

@@ -35,6 +35,12 @@ public class ChessServlet extends HttpServlet{
                         out.print(currentPosition.getSquare(i, j) + " ");
                     }
                 }
+            } else if (request.getParameter("loadPage") != null && request.getParameter("loadPage").equals("true")) {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        out.print(currentPosition.getSquare(i, j) + " ");
+                    }
+                }
             } else {
                 if (request.getParameter("userMove").equals("true")) {
                     int square1 = Integer.valueOf(request.getParameter("square1"));
