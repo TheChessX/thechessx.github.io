@@ -28,37 +28,46 @@ public class ChessServlet extends HttpServlet{
             // Actual logic goes here.
             PrintWriter out = response.getWriter();
 
-            if (request.getParameter("userMove").equals("true")) {
-                int square1 = Integer.valueOf(request.getParameter("square1"));
-                int square2 = Integer.valueOf(request.getParameter("square2"));
-                int xInitial = square1 / 8;
-                int yInitial = square1 % 8;
-                int xFinal = square2 / 8;
-                int yFinal = square2 % 8;
-                Move currentMove = new Move(xInitial, yInitial, xFinal, yFinal);
+            if (request.getParameter("restart") != null && request.getParameter("restart").equals("true")) {
+                currentPosition = new Position();
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        out.print(currentPosition.getSquare(i, j) + " ");
+                    }
+                }
+            } else {
+                if (request.getParameter("userMove").equals("true")) {
+                    int square1 = Integer.valueOf(request.getParameter("square1"));
+                    int square2 = Integer.valueOf(request.getParameter("square2"));
+                    int xInitial = square1 / 8;
+                    int yInitial = square1 % 8;
+                    int xFinal = square2 / 8;
+                    int yFinal = square2 % 8;
+                    Move currentMove = new Move(xInitial, yInitial, xFinal, yFinal);
 
-                out.print("User");
-                if (currentPosition.isLegalMove(currentMove)) {
-                    out.print("Legal");
+                    out.print("User");
+                    if (currentPosition.isLegalMove(currentMove)) {
+                        out.print("Legal");
+                        currentPosition = currentPosition.positionAfterMove(currentMove);
+                        currentPosition.switchTurn();
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                out.print(currentPosition.getSquare(i, j) + " ");
+                            }
+                        }
+
+                    } else {
+                        out.print("NotLe");
+                    }
+                } else {
+                    Move currentMove = chessEngine.play(currentPosition);
+                    out.print("CompMoved");
                     currentPosition = currentPosition.positionAfterMove(currentMove);
                     currentPosition.switchTurn();
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {
                             out.print(currentPosition.getSquare(i, j) + " ");
                         }
-                    }
-
-                } else {
-                    out.print("NotLe");
-                }
-            } else {
-                Move currentMove = chessEngine.play(currentPosition);
-                out.print("CompMoved");
-                currentPosition = currentPosition.positionAfterMove(currentMove);
-                currentPosition.switchTurn();
-                for (int i = 0; i < 8; i++) {
-                    for (int j = 0; j < 8; j++) {
-                        out.print(currentPosition.getSquare(i, j) + " ");
                     }
                 }
             }

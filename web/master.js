@@ -6,14 +6,21 @@ window.onload=function() {
             squares[i].addEventListener("click", helpFunc(i));
         }());
     }
-
+    document.getElementById("RestartButton").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                restart:true
+            }).always(function (data, status) {
+                setUpPositionSimple(data);
+        })
+    })
 }
-function myFunction(i) {
+function myFunction(secondSquareClicked) {
     if (squareClickedOn != -1) {
         $.post("Hello",
             {
                 square1:squareClickedOn,
-                square2:i,
+                square2:secondSquareClicked,
                 userMove:true
             }).always(function(data, status) {
                 //alert("Got here");
@@ -27,7 +34,7 @@ function myFunction(i) {
                         $.post("Hello",
                             {
                                 square1: squareClickedOn,
-                                square2: i,
+                                square2: secondSquareClicked,
                                 userMove: false
                             }).always(function (data, status) {
                             var dataString = data.toString();
@@ -39,7 +46,7 @@ function myFunction(i) {
             });
         squareClickedOn = -1;
     } else {
-        squareClickedOn = i;
+        squareClickedOn = secondSquareClicked;
     }
 
 }
@@ -48,6 +55,8 @@ function helpFunc(index) {
         myFunction(index);
     };
 }
+
+
 
 function setUpPosition(data) {
     var positionString = data.toString();
@@ -67,4 +76,23 @@ function setUpPosition(data) {
             }
             positionString = positionString.replace(positionString.substring(0, firstSpace + 1), "");
         }
+}
+
+function setUpPositionSimple(data) {
+    var positionString = data.toString();
+    for (var i = 0; i < 64; i++) {
+        if (squares[i].children[0] != null) {
+            squares[i].removeChild(squares[i].children[0]);
+        }
+        firstSpace = positionString.indexOf(" ");
+        var pieceAtPosI = positionString.substring(0, firstSpace);
+        if (pieceAtPosI != 0) {
+            var image = document.createElement("img");
+            image.setAttribute('src', "/img/" + pieceAtPosI + ".png");
+            image.setAttribute('height', "50px");
+            image.setAttribute('width', '50px');
+            squares[i].appendChild(image);
+        }
+        positionString = positionString.replace(positionString.substring(0, firstSpace + 1), "");
+    }
 }
