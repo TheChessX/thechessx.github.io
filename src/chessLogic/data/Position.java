@@ -1,9 +1,9 @@
-package chessLogic.data;
+package data;
 
 
 import java.util.ArrayList;
 
-public class Position {
+public class Position implements Comparable<Position> {
 
 
     /*
@@ -27,19 +27,19 @@ public class Position {
          */
     private byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
-    ArrayList moveList = new ArrayList<Move>();
-
+    ArrayList<Move> moveList = new ArrayList<Move>();
+    
     private int enPassantColumn = -1;
 
     private boolean whiteCastleK = true;
     private boolean whiteCastleQ = true;
     private boolean blackCastleK = true;
     private boolean blackCastleQ = true;
-
+    
     private boolean castleTest = false;
-
-    private double score;
-
+    
+    private double score = Double.MAX_VALUE;
+    
     public Position() { // initializes starting position
         position = new byte[8][8];
         position = inputStartingPieces();
@@ -57,19 +57,7 @@ public class Position {
         setBlackToMove(p.isBlackToMove());
     }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-    	for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				sb.append(position[i][j]);
-				sb.append(" ");
-			}
-		}
-		return sb.toString();
-	}
-
-	public void setSquare(int xPos, int yPos, byte value) {
+    public void setSquare(int xPos, int yPos, byte value) {
         position[xPos][yPos] = value;
     }
 
@@ -117,7 +105,7 @@ public class Position {
     	}
         return moveList;
     }
-
+    
     public ArrayList<Move> getAllLegalMovesNoCheck() {
         moveList = new ArrayList<Move>();
     	if (moveList.size() == 0) {
@@ -148,7 +136,7 @@ public class Position {
 	public void setBlackToMove(boolean blackToMove) {
 		this.blackToMove = blackToMove;
 	}
-
+	
 	public int[] findKing(Position pos) {
 		byte targetKing;
 		if (pos.isBlackToMove()) {
@@ -168,7 +156,7 @@ public class Position {
 		}
 		return kingLocation;
 	}
-
+	
 	public int[] findOwnKing() {
 		byte targetKing;
 		if (this.isBlackToMove()) {
@@ -188,7 +176,7 @@ public class Position {
 		}
 		return kingLocation;
 	}
-
+	
 	public void setEnPassantColumn(int c) {
 		this.enPassantColumn = c;
 	}
@@ -224,7 +212,7 @@ public class Position {
 	public void setBlackCastleK(boolean blackCastleK) {
 		this.blackCastleK = blackCastleK;
 	}
-
+	
 	public boolean inCheck(Position pos) {
 		int[] kingLocation = findKing(pos);
 		int kingR = kingLocation[0];
@@ -237,7 +225,7 @@ public class Position {
 		}
 		return false;
 	}
-
+	
 	public boolean inCheck() {
 		int[] kingLocation = findOwnKing();
 		int kingR = kingLocation[0];
@@ -252,19 +240,19 @@ public class Position {
 		}
 		return false;
 	}
-
+	
 	public Position positionAfterMove(Move mov) {
 		Position pos = new Position(this);
 		pos.whiteCastleK = this.whiteCastleK;
 		pos.whiteCastleQ = this.whiteCastleQ;
 		pos.blackCastleK = this.blackCastleK;
 		pos.blackCastleQ = this.blackCastleQ;
-
+		
 		int rI = mov.getxInitial();
 		int cI = mov.getyInitial();
 		int rF = mov.getxFinal();
 		int cF = mov.getyFinal();
-
+		
 		if (rI == 7 && cI == 4) {
 			pos.setWhiteCastleK(false);
 			pos.setWhiteCastleQ(false);
@@ -280,13 +268,13 @@ public class Position {
 		} else if (rI == 0 && cI == 7) {
 			pos.setBlackCastleK(false);
 		}
-
+		
 		if ((pos.getSquare(rI, cI) == 1 && rI == 6 && rF == 4)||(pos.getSquare(rI, cI) == 7 && rI == 1 && rF == 3)) {
 			pos.setEnPassantColumn(cF);
 		} else {
 			pos.setEnPassantColumn(-1);
 		}
-
+		
 		if (mov.getPromotionID() != 0) {
 			pos.setSquare(rF, cF, mov.getPromotionID());
 		} else {
@@ -296,9 +284,9 @@ public class Position {
 			pos.setSquare(rF, cF, pos.getSquare(rI, cI));
 		}
 		pos.setSquare(rI, cI, (byte) 0);
-
+		
 		pos.setBlackToMove(!pos.isBlackToMove());
-
+		
 		if (cI == 4 && cF == 6 && (pos.getSquare(rF,  cF) == 6 || pos.getSquare(rF,  cF) == 12)) {
 			pos.setSquare(rF, 5, pos.getSquare(rI, 7));
 			pos.setSquare(rI, 7, (byte) 0);
@@ -306,16 +294,16 @@ public class Position {
 			pos.setSquare(rF, 3, pos.getSquare(rI, 0));
 			pos.setSquare(rI, 0, (byte) 0);
 		}
-
+		
 		return pos;
 	}
-
+	
 	public Position switchTurn() {
 		Position newPos = new Position(this);
 		newPos.blackToMove = !this.blackToMove;
 		return newPos;
 	}
-
+	
 	public ArrayList<Position> getNextPositions() {
 		ArrayList<Position> posList = new ArrayList<Position>();
 		ArrayList<Move> movList = this.getAllLegalMoves();
@@ -324,15 +312,15 @@ public class Position {
 		}
 		return posList;
 	}
-
+	
 	public void setScore(double score) {
 		this.score = score;
 	}
-
+	
 	public double getScore() {
 		return score;
 	}
-
+    
     private void addMovesForPiece(int xPos, int yPos) {
         byte pieceNum = position[xPos][yPos];
         if (!blackToMove) {
@@ -348,7 +336,7 @@ public class Position {
                 addMovesWhiteQueen(xPos, yPos);
             } else if (pieceNum == 6) {
                 addMovesWhiteKing(xPos, yPos);
-            }
+            } 
         } else {
 	        if (pieceNum == 7) {
 	            addMovesBlackPawn(xPos, yPos);
@@ -483,7 +471,7 @@ public class Position {
                 	canMoveLeftDown = true;
                 }
                 currentx--;
-                currenty--;
+                currenty--; 
             }
         }
     }
@@ -566,7 +554,7 @@ public class Position {
     			moveList.add(new Move(7, 4, 7, 6));
     		}
     	}
-
+    	
     	if (!castleTest && whiteCastleQ && position[7][3] == 0 && position[7][2] == 0 && position[7][1] == 0) {
     		Position castleTestPos = new Position(this);
     		castleTestPos.castleTest = true;
@@ -583,7 +571,7 @@ public class Position {
     			moveList.add(new Move(7, 4, 7, 2));
     		}
     	}
-
+    	
     	// move up
         if (xPos != 0 && yPos != 0 && (position[xPos - 1][yPos - 1] == 0 || position[xPos - 1][yPos - 1] >= 7)) {
             moveList.add(new Move(xPos, yPos, xPos - 1, yPos - 1));
@@ -813,7 +801,7 @@ public class Position {
     			moveList.add(new Move(0, 4, 0, 6));
     		}
     	}
-
+    	
     	if (!castleTest && blackCastleQ && position[0][3] == 0 && position[0][2] == 0 && position[0][1] == 0) {
     		Position castleTestPos = new Position(this);
     		castleTestPos.castleTest = true;
@@ -830,7 +818,7 @@ public class Position {
     			moveList.add(new Move(0, 4, 0, 2));
     		}
     	}
-
+    	
     	// move up
         if (xPos != 0 && yPos != 0 && position[xPos - 1][yPos - 1] <= 6) {
             moveList.add(new Move(xPos, yPos, xPos - 1, yPos - 1));
@@ -859,6 +847,26 @@ public class Position {
             moveList.add(new Move(xPos, yPos, xPos + 1, yPos + 1));
         }
     }
+    
+    public int compareTo(Position pos) {
+    	if (pos.getScore() - this.getScore() == 0) {
+    		return 0;
+    	} else {
+	    	if (this.isBlackToMove()) {
+	    		if (pos.getScore() > this.getScore()) {
+	    			return 1;
+	    		} else {
+	    			return -1;
+	    		}
+	    	} else {
+	    		if (this.getScore() > pos.getScore()) {
+	    			return 1;
+	    		} else {
+	    			return -1;
+	    		}
+	    	}
+    	}
+    }
 
     private byte[][] inputStartingPieces() {
     	return new byte[][] {
@@ -872,10 +880,10 @@ public class Position {
 				{4, 2, 3, 5, 6, 3, 2, 4}
 			};
     }
-
+    
     private byte[][] inputCustomPosition() {
     	return new byte[][] {
-				{0, 0, 0, 11, 12, 11, 0, 0},
+				{0, 11, 0, 0, 12, 0, 0, 11},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0},
