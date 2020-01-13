@@ -1,4 +1,4 @@
-package chessLogic.data;
+package data;
 
 
 public class Move {
@@ -6,9 +6,9 @@ public class Move {
     private final int xFinal;
     private final int yInitial;
     private final int yFinal;
-
+    
     private final byte promotionID;
-
+    
     private double score;
 
     public Move(int xInitial, int yInitial, int xFinal, int yFinal) {
@@ -18,7 +18,7 @@ public class Move {
         this.yFinal = yFinal;
         this.promotionID = 0;
     }
-
+    
     public Move(int xInitial, int yInitial, int xFinal, int yFinal, byte promotionID) {
         this.xInitial = xInitial;
         this.xFinal = xFinal;
@@ -77,15 +77,15 @@ public class Move {
             return false;
         }
     }
-
+    
     public byte getPromotionID() {
     	return promotionID;
     }
-
+    
     public double getScore() {
     	return score;
     }
-
+    
     public void setScore(double score) {
     	this.score = score;
     }
