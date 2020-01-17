@@ -12,6 +12,11 @@
       <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/gson-2.6.2-sources.jar!/" />
+    </SOURCES>
+    <excluded>
+      <root url="jar://$USER_HOME$/Downloads/gson-2.6.2-sources.jar!/" />
+    </excluded>
   </library>
 </component>

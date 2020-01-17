@@ -24,18 +24,38 @@ public class Evaluation {
 	public final double queenV = 9;
 
 	//Center Control
-	public double PawnCOV = 0.2; //outside ring
+	public double PawnCOV = 0.3; //outside ring
 	public double PawnCIV = 0.5; //inside ring
-	public double KnightCOV = 0.4;
-	public double KnightCIV = 0.5;
+	public double KnightCOV = 0.1;
+	public double KnightCIV = 0.2;
 
 	//King Safety
 	public double pawnKS = 0.15;
-	public double knightKS = 0.1;
+	public double knightKS = 0.1; // also applies for bishops
 	public double queenKS = 0.05;
 
-	public Evaluation() {
+	public Evaluation() {}
 
+	public double evaluate(Position pos) {
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		if (moves.size() == 0) {
+			if (pos.inCheck()) {
+				//System.out.println("Checkmate detected");
+				if (pos.isBlackToMove()) {
+					return 1000000;
+				} else {
+					return -1000000;
+				}
+			} else {
+				return 0;
+			}
+		} else {
+			double score = evaluatePieceValue(pos)
+					+ evaluateCenterControl(pos)
+					+ evaluateKingSafety(pos)
+					+ evaluateMobility(pos, moves);
+			return score;
+		}
 	}
 
 	public double evaluatePieceValue(Position pos) {
@@ -66,11 +86,6 @@ public class Evaluation {
 			}
 		}
 
-//		DecimalFormat df = new DecimalFormat("#.##");
-//		score = Double.valueOf(df.format(score));
-//		if (score == 0.0) {
-//			score = 0.0;
-//		}
 		score = round(score, 2);
 		return score;
 	}
@@ -81,8 +96,8 @@ public class Evaluation {
 
 		//Finds King
 		int[] kingLocation = findKing(pos);
-		int kingR = kingLocation[0];
-		int kingC = kingLocation[1];
+		int kingR = kingLocation[0]; // row of king
+		int kingC = kingLocation[1]; // col of king
 
 		//Checks first circle around King
 		for (int r = kingR - 1; r < kingR + 2; r++) {
@@ -302,28 +317,6 @@ public class Evaluation {
 		double score = moves.size()/100.0;
 		pos.setBlackToMove(!pos.isBlackToMove());
 		//System.out.println(score);
-		return score;
-	}
-
-	public double evaluate(Position pos) {
-		ArrayList<Move> moves = pos.getAllLegalMoves();
-		if (moves.size() == 0) {
-			if (pos.inCheck()) {
-				//System.out.println("Checkmate detected");
-	    		if (pos.isBlackToMove()) {
-	    			return 1000000;
-	    		} else {
-	    			return -1000000;
-	    		}
-			} else {
-				return 0;
-			}
-		}
-
-		double score = evaluatePieceValue(pos)
-				+ evaluateCenterControl(pos)
-				+ evaluateKingSafety(pos)
-				+ evaluateMobility(pos, moves);
 		return score;
 	}
 }

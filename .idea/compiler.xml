@@ -2,6 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="USE_RELEASE_OPTION" value="false" />
-    <bytecodeTargetLevel target="8" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="ChessUsingMaven" target="1.5" />
+      <module name="Maven" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
