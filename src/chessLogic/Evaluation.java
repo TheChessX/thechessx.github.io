@@ -3,17 +3,9 @@ package chessLogic;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 
-import chessLogic.data.Move;
-import chessLogic.data.Position;
 
-/* Distance from center
- * Same color pawns around
- * Same color knights around
- * Opposing pieces around
- * Opposing pawns around
- */
+
 
 public class Evaluation {
 	//Piece Values
@@ -22,42 +14,32 @@ public class Evaluation {
 	public final double knightV = 3.05;
 	public final double bishopV = 3.45;
 	public final double queenV = 9;
-
+	
 	//Center Control
-	public double PawnCOV = 0.3; //outside ring
-	public double PawnCIV = 0.5; //inside ring
-	public double KnightCOV = 0.1;
-	public double KnightCIV = 0.2;
-
+	public double PawnCOV = 0.2; //outside ring
+	public double PawnCIV = 0.6; //inside ring
+	public double KnightCOV = 0.2; 
+	public double KnightCIV = 0.4;
+	
 	//King Safety
 	public double pawnKS = 0.15;
-	public double knightKS = 0.1; // also applies for bishops
+	public double knightKS = 0.1;
 	public double queenKS = 0.05;
-
-	public Evaluation() {}
-
-	public double evaluate(Position pos) {
-		ArrayList<Move> moves = pos.getAllLegalMoves();
-		if (moves.size() == 0) {
-			if (pos.inCheck()) {
-				//System.out.println("Checkmate detected");
-				if (pos.isBlackToMove()) {
-					return 1000000;
-				} else {
-					return -1000000;
-				}
-			} else {
-				return 0;
-			}
-		} else {
-			double score = evaluatePieceValue(pos)
-					+ evaluateCenterControl(pos)
-					+ evaluateKingSafety(pos)
-					+ evaluateMobility(pos, moves);
-			return score;
-		}
+	
+	//Rooks
+	public double rSeventhRank = 0.25;
+	public double rOpenFile = 0.35;
+	public double rConnected = 0.1;
+	
+	//Development
+	public double developmentScore = 0.1;
+	
+	public int count = 0;
+	
+	public Evaluation() {
+		
 	}
-
+	
 	public double evaluatePieceValue(Position pos) {
 		double score = 0.0;
 		for (int i = 0; i < 8; i++) {
@@ -85,20 +67,25 @@ public class Evaluation {
 				}
 			}
 		}
-
+	
+//		DecimalFormat df = new DecimalFormat("#.##");
+//		score = Double.valueOf(df.format(score));
+//		if (score == 0.0) {
+//			score = 0.0;
+//		}
 		score = round(score, 2);
 		return score;
 	}
-
+	
 	public double evaluateKingSafety(Position pos) {
 		double score = 0.0;
 		byte piece;
-
+		
 		//Finds King
 		int[] kingLocation = findKing(pos);
-		int kingR = kingLocation[0]; // row of king
-		int kingC = kingLocation[1]; // col of king
-
+		int kingR = kingLocation[0];
+		int kingC = kingLocation[1];
+		
 		//Checks first circle around King
 		for (int r = kingR - 1; r < kingR + 2; r++) {
 			for (int c = kingC - 1; c < kingC + 2; c++) {
@@ -120,7 +107,7 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//Checks second circle around King
 		for (int r = kingR - 2; r < kingR + 3; r++) {
 			for (int c = kingC - 2; c < kingC + 3; c++) {
@@ -142,7 +129,7 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//Checks for distance from center
 		double distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
 		if (pos.isBlackToMove()) {
@@ -150,12 +137,12 @@ public class Evaluation {
 		} else {
 			score += distanceScore;
 		}
-
+		
 		//Finds King
 		kingLocation = findOppKing(pos);
 		kingR = kingLocation[0];
 		kingC = kingLocation[1];
-
+		
 		//Checks first circle around King
 		for (int r = kingR - 1; r < kingR + 2; r++) {
 			for (int c = kingC - 1; c < kingC + 2; c++) {
@@ -177,7 +164,7 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//Checks second circle around King
 		for (int r = kingR - 2; r < kingR + 3; r++) {
 			for (int c = kingC - 2; c < kingC + 3; c++) {
@@ -199,19 +186,19 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//Checks for distance from center
-		distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
+		distanceScore = (2 * Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
 		if (pos.isBlackToMove()) {
 			score += distanceScore;
 		} else {
 			score -= distanceScore;
 		}
-
+		
 		score = round(score, 2);
 		return score;
 	}
-
+	
 	/*Finds location of the king corresponding to which color's move it is.
 	 * Returns an array of two integers for the row and column.
 	 * Returns {-1, -1} if king is not found (this should never happen).
@@ -235,7 +222,7 @@ public class Evaluation {
 		}
 		return kingLocation;
 	}
-
+	
 	private int[] findOppKing(Position pos) {
 		byte targetKing;
 		if (pos.isBlackToMove()) {
@@ -255,7 +242,7 @@ public class Evaluation {
 		}
 		return kingLocation;
 	}
-
+	
 	public double evaluateCenterControl(Position pos) {
 		double score = 0.0;
 		for (int i = 2; i < 6; i++) {
@@ -298,7 +285,7 @@ public class Evaluation {
 		score = round(score, 2);
 		return score;
 	}
-
+	
 	private double round(double x, double n) {
 		String format = "#.";
 		for (int i = 0; i < n; i ++) {
@@ -311,12 +298,119 @@ public class Evaluation {
 		}
 		return rounded;
 	}
-
+	
 	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
-		pos.setBlackToMove(!pos.isBlackToMove());
 		double score = moves.size()/100.0;
-		pos.setBlackToMove(!pos.isBlackToMove());
+		if (pos.isBlackToMove()) {
+			score *= -1;
+		}
+//		pos.setBlackToMove(!pos.isBlackToMove());
+//		if (pos.isBlackToMove()) {
+//			score -= pos.getAllLegalMoves().size()/100.0;
+//		} else {
+//			score += pos.getAllLegalMoves().size()/100.0;
+//		}
+//		pos.setBlackToMove(!pos.isBlackToMove());
 		//System.out.println(score);
+		score = round(score, 2);
 		return score;
 	}
+	
+	public double evaluateDevelopment(Position pos) {
+		double score = 0.0;
+		for (int c = 0; c < 8; c++) {
+			if (pos.getSquare(0, c) > 6 && pos.getSquare(0, c) != 10 && pos.getSquare(0, c) != 12) {
+				score += developmentScore;
+			}
+			if (pos.getSquare(7, c) < 6 && pos.getSquare(7, c) != 4) {
+				score -= developmentScore;
+			}
+		}
+		return score;
+	}
+	
+	public double evaluate(Position pos) {
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		if (moves.size() == 0) {
+			if (pos.inCheck()) {
+				//System.out.println("Checkmate detected");
+	    		if (pos.isBlackToMove()) {
+	    			return 1000000;
+	    		} else {
+	    			return -1000000;
+	    		}
+			} else {
+				return 0;
+			}
+		}
+		
+		double score = evaluatePieceValue(pos)
+				+ evaluateCenterControl(pos) 
+				+ evaluateKingSafety(pos)
+				+ evaluateMobility(pos, moves)
+				+ evaluateDevelopment(pos)
+				+ evaluateRooks(pos);
+		score = round(score, 2);
+		count++;
+		if (count % 10000 == 0) {
+			System.out.println(count/10000 + "0k positions evaluated");
+		}
+		return score;
+	}
+	
+	public double evaluateRooks(Position pos) {
+		double score = 0.0;
+		ArrayList<Integer> whiteRooks = findPiece(pos, (byte) 4);
+		for (int location: whiteRooks) {
+			if (location / 8 == 1) {
+				score += rSeventhRank;
+			}
+			int file = location % 8;
+			boolean open = true;
+			for (int i = 0; i < 8; i++) {
+				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
+					open = false;
+				}
+				if (pos.getSquare(i, file) == 4) {
+					score += rConnected;
+				}
+			}
+			if (open) {
+				score += rOpenFile;
+			}
+		}
+		ArrayList<Integer> blackRooks = findPiece(pos, (byte) 10);
+		for (int location: blackRooks) {
+			if (location / 8 == 6) {
+				score -= rSeventhRank;
+			}
+			int file = location % 8;
+			boolean open = true;
+			for (int i = 0; i < 8; i++) {
+				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
+					open = false;
+				}
+				if (pos.getSquare(i, file) == 10) {
+					score -= rConnected;
+				}
+			}
+			if (open) {
+				score -= rOpenFile;
+			}
+		}
+		return score;
+	}
+	
+	private ArrayList<Integer> findPiece(Position pos, byte id) {
+		ArrayList<Integer> pieceLocations = new ArrayList<Integer>();
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (pos.getSquare(r, c) == id) {
+					pieceLocations.add(8 * r + c);
+				}
+			}
+		}
+		return pieceLocations;
+	}
 }
+

@@ -8,24 +8,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json-20190722.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/WebChess_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/WebChess_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WebChess.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/data/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/data/Position.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/9.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/data/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/data/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/9.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +204,7 @@
       <workItem from="1578270138918" duration="1075000" />
       <workItem from="1578330981350" duration="4838000" />
       <workItem from="1578605132240" duration="2163000" />
-      <workItem from="1578938172597" duration="10782000" />
+      <workItem from="1578938172597" duration="11648000" />
     </task>
     <servers />
   </component>

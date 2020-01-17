@@ -1,9 +1,8 @@
 import chessLogic.Engine;
-import chessLogic.data.Position;
-import chessLogic.data.Move;
+import chessLogic.Position;
+import chessLogic.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 import java.io.*;
 import javax.servlet.*;
