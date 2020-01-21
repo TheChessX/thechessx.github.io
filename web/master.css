@@ -1,5 +1,5 @@
 body {
-    background-color: aqua;
+    background-color: rgb(0, 144, 0);
 }
 .square {
     width: 50px;
@@ -7,7 +7,7 @@ body {
     padding: 0px;
 }
 .blackSquare {
-    background-color: purple;
+    background-color: rgb(0, 100, 200);
 }
 .whiteSquare {
     background-color: whitesmoke;

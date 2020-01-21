@@ -8,48 +8,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/data/Move.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/data/Position.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/img/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Move.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/data/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/data/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/img/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,6 +74,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="chessLogic" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -204,7 +194,8 @@
       <workItem from="1578270138918" duration="1075000" />
       <workItem from="1578330981350" duration="4838000" />
       <workItem from="1578605132240" duration="2163000" />
-      <workItem from="1578938172597" duration="11648000" />
+      <workItem from="1578938172597" duration="15071000" />
+      <workItem from="1579380807089" duration="6318000" />
     </task>
     <servers />
   </component>
@@ -232,10 +223,18 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="549" y="161" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog/0.23.1440.823@0.23.1440.823" timestamp="1579129872077" />
+    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1579626693550">
+      <screen x="0" y="23" width="1440" height="825" />
+    </state>
+    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.825@0.23.1440.825" timestamp="1579626693550" />
     <state x="320" y="101" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1577769321947">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="320" y="101" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable/0.23.1440.823@0.23.1440.823" timestamp="1577769321947" />
+    <state x="445" y="181" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579626596542">
+      <screen x="0" y="23" width="1440" height="825" />
+    </state>
+    <state x="445" y="181" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.825@0.23.1440.825" timestamp="1579626596542" />
     <state width="1358" height="199" key="GridCell.Tab.0.bottom" timestamp="1578502902588">
       <screen x="0" y="23" width="1440" height="814" />
     </state>
@@ -319,11 +318,11 @@
     <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1577945903490" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1577932052683" />
     <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1579129875730" />
-    <state x="376" y="267" key="com.intellij.ide.util.TipDialog" timestamp="1578941067567">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="376" y="267" key="com.intellij.ide.util.TipDialog" timestamp="1579380834556">
+      <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.814@0.23.1440.814" timestamp="1578941067567" />
-    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1578675168040" />
+    <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1579380834556" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1577929234891" />
     <state x="496" y="350" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578023336433">
       <screen x="0" y="23" width="1440" height="816" />

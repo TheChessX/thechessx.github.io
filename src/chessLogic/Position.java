@@ -2,6 +2,8 @@ package chessLogic;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Position implements Comparable<Position> {
 
@@ -868,7 +870,42 @@ public class Position implements Comparable<Position> {
     	}
     }
 
-    private byte[][] inputStartingPieces() {
+    public String toString() {
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < 8; i++) {
+    		for (int j = 0; j < 8; j++) {
+				sb.append(position[i][j] + " ");
+			}
+		}
+    	sb.append(blackToMove);
+    	sb.append(blackCastleK);
+    	sb.append(blackCastleQ);
+    	sb.append(whiteCastleK);
+    	sb.append(blackCastleQ);
+    	return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Position position1 = (Position) o;
+		return blackToMove == position1.blackToMove &&
+				whiteCastleK == position1.whiteCastleK &&
+				whiteCastleQ == position1.whiteCastleQ &&
+				blackCastleK == position1.blackCastleK &&
+				blackCastleQ == position1.blackCastleQ &&
+				Arrays.equals(position, position1.position);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(blackToMove, whiteCastleK, whiteCastleQ, blackCastleK, blackCastleQ);
+		result = 31 * result + Arrays.hashCode(position);
+		return result;
+	}
+
+	private byte[][] inputStartingPieces() {
     	return new byte[][] {
 				{10, 8, 9, 11, 12, 9, 8, 10},
 				{7, 7, 7, 7, 7, 7, 7, 7},

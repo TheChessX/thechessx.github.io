@@ -2,15 +2,18 @@ package chessLogic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
 
 
 public class Engine {
 	private Evaluation eval;
 	private int presetDepth;
+	private HashMap<Position, PosInfo> map = new HashMap();
 	
 	public Engine() {
 		this.eval = new Evaluation();
-		this.presetDepth = 4; //Looks n plies ahead
+		this.presetDepth = 2; //Looks n plies ahead
 	}
 	
 	public Move play(Position pos) {
@@ -49,7 +52,6 @@ public class Engine {
 			for (Move m: moves) {
 				if (m.getScore() > bestMove.getScore()) {
 					bestMove = m;
-					//System.out.println("New best move, score: " + m.getScore());
 				}
 			}
 		}
@@ -167,6 +169,19 @@ public class Engine {
 //	}
 	
 	public double treeEvalNX(Position pos, double alpha, double beta, int depth) {
+
+		if (map.containsKey(pos)) {
+			if (map.get(pos).getDepthSearched() >= depth) {
+				return map.get(pos).getScore();
+			}
+		}
+
+		PosInfo info = new PosInfo();
+		info.setPos(pos);
+		info.setDepthSearched(0);
+		info.setScore(pos.getScore());
+		map.put(pos, info);
+
 		if (depth == 0) {
 			return pos.getScore();
 			//return eval.evaluate(pos);
