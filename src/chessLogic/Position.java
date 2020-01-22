@@ -308,10 +308,12 @@ public class Position implements Comparable<Position> {
 	
 	public ArrayList<Position> getNextPositions() {
 		ArrayList<Position> posList = new ArrayList<Position>();
+
 		ArrayList<Move> movList = this.getAllLegalMoves();
 		for (Move m: movList) {
 			posList.add(positionAfterMove(m));
 		}
+		
 		return posList;
 	}
 	

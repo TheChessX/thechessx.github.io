@@ -10,7 +10,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 
-
 public class ChessServlet extends HttpServlet{
 
         private Position currentPosition;
@@ -27,6 +26,8 @@ public class ChessServlet extends HttpServlet{
 
         public void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+
+            long startTime = System.currentTimeMillis();
 
             // Set response content type
             //response.setContentType("text/html");
@@ -100,6 +101,7 @@ public class ChessServlet extends HttpServlet{
                 }
             }
             re.put("position", addPosition(currentPosition));
+            log((System.currentTimeMillis() - startTime) + "");
             out.print(re.toString());
             out.flush();
             out.close();
