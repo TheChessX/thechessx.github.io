@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-import data.Move;
-import data.Position;
+import chessLogic.Move;
+import chessLogic.Position;
 
 import java.io.File;
 import java.io.FileInputStream;

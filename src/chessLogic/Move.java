@@ -1,4 +1,4 @@
-package data;
+package chessLogic;
 
 
 public class Move {
