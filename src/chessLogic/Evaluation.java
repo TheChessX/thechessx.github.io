@@ -2,6 +2,18 @@ package chessLogic;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+
+
+import chessLogic.Move;
+import chessLogic.Position;
+
+/* Distance from center
+ * Same color pawns around
+ * Same color knights around
+ * Opposing pieces around
+ * Opposing pawns around
+ */
 
 public class Evaluation {
 	//Piece Values
@@ -27,10 +39,17 @@ public class Evaluation {
 	public double rOpenFile = 0.35;
 	public double rConnected = 0.1;
 	
+	//Pawns
+	public double pawnConnected = 0.05;
+	public double doubledPawns = 0.2;
+	public double pawnGap = 0.1;
+	
 	//Development
 	public double developmentScore = 0.1;
 	
 	public int count = 0;
+	
+	private boolean endgame = false;
 	
 	public Evaluation() {
 		
@@ -63,12 +82,35 @@ public class Evaluation {
 				}
 			}
 		}
+		
+		score = round(score, 2);
+		return score;
+	}
 	
-//		DecimalFormat df = new DecimalFormat("#.##");
-//		score = Double.valueOf(df.format(score));
-//		if (score == 0.0) {
-//			score = 0.0;
-//		}
+	public double evaluatePieceValueNoPawns(Position pos) {
+		double score = 0.0;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (pos.getSquare(i, j) == 10) {
+					score += rookV;
+				} else if (pos.getSquare(i, j) == 4) {
+					score += rookV;
+				} else if (pos.getSquare(i, j) == 8) {
+					score += knightV;
+				} else if (pos.getSquare(i, j) == 2) {
+					score += knightV;
+				} else if (pos.getSquare(i, j) == 9) {
+					score += bishopV;
+				} else if (pos.getSquare(i, j) == 3) {
+					score += bishopV;
+				} else if (pos.getSquare(i, j) == 11) {
+					score += queenV;
+				} else if (pos.getSquare(i, j) == 5) {
+					score += queenV;
+				}
+			}
+		}
+		
 		score = round(score, 2);
 		return score;
 	}
@@ -326,6 +368,42 @@ public class Evaluation {
 	}
 	
 	public double evaluate(Position pos) {
+		double score;
+		if (endgame) {
+			score = evaluateEndgame(pos);
+		} else {
+			ArrayList<Move> moves = pos.getAllLegalMoves();
+			if (moves.size() == 0) {
+				if (pos.inCheck()) {
+					//System.out.println("Checkmate detected");
+		    		if (pos.isBlackToMove()) {
+		    			return 1000000;
+		    		} else {
+		    			return -1000000;
+		    		}
+				} else {
+					return 0;
+				}
+			}
+			
+			score = evaluatePieceValue(pos)
+					+ evaluateCenterControl(pos) 
+					+ evaluateKingSafety(pos)
+					+ evaluateMobility(pos, moves)
+					+ evaluateDevelopment(pos)
+					+ evaluateRooks(pos)
+					+ evaluatePawns(pos);
+			score = round(score, 2);
+			count++;
+			if (count % 10000 == 0) {
+				System.out.println(count/10000 + "0k positions evaluated");
+			}
+		}
+		return score;
+	}
+	
+	public double evaluateEndgame(Position pos) {
+		double score;
 		ArrayList<Move> moves = pos.getAllLegalMoves();
 		if (moves.size() == 0) {
 			if (pos.inCheck()) {
@@ -340,17 +418,128 @@ public class Evaluation {
 			}
 		}
 		
-		double score = evaluatePieceValue(pos)
-				+ evaluateCenterControl(pos) 
-				+ evaluateKingSafety(pos)
+		score = evaluatePieceValue(pos)
+				+ evaluateKingActivity(pos) 
 				+ evaluateMobility(pos, moves)
-				+ evaluateDevelopment(pos)
-				+ evaluateRooks(pos);
+				+ evaluateRooks(pos)
+				+ evaluatePawnsEndgame(pos);
 		score = round(score, 2);
 		count++;
 		if (count % 10000 == 0) {
 			System.out.println(count/10000 + "0k positions evaluated");
 		}
+		return score;
+	}
+	
+	public double evaluateKingActivity(Position pos) {
+		int whiteKing = findPiece(pos, (byte) 6).get(0);
+		int blackKing = findPiece(pos, (byte) 12).get(0);
+		return (7 - whiteKing/8 - blackKing/8)/5;
+	}
+	
+	public double evaluatePawns(Position pos) {
+		double score = 0.0;
+		ArrayList<Integer> whitePawns = findPiece(pos, (byte) 1);
+		ArrayList<Integer> whitePawnColumns = new ArrayList<Integer>();
+		for (int location: whitePawns) {
+			int r = location / 8;
+			int c = location % 8;
+			whitePawnColumns.add(c);
+			if (c > 0 && pos.getSquare(r - 1, c - 1) == 1) {
+				score += pawnConnected;
+			}
+			if (c < 7 && pos.getSquare(r - 1, c + 1) == 1) {
+				score += pawnConnected;
+			}
+		}
+		Collections.sort(whitePawnColumns);
+		for (int i = 0; i < whitePawnColumns.size() - 1; i++) {
+			if (whitePawnColumns.get(i) == whitePawnColumns.get(i + 1)) {
+				score -= doubledPawns;
+			} else if (whitePawnColumns.get(i) - whitePawnColumns.get(i + 1) < -1) {
+				score -= pawnGap;
+			}
+		}
+		
+		ArrayList<Integer> blackPawns = findPiece(pos, (byte) 7);
+		ArrayList<Integer> blackPawnColumns = new ArrayList<Integer>();
+		for (int location: blackPawns) {
+			int r = location / 8;
+			int c = location % 8;
+			blackPawnColumns.add(c);
+			if (c > 0 && pos.getSquare(r + 1, c - 1) == 7) {
+				score -= pawnConnected;
+			}
+			if (c < 7 && pos.getSquare(r + 1, c + 1) == 7) {
+				score -= pawnConnected;
+			}
+		}
+		Collections.sort(blackPawnColumns);
+		for (int i = 0; i < blackPawnColumns.size() - 1; i++) {
+			if (blackPawnColumns.get(i) == blackPawnColumns.get(i + 1)) {
+				score += doubledPawns;
+			} else if (blackPawnColumns.get(i) - blackPawnColumns.get(i + 1) < -1) {
+				score += pawnGap;
+			}
+		}
+		
+		return score;
+	}
+	
+	public double evaluatePawnsEndgame(Position pos) {
+		double score = 0.0;
+		ArrayList<Integer> whitePawns = findPiece(pos, (byte) 1);
+		ArrayList<Integer> whitePawnColumns = new ArrayList<Integer>();
+		for (int location: whitePawns) {
+			int r = location / 8;
+			int c = location % 8;
+			whitePawnColumns.add(c);
+			if (c > 0 && pos.getSquare(r - 1, c - 1) == 1) {
+				score += pawnConnected;
+			}
+			if (c < 7 && pos.getSquare(r - 1, c + 1) == 1) {
+				score += pawnConnected;
+			}
+		}
+		Collections.sort(whitePawnColumns);
+		for (int i = 0; i < whitePawnColumns.size() - 1; i++) {
+			if (whitePawnColumns.get(i) == whitePawnColumns.get(i + 1)) {
+				score -= doubledPawns;
+			} else if (whitePawnColumns.get(i) - whitePawnColumns.get(i + 1) < -1) {
+				score -= pawnGap;
+			}
+		}
+		
+		ArrayList<Integer> blackPawns = findPiece(pos, (byte) 7);
+		ArrayList<Integer> blackPawnColumns = new ArrayList<Integer>();
+		for (int location: blackPawns) {
+			int r = location / 8;
+			int c = location % 8;
+			blackPawnColumns.add(c);
+			if (c > 0 && pos.getSquare(r + 1, c - 1) == 7) {
+				score -= pawnConnected;
+			}
+			if (c < 7 && pos.getSquare(r + 1, c + 1) == 7) {
+				score -= pawnConnected;
+			}
+		}
+		Collections.sort(blackPawnColumns);
+		for (int i = 0; i < blackPawnColumns.size() - 1; i++) {
+			if (blackPawnColumns.get(i) == blackPawnColumns.get(i + 1)) {
+				score += doubledPawns;
+			} else if (blackPawnColumns.get(i) - blackPawnColumns.get(i + 1) < -1) {
+				score += pawnGap;
+			}
+		}
+		
+		for (int i: whitePawns) {
+			score += Math.pow(7 - i/8, 2)/11;
+		}
+		
+		for (int i: blackPawns) {
+			score -= Math.pow(i/8, 2)/11;
+		}
+		
 		return score;
 	}
 	
@@ -408,5 +597,12 @@ public class Evaluation {
 		}
 		return pieceLocations;
 	}
-}
 
+	public boolean isEndgame() {
+		return endgame;
+	}
+
+	public void setEndgame(boolean endgame) {
+		this.endgame = endgame;
+	}
+}
