@@ -1,5 +1,9 @@
+package chessLogic;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
 
 import data.Move;
 import data.Position;
@@ -27,7 +31,7 @@ public class Engine {
 	private Workbook wb;
 	private int wbRow = 0;
 	private int wbCol = 0;
-	
+	private HashMap<String, PosInfo> map = new HashMap();
 	//Opening Mode
 	//-1 Engine does not use theory
 	// 0 Engine plays top theory move only (most lines)
@@ -136,16 +140,6 @@ public class Engine {
 			}
 		}
 		
-//		ArrayList<Move> moves = pos.getAllLegalMoves();
-//		for (Move m: moves) {
-//			Position potentialPos = pos.positionAfterMove(m);
-//			m.setScore(treeEvalNX(potentialPos, -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
-//			if (m.getScore() == 1000000 * presetDepth) {
-//				break;
-//			}
-//			//System.out.println(m + ", " + m.getScore());
-//		}
-		
 		Move bestMove = moves.get(0);
 		if (pos.isBlackToMove()) {
 			for (Move m: moves) {
@@ -157,130 +151,39 @@ public class Engine {
 			for (Move m: moves) {
 				if (m.getScore() > bestMove.getScore()) {
 					bestMove = m;
-					//System.out.println("New best move, score: " + m.getScore());
 				}
 			}
 		}
 		return bestMove;
 	}
 	
-//	public double treeEval(Position pos) {
-//		ArrayList<Position> posList1 = pos.getNextPositions();
-//		for (Position pos1: posList1) {
-//			ArrayList<Position> posList2 = pos1.getNextPositions();
-//			double score2;
-//			if (posList2.size() > 0) {
-//				score2 = eval.evaluate(posList2.get(0));
-//			} else {
-//				score2 = eval.evaluate(pos1);
-//			}
-//			if (pos1.isBlackToMove()) {
-//				for (Position pos2: posList2) {
-//					if (eval.evaluate(pos2) < score2) {
-//						score2 = eval.evaluate(pos2);
-//					}
-//				}
-//			} else {
-//				for (Position pos2: posList2) {
-//					if (eval.evaluate(pos2) > score2) {
-//						score2 = eval.evaluate(pos2);
-//					}
-//				}
-//			}
-//			pos1.setScore(score2);
-//		}
-//		double score1;
-//		if (posList1.size() > 0) {
-//			score1 = posList1.get(0).getScore();
-//		} else {
-//			score1 = eval.evaluate(pos) * 10;
-//		}
-//		if (pos.isBlackToMove()) {
-//			for (Position pos1: posList1) {
-//				if (pos1.getScore() < score1) {
-//					score1 = pos1.getScore();
-//				}
-//			}
-//		} else {
-//			for (Position pos1: posList1) {
-//				if (pos1.getScore() > score1) {
-//					score1 = pos1.getScore();
-//				}
-//			}
-//		}
-//		return score1;
-//	}
-//	
-//	public double treeEvalN(Position pos, int depth) {
-//		ArrayList<Position> posList1 = pos.getNextPositions();
-//		
-//		//System.out.println(posList1.size());
-//		double score1;
-//		if (posList1.size() > 0) {
-//			if (depth == 0) {
-//				score1 = eval.evaluate(posList1.get(0));
-//			} else {
-//				score1 = treeEvalN(posList1.get(0), depth - 1);
-//			}
-//		} else {
-//			score1 = eval.evaluate(pos);
-//			score1 *= (depth + 1);
-//		}
-//		if (pos.isBlackToMove()) {
-//			for (Position pos1: posList1) {
-//				double pos1Score;
-//				if (depth == 0) {
-//					pos1Score = eval.evaluate(pos1);
-//					//System.out.println("finish evaluation");
-//				} else {
-//					if (eval.evaluate(pos1) > score1 + 0.5) {
-//						if (depth > 1) {
-//							//pos1Score = treeEvalN(pos1, 1);
-//							pos1Score = score1;
-//						} else {
-//							pos1Score = score1;
-//						}
-//						//System.out.println("discard low evaluation move");
-//					} else {
-//						pos1Score = treeEvalN(pos1, depth - 1);
-//					}
-//				}
-//				if (pos1Score < score1) {
-//					score1 = pos1Score;
-//				}
-//			}
-//		} else {
-//			for (Position pos1: posList1) {
-//				double pos1Score;
-//				if (depth == 0) {
-//					pos1Score = eval.evaluate(pos1);
-//				} else {
-//					if (eval.evaluate(pos1) < score1 - 0.5) {
-//						if (depth > 1) {
-//							//pos1Score = treeEvalN(pos1, 1);
-//							pos1Score = score1;
-//						} else {
-//							pos1Score = score1;
-//						}
-//					} else {
-//						pos1Score = treeEvalN(pos1, depth - 1);
-//					}
-//				}
-//				if (pos1Score > score1) {
-//					score1 = pos1Score;
-//				}
-//			}
-//		}
-//		return score1;
-//	}
-	
 	public double treeEvalNX(Position pos, double alpha, double beta, int depth) {
+//		if (map.containsKey(pos.toString())) {
+//			if (map.get(pos.toString()).getDepthSearched() >= depth) {
+//			//System.out.println("Duplicate position found");
+//			return map.get(pos.toString()).getScore();
+//
+//			}
+//		}
+//
+//		PosInfo info = new PosInfo();
+//		info.setPos(pos);
+//		info.setDepthSearched(0);
+//		info.setScore(pos.getScore());
+//		map.put(pos.toString(), info);
+
 		if (depth == 0) {
-			return pos.getScore();
+			//long startTime = System.nanoTime();
+			double score = pos.getScore();
+			//long timetaken = System.nanoTime() - startTime;
+			//System.out.println("Evaluation Time: " + timetaken);
+			return score;
 			//return eval.evaluate(pos);
 		}
-		
+		long startTime = System.nanoTime();
 		ArrayList<Position> posList1 = pos.getNextPositions();
+		long timetaken = System.nanoTime() - startTime;
+		System.out.println("MoveFinding: " + timetaken + "    "  + pos);
 		
 		if (posList1.size() == 0) {
 			//System.out.println(pos.getScore() * (depth + 1));
@@ -288,8 +191,8 @@ public class Engine {
 				return eval.evaluate(pos) * (depth + 1);
 			}
 			return pos.getScore() * (depth + 1);
-			//return eval.evaluate(pos) * (depth + 1);
 		}
+
 		
 		for (Position p: posList1) {
 			p.setScore(eval.evaluate(p));
@@ -336,31 +239,7 @@ public class Engine {
 		}
 		return score;
 	}
-	
-//	public ArrayList<Position> sort(ArrayList<Position> posList) {
-//		if (posList.get(0).isBlackToMove()) {
-//			for (int i = 0; i < posList.size(); i++) {
-//				posList.get(i).setScore(eval.evaluate(posList.get(i)));
-//				int j = i;
-//				while (i > 0 && posList.get(i).getScore() < posList.get(i-1).getScore()) {
-//					Collections.swap(posList, i, i-1);
-//					i--;
-//				}
-//				i = j;
-//			}
-//		} else {
-//			for (int i = 0; i < posList.size(); i++) {
-//				posList.get(i).setScore(eval.evaluate(posList.get(i)));
-//				int j = i;
-//				while (i > 0 && posList.get(i).getScore() > posList.get(i-1).getScore()) {
-//					Collections.swap(posList, i, i-1);
-//					i--;
-//				}
-//				i = j;
-//			}
-//		}
-//		return posList;
-//	}
+
 	
 	public ArrayList<Position> nullCut(ArrayList<Position> posList, double cutAmount) {
 		for (Position pos: posList) {

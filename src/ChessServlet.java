@@ -1,4 +1,5 @@
 import chessLogic.Engine;
+import chessLogic.Evaluation;
 import chessLogic.Position;
 import chessLogic.Move;
 import org.json.JSONArray;
@@ -9,21 +10,24 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 
-
 public class ChessServlet extends HttpServlet{
 
         private Position currentPosition;
         private Engine chessEngine;
+        private Evaluation evaluate;
 
         public void init() throws ServletException {
             // Do required initialization
 
             currentPosition = new Position();
             chessEngine = new Engine();
+            evaluate = new Evaluation();
         }
 
         public void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
+
+            long startTime = System.currentTimeMillis();
 
             // Set response content type
             //response.setContentType("text/html");
@@ -35,10 +39,11 @@ public class ChessServlet extends HttpServlet{
 
             if (request.getParameter("restart") != null && request.getParameter("restart").equals("true")) {
                 currentPosition = new Position();
+                re.put("restarting", "true");
             } else if (request.getParameter("loadPage") != null && request.getParameter("loadPage").equals("true")) {
                 re.put("loadpagecalled", "nothing");
             } else {
-                if (request.getParameter("userMove").equals("true")) {
+                if (request.getParameter("userMove") != null && request.getParameter("userMove").equals("true")) {
                     int square1 = Integer.valueOf(request.getParameter("square1"));
                     int square2 = Integer.valueOf(request.getParameter("square2"));
                     int xInitial = square1 / 8;
@@ -51,22 +56,52 @@ public class ChessServlet extends HttpServlet{
 
                     if (currentPosition.isLegalMove(currentMove)) {
                         re.put("isLegal", "Yes");
-                        //out.print("i: "+ (currentMove.getxInitial() + currentMove.getyInitial() * 8) + " f: " + (currentMove.getxFinal() + currentMove.getyFinal() * 8) + "Position: ");
+                        if (currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial()) == 1 && currentMove.getxFinal() == 0) {
+                            currentMove.setPromotionID((byte) 5);
+                        }
+
                         currentPosition = currentPosition.positionAfterMove(currentMove);
                         currentPosition.switchTurn();
 
+                        if(currentPosition.getAllLegalMoves().size() == 0) {
+                            double score = evaluate.evaluate(currentPosition);
+                            if (score == 0) {
+                                re.put("gameEnd", "Stalemate");
+                            } else if (score < 0) {
+                                re.put("gameEnd", "BlackWins");
+                            } else if (score > 0) {
+                                re.put("gameEnd", "WhiteWins");
+                            }
+                        }
+
+                        re.put("InitialMoveSquare", square1);
+                        re.put("FinalMoveSquare", square2);
                     } else {
                         re.put("isLegal", "No");
                     }
                 } else {
                     Move currentMove = chessEngine.play(currentPosition);
                     re.put("playedMove", "Computer");
+                    re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
+                    re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
                     //out.print("i: "+ (currentMove.getxInitial() + currentMove.getyInitial() * 8) + " f: " + (currentMove.getxFinal() + currentMove.getyFinal() * 8) + "Position: ");
                     currentPosition = currentPosition.positionAfterMove(currentMove);
                     currentPosition.switchTurn();
+
+                    if(currentPosition.getAllLegalMoves().size() == 0) {
+                        double score = currentPosition.getScore();
+                        if (score == 0) {
+                            re.put("gameEnd", "Stalemate");
+                        } else if (score < 0) {
+                            re.put("gameEnd", "WhiteWins");
+                        } else if (score > 0) {
+                            re.put("gameEnd", "BlackWins");
+                        }
+                    }
                 }
             }
             re.put("position", addPosition(currentPosition));
+            log((System.currentTimeMillis() - startTime) + "");
             out.print(re.toString());
             out.flush();
             out.close();
@@ -95,9 +130,6 @@ public class ChessServlet extends HttpServlet{
             }
             return position;
         }
-
-
-
 
 }
 
