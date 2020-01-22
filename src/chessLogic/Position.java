@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.swing.JOptionPane;
+
 public class Position implements Comparable<Position> {
 
 
@@ -872,6 +874,104 @@ public class Position implements Comparable<Position> {
     	}
     }
 
+    public String toHumanNotation(Move mov) {
+    	int rI = mov.getxInitial();
+		int cI = mov.getyInitial();
+		int rF = mov.getxFinal();
+		int cF = mov.getyFinal();
+    	String moveNotation = "";
+    	
+    	if (getSquare(rI, cI) % 6 == 2) {
+			moveNotation += "N";
+		} else if (getSquare(rI, cI) % 6 == 3) {
+			moveNotation += "B";
+		} else if (getSquare(rI, cI) % 6 == 4) {
+			moveNotation += "R";
+		} else if (getSquare(rI, cI) % 6 == 5) {
+			moveNotation += "Q";
+		} else if (getSquare(rI, cI) % 6 == 0) {
+			moveNotation += "K";
+		}
+    	
+    	ArrayList<Move> allMoves = getAllLegalMoves();
+		for (Move m: allMoves) {
+			if (m.getxFinal() == rF && m.getyFinal() == cF && getSquare(m.getxInitial(), m.getyInitial()) == getSquare(rI, cI) && getSquare(rI, cI) % 6 != 1 && m.getyInitial() != cI) {
+				moveNotation += (char) (cI + 97);
+				break;
+			}
+		}
+		for (Move m: allMoves) {
+			if (m.getxFinal() == rF && m.getyFinal() == cF && getSquare(m.getxInitial(), m.getyInitial()) == getSquare(rI, cI) && getSquare(rI, cI) % 6 != 1 && m.getyInitial() == cI && m.getxInitial() != rI) {
+				moveNotation += 9 - (rI + 1);
+				break;
+			}
+		}
+		if (moveNotation.length() == 3) {
+			boolean needLetter = false;
+			for (Move m: allMoves) {
+				if (m.getxFinal() == rF && m.getyFinal() == cF && getSquare(m.getxInitial(), m.getyInitial()) == getSquare(rI, cI) && getSquare(rI, cI) % 6 != 1 && m.getyInitial() != cI && m.getxInitial() == rI) {
+					needLetter = true;
+					break;
+				}
+			}
+			if (!needLetter) {
+				moveNotation = "" + moveNotation.charAt(0) + moveNotation.charAt(2);
+			}
+		}
+		
+		if (getSquare(rF, cF) != 0) {
+			if (getSquare(rI, cI) % 6 == 1) {
+				moveNotation += (char) (cI + 97);
+			}
+			moveNotation += "x";
+		}
+		
+		if (mov.getPromotionID() != 0) {
+		} else {
+			if ((getSquare(rI, cI) == 1 && rI == 3 && rF == 2 && cI != cF && getSquare(rF, cF) == 0)||(getSquare(rI, cI) == 7 && rI == 4 && rF == 5 && cI != cF && getSquare(rF, cF) == 0)) {
+				moveNotation += (char) (cI + 97);
+				moveNotation += "x";
+			}
+		}
+		
+		moveNotation += mov.toString();
+		
+		if (cI == 4 && cF == 6 && (getSquare(rI,  cI) == 6 || getSquare(rI,  cI) == 12)) {
+			moveNotation = "O-O";
+		} else if (cI == 4 && cF == 2 && (getSquare(rI,  cI) == 6 || getSquare(rI,  cI) == 12)) {
+			moveNotation = "O-O-O";
+		}
+		
+		Position posAM = positionAfterMove(mov);
+		if (posAM.getAllLegalMoves().size() == 0) {
+			//boolean checkmate = false;
+			posAM.setBlackToMove(!isBlackToMove());
+//			int[] kingLocation = pos.findKing(pos);
+//    		int kingR = kingLocation[0];
+//    		int kingC = kingLocation[1];
+//    		ArrayList<Move> potentialLegalMoves = pos.getAllLegalMovesNoCheck();
+//    		for (Move potentialNextMove: potentialLegalMoves) {
+//    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
+//    				checkmate = true;
+//    				break;
+//    			}
+//    		}
+			if (posAM.inCheck(posAM)) {
+				moveNotation += "#";
+			} else {
+			}
+		} else {
+			posAM.setBlackToMove(!posAM.isBlackToMove());
+			if (posAM.inCheck(posAM)) {
+				moveNotation += "+";
+			}
+			posAM.setBlackToMove(!posAM.isBlackToMove());
+		}
+		
+		return moveNotation;
+    }
+    
+    
     public String toString() {
     	StringBuilder sb = new StringBuilder();
     	for (int i = 0; i < 8; i++) {
@@ -922,14 +1022,14 @@ public class Position implements Comparable<Position> {
     
     private byte[][] inputCustomPosition() {
     	return new byte[][] {
-				{0, 11, 0, 0, 12, 0, 0, 11},
+				{0, 0, 0, 0, 0, 0, 12, 0},
+				{0, 0, 0, 0, 0, 0, 7, 0},
+				{0, 7, 0, 0, 0, 0, 0, 7},
 				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 6, 0, 0, 0}
+				{0, 0, 0, 0, 0, 0, 0, 1},
+				{0, 0, 0, 0, 0, 0, 1, 0},
+				{0, 0, 0, 0, 0, 1, 0, 0},
+				{0, 0, 0, 0, 0, 0, 6, 0}
 			};
     }
 }
