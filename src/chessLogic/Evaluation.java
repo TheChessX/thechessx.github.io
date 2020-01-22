@@ -3,10 +3,6 @@ package chessLogic;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-
-
-
-
 public class Evaluation {
 	//Piece Values
 	public final double pawnV = 1;
