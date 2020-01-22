@@ -1,4 +1,4 @@
-package chessLogic;
+package data;
 
 
 public class Move {
@@ -76,6 +76,10 @@ public class Move {
         } else {
             return false;
         }
+    }
+    
+    public String toRawString() {
+    	return "" + (char) (yInitial + 97) + (9 - (xInitial + 1)) + (char) (yFinal + 97) + (9 - (xFinal + 1)) + promotionID;
     }
     
     public byte getPromotionID() {
