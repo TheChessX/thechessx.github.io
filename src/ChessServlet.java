@@ -13,14 +13,14 @@ import javax.servlet.http.*;
 public class ChessServlet extends HttpServlet{
 
         private Position currentPosition;
-        private Engine chessEngine;
+        private Engine engine;
         private Evaluation evaluate;
 
         public void init() throws ServletException {
             // Do required initialization
 
             currentPosition = new Position();
-            chessEngine = new Engine();
+            engine = new Engine();
             evaluate = new Evaluation();
         }
 
@@ -39,6 +39,8 @@ public class ChessServlet extends HttpServlet{
 
             if (request.getParameter("restart") != null && request.getParameter("restart").equals("true")) {
                 currentPosition = new Position();
+                engine = new Engine();
+                evaluate = new Evaluation();
                 re.put("restarting", "true");
             } else if (request.getParameter("loadPage") != null && request.getParameter("loadPage").equals("true")) {
                 re.put("loadpagecalled", "nothing");
@@ -58,6 +60,36 @@ public class ChessServlet extends HttpServlet{
                         re.put("isLegal", "Yes");
                         if (currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial()) == 1 && currentMove.getxFinal() == 0) {
                             currentMove.setPromotionID((byte) 5);
+                        }
+
+                        if (engine.isTheory()) {
+
+                            String lastMove = currentPosition.toHumanNotation(currentMove);
+
+                            boolean moveFound = false;
+                            int totalRows = engine.getWb().getSheetAt(1).getPhysicalNumberOfRows();
+                            if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals(lastMove)) {
+                                engine.setWbCol(engine.getWbCol() + 1);
+                                moveFound = true;
+                            } else {
+                                engine.setWbRow(engine.getWbRow() + 1);
+                                while (engine.getWbRow() < totalRows && !(engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()) == null) && (engine.getWbCol() == 0 || engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol() - 1).toString().equals("-"))) {
+                                    if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals(lastMove)) {
+                                        engine.setWbCol(engine.getWbCol() + 1);
+                                        moveFound = true;
+                                        break;
+                                    }
+                                    engine.setWbRow(engine.getWbRow() + 1);
+                                }
+                            }
+
+                            //System.out.println(engine.getWbRow() + " " + engine.getWbCol());
+
+                            if (!moveFound) {
+                                engine.setTheory(false);
+                            } else if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals("-")) {
+                                engine.setTheory(false);
+                            }
                         }
 
                         currentPosition = currentPosition.positionAfterMove(currentMove);
@@ -80,7 +112,7 @@ public class ChessServlet extends HttpServlet{
                         re.put("isLegal", "No");
                     }
                 } else {
-                    Move currentMove = chessEngine.play(currentPosition);
+                    Move currentMove = engine.play(currentPosition);
                     re.put("playedMove", "Computer");
                     re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
                     re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());

@@ -45,7 +45,6 @@ function extra(secondSquareClicked) {
 function parseRequest(data) {
     window._data = data;
 
-
     if (window._data.restarting != null && window._data.restarting == "true") {
         if (document.getElementById("message") != null) {
             document.getElementById("message").remove();
@@ -57,7 +56,7 @@ function parseRequest(data) {
 
     for (var i = 0; i < 64; i++) {
         if (squares[i].className == "blackSquare square") {
-            squares[i].style.backgroundColor = "Purple";
+            squares[i].style.backgroundColor = "rgb(0, 100, 200)";
         }
         if (squares[i].className == "whiteSquare square") {
             squares[i].style.backgroundColor = "whitesmoke";
