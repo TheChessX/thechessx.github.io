@@ -1,7 +1,4 @@
-import chessLogic.Engine;
-import chessLogic.Evaluation;
-import chessLogic.Position;
-import chessLogic.Move;
+import chessLogic.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -112,11 +109,14 @@ public class ChessServlet extends HttpServlet{
                         re.put("isLegal", "No");
                     }
                 } else {
-                    Move currentMove = engine.play(currentPosition);
+                    MoveAndExplanation moveAndEx = engine.playAndExplain(currentPosition);
+                    Move currentMove = moveAndEx.getMove();
                     re.put("playedMove", "Computer");
                     re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
                     re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
-                    //out.print("i: "+ (currentMove.getxInitial() + currentMove.getyInitial() * 8) + " f: " + (currentMove.getxFinal() + currentMove.getyFinal() * 8) + "Position: ");
+
+                    re.put("MoveExplanation", moveAndEx.getExplanation());
+
                     currentPosition = currentPosition.positionAfterMove(currentMove);
                     currentPosition.switchTurn();
 

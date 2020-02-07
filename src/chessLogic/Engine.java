@@ -168,7 +168,7 @@ public class Engine {
 		}
 		System.out.println("Evaluation: " + bestMove.getScore());
 		System.out.println("Move: " + bestMove);
-		return new MoveAndExplanation(bestMove, "This was the move that the engine found.");
+		return new MoveAndExplanation(bestMove, "This was the move that the engine found. Evaluation is " + bestMove.getScore());
 	}
 
 

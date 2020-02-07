@@ -45,6 +45,10 @@ function extra(secondSquareClicked) {
 function parseRequest(data) {
     window._data = data;
 
+    if (document.getElementById("explanation") != null) {
+        document.getElementById("explanation").remove();
+    }
+
     if (window._data.restarting != null && window._data.restarting == "true") {
         if (document.getElementById("message") != null) {
             document.getElementById("message").remove();
@@ -119,6 +123,12 @@ function parseRequest(data) {
                         parseRequest(data);
                     });
                 }
+            } else if (window._data.playedMove == "Computer") {
+                var explanation = document.createElement("p");
+                explanation.id = "explanation";
+                explanation.innerText = window._data.MoveExplanation;
+                explanation.style.fontSize = '150%';
+                document.getElementById("explanationDiv").appendChild(explanation);
             }
             squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
             squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";
