@@ -45,6 +45,9 @@ function extra(secondSquareClicked) {
 function parseRequest(data) {
     window._data = data;
 
+    if (document.getElementById("explanation") != null) {
+        document.getElementById("explanation").remove();
+    }
 
     if (window._data.restarting != null && window._data.restarting == "true") {
         if (document.getElementById("message") != null) {
@@ -57,7 +60,7 @@ function parseRequest(data) {
 
     for (var i = 0; i < 64; i++) {
         if (squares[i].className == "blackSquare square") {
-            squares[i].style.backgroundColor = "Purple";
+            squares[i].style.backgroundColor = "rgb(0, 100, 200)";
         }
         if (squares[i].className == "whiteSquare square") {
             squares[i].style.backgroundColor = "whitesmoke";
@@ -120,6 +123,12 @@ function parseRequest(data) {
                         parseRequest(data);
                     });
                 }
+            } else if (window._data.playedMove == "Computer") {
+                var explanation = document.createElement("p");
+                explanation.id = "explanation";
+                explanation.innerText = window._data.MoveExplanation;
+                explanation.style.fontSize = '150%';
+                document.getElementById("explanationDiv").appendChild(explanation);
             }
             squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
             squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";

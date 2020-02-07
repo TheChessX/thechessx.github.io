@@ -8,16 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ChessXTheory.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,21 +63,21 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$USER_HOME$/Downloads" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="chessLogic" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/lib" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="chessLogic" />
     </key>
   </component>
   <component name="RunManager">
@@ -190,7 +192,8 @@
       <workItem from="1578605132240" duration="2163000" />
       <workItem from="1578938172597" duration="15071000" />
       <workItem from="1579380807089" duration="7287000" />
-      <workItem from="1579652964921" duration="3488000" />
+      <workItem from="1579652964921" duration="9692000" />
+      <workItem from="1579804092726" duration="9924000" />
     </task>
     <servers />
   </component>
@@ -226,6 +229,10 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="320" y="101" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable/0.23.1440.823@0.23.1440.823" timestamp="1577769321947" />
+    <state x="558" y="152" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1579716397389">
+      <screen x="0" y="23" width="1440" height="816" />
+    </state>
+    <state x="558" y="152" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.23.1440.816@0.23.1440.816" timestamp="1579716397389" />
     <state x="445" y="181" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579626596542">
       <screen x="0" y="23" width="1440" height="825" />
     </state>
@@ -306,18 +313,19 @@
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694479" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245458" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555332" />
-    <state x="206" y="23" width="1024" height="814" key="SettingsEditor" timestamp="1579129875730">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state x="208" y="23" width="1024" height="814" key="SettingsEditor" timestamp="1579746464182">
+      <screen x="0" y="23" width="1440" height="828" />
     </state>
     <state x="208" y="23" width="1024" height="814" key="SettingsEditor/0.23.1440.814@0.23.1440.814" timestamp="1578332359039" />
-    <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1577945903490" />
+    <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1579717256547" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1577932052683" />
     <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1579129875730" />
-    <state x="376" y="267" key="com.intellij.ide.util.TipDialog" timestamp="1579652972636">
+    <state x="208" y="23" key="SettingsEditor/0.23.1440.828@0.23.1440.828" timestamp="1579746464182" />
+    <state x="376" y="269" key="com.intellij.ide.util.TipDialog" timestamp="1579826399776">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.814@0.23.1440.814" timestamp="1578941067567" />
-    <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1579652972636" />
+    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1579826399776" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1577929234891" />
     <state x="496" y="350" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578023336433">
       <screen x="0" y="23" width="1440" height="816" />
@@ -327,9 +335,10 @@
       <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state x="114" y="35" key="new project wizard/0.23.1440.814@0.23.1440.814" timestamp="1578331990145" />
-    <state x="371" y="161" width="670" height="676" key="search.everywhere.popup" timestamp="1578504127461">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="371" y="162" width="670" height="683" key="search.everywhere.popup" timestamp="1580836931978">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="371" y="161" width="670" height="676" key="search.everywhere.popup/0.23.1440.814@0.23.1440.814" timestamp="1578504127461" />
+    <state x="371" y="162" width="670" height="683" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1580836931978" />
   </component>
 </project>

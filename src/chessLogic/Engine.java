@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-import data.Move;
-import data.Position;
+import chessLogic.Move;
+import chessLogic.Position;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,12 +32,15 @@ public class Engine {
 	private int wbRow = 0;
 	private int wbCol = 0;
 	private HashMap<String, PosInfo> map = new HashMap();
+
+	private int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+
 	//Opening Mode
 	//-1 Engine does not use theory
 	// 0 Engine plays top theory move only (most lines)
 	// 1 Engine plays random theory move, weighted by depth of theory (RECOMMENDED)
 	// 2 Engine plays random theory move
-	private int openingMode = 1;
+	private int openingMode = 0;
 	
 	public Engine() {
 		this.eval = new Evaluation();
@@ -46,15 +49,131 @@ public class Engine {
 			theory = false;
 		}
 		try {
-			InputStream inputStream = new FileInputStream(new File("./src/ChessXTheory.xlsx"));
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("chessLogic/ChessXTheory.xlsx");
+			//new FileInputStream(new File("chessLogic/ChessXTheory.xlsx"));
 			setWb(WorkbookFactory.create(inputStream));
 			System.out.println("Theory loaded");
 		} catch (Exception e) {
 			System.out.println("Excel file error");
 		}
 	}
-	
+
+	public MoveAndExplanation playAndExplain(Position pos) {
+		long startTime = System.currentTimeMillis();
+		if (isTheory()) {
+			ArrayList<Integer> tRows = new ArrayList<Integer>();
+			int totalRows = wb.getSheetAt(1).getPhysicalNumberOfRows();
+			tRows.add(wbRow);
+			int lastGoodRow = wbRow;
+			wbRow++;
+			while (wbRow < totalRows && !(wb.getSheetAt(1).getRow(wbRow).getCell(wbCol) == null) && (wbCol == 0 || wb.getSheetAt(1).getRow(wbRow).getCell(wbCol - 1).toString().equals("-"))) {
+				//System.out.println(wbRow + " " + wbCol);
+				if (!wb.getSheetAt(1).getRow(wbRow).getCell(wbCol).toString().equals("-")) {
+					tRows.add(wbRow);
+					lastGoodRow = wbRow;
+				} else {
+					if (openingMode == 0 || openingMode == 1) {
+						tRows.add(lastGoodRow);
+					}
+				}
+				wbRow++;
+			}
+			if (openingMode == 1 || openingMode == 2) {
+				wbRow = tRows.get((int) (Math.random() * tRows.size()));
+			} else if (openingMode == 0) {
+				int currentRow = tRows.get(0);
+				int bestRow = tRows.get(0);
+				int max = 0;
+				int count = 0;
+				for (int r: tRows) {
+					if (r == currentRow) {
+						count++;
+						if (count > max) {
+							max = count;
+							bestRow = r;
+						}
+					} else {
+						currentRow = r;
+						count = 0;
+					}
+				}
+				wbRow = bestRow;
+			}
+			String tMove = wb.getSheetAt(1).getRow(wbRow).getCell(wbCol).toString();
+			Move theoryMove = new Move(0, 0, 0, 0);
+			ArrayList<Move> movesO = pos.getAllLegalMoves();
+			for (Move m: movesO) {
+				if (pos.toHumanNotation(m).equals(tMove)) {
+					theoryMove = m;
+					break;
+				}
+			}
+//			int yInitial = (int) tMove.charAt(0) - 97;
+//			int xInitial = 56 - tMove.charAt(1);
+//			int yFinal = (int) tMove.charAt(2) - 97;
+//			int xFinal = 56 - tMove.charAt(3);
+//			int promotionID = 0;
+//			if (tMove.length() > 4) {
+//				promotionID = tMove.charAt(4);
+//			}
+//			Move theoryMove = new Move(xInitial, yInitial, xFinal, yFinal, (byte) promotionID);
+
+			wbCol++;
+			if (wb.getSheetAt(1).getRow(wbRow).getCell(wbCol).toString().equals("-")) {
+				theory = false;
+			}
+			return new MoveAndExplanation(theoryMove, "This move is theory.");
+		}
+
+		eval.count = 0;
+		if (eval.evaluatePieceValueNoPawns(pos) <= 18) {
+			eval.setEndgame(true);
+			presetDepth = 4;
+		} else {
+			eval.setEndgame(false);
+			presetDepth = 4;
+		}
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		ArrayList<Position> positions = new ArrayList<Position>();
+		for (Move m: moves) {
+			positions.add(pos.positionAfterMove(m));
+		}
+		for (int i = 0; i < moves.size(); i++) {
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1));
+		}
+		Collections.sort(positions);
+		for (int i = 0; i < moves.size(); i++) {
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
+			if (moves.get(i).getScore() == 1000000 * presetDepth) {
+				break;
+			}
+			if (System.currentTimeMillis() - startTime > MAX_TIME) {
+				break;
+			}
+		}
+
+		Move bestMove = moves.get(0);
+		if (pos.isBlackToMove()) {
+			for (Move m: moves) {
+				if (m.getScore() < bestMove.getScore()) {
+					bestMove = m;
+				}
+			}
+		} else {
+			for (Move m: moves) {
+				if (m.getScore() > bestMove.getScore()) {
+					bestMove = m;
+				}
+			}
+		}
+		System.out.println("Evaluation: " + bestMove.getScore());
+		System.out.println("Move: " + bestMove);
+		return new MoveAndExplanation(bestMove, "This was the move that the engine found. Evaluation is " + bestMove.getScore());
+	}
+
+
 	public Move play(Position pos) {
+		long startTime = System.currentTimeMillis();
 		if (isTheory()) {
 			ArrayList<Integer> tRows = new ArrayList<Integer>();
 			int totalRows = wb.getSheetAt(1).getPhysicalNumberOfRows();
@@ -119,10 +238,11 @@ public class Engine {
 			}
 			return theoryMove;
 		}
+
 		eval.count = 0;
 		if (eval.evaluatePieceValueNoPawns(pos) <= 18) {
 			eval.setEndgame(true);
-			presetDepth = 6;
+			presetDepth = 4;
 		} else {
 			eval.setEndgame(false);
 			presetDepth = 4;
@@ -132,10 +252,16 @@ public class Engine {
 		for (Move m: moves) {
 			positions.add(pos.positionAfterMove(m));
 		}
+		for (int i = 0; i < moves.size(); i++) {
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1));
+		}
 		Collections.sort(positions);
 		for (int i = 0; i < moves.size(); i++) {
 			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
 			if (moves.get(i).getScore() == 1000000 * presetDepth) {
+				break;
+			}
+			if (System.currentTimeMillis() - startTime > MAX_TIME) {
 				break;
 			}
 		}
@@ -154,6 +280,8 @@ public class Engine {
 				}
 			}
 		}
+		System.out.println("Evaluation: " + bestMove.getScore());
+		System.out.println("Move: " + bestMove);
 		return bestMove;
 	}
 	
@@ -183,7 +311,7 @@ public class Engine {
 		long startTime = System.nanoTime();
 		ArrayList<Position> posList1 = pos.getNextPositions();
 		long timetaken = System.nanoTime() - startTime;
-		System.out.println("MoveFinding: " + timetaken + "    "  + pos);
+		//System.out.println("MoveFinding: " + timetaken + "    "  + pos);
 		
 		if (posList1.size() == 0) {
 			//System.out.println(pos.getScore() * (depth + 1));
