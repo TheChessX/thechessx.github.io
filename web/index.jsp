@@ -11,7 +11,7 @@
     <title>ChessX</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?10">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?15" type="text/javascript"></script>
+    <script src="master.js?16" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
@@ -167,5 +167,6 @@
       </div>
     </div>
   <button id = "RestartButton">Restart Game</button>
+  <button id = "TestButton">Test Engine</button>
   </body>
 </html>

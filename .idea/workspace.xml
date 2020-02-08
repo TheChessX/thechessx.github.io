@@ -7,7 +7,25 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="" />
+    <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/TestPlay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,7 +85,11 @@
       <recent name="chessLogic" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JAR Application.xmlbeans-2.6.0.jar">
+    <configuration name="xmlbeans-2.6.0.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/lib/xmlbeans-2.6.0.jar" />
+      <method v="2" />
+    </configuration>
     <configuration name="TomcatServ" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.30" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="13">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/WebChess_war_exploded/" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -141,6 +163,11 @@
         </option>
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.xmlbeans-2.6.0.jar" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -180,7 +207,9 @@
       <workItem from="1578938172597" duration="15071000" />
       <workItem from="1579380807089" duration="7287000" />
       <workItem from="1579652964921" duration="9692000" />
-      <workItem from="1579804092726" duration="10272000" />
+      <workItem from="1579804092726" duration="16968000" />
+      <workItem from="1581182826513" duration="2936000" />
+      <workItem from="1581199827073" duration="1481000" />
     </task>
     <servers />
   </component>
@@ -224,33 +253,41 @@
       <screen x="0" y="23" width="1440" height="825" />
     </state>
     <state x="445" y="181" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.825@0.23.1440.825" timestamp="1579626596542" />
-    <state width="1358" height="199" key="GridCell.Tab.0.bottom" timestamp="1578502902588">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="299" y="33" key="CommitChangelistDialog2" timestamp="1581096455084">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="299" y="33" key="CommitChangelistDialog2/0.23.1440.822@0.23.1440.822" timestamp="1581096455084" />
+    <state width="1400" height="205" key="GridCell.Tab.0.bottom" timestamp="1581096151455">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
     <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1577942245456" />
+    <state width="1400" height="205" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1581096151455" />
     <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1577769555455" />
-    <state width="1358" height="199" key="GridCell.Tab.0.center" timestamp="1578502902587">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state width="1400" height="205" key="GridCell.Tab.0.center" timestamp="1581096151454">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
     <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1577942245455" />
+    <state width="1400" height="205" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1581096151454" />
     <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1577769555454" />
-    <state width="1358" height="199" key="GridCell.Tab.0.left" timestamp="1578502902587">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state width="1400" height="205" key="GridCell.Tab.0.left" timestamp="1581096151453">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
     <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1577945694476" />
     <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1577942245455" />
+    <state width="1400" height="205" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1581096151453" />
     <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1577769555454" />
-    <state width="1358" height="199" key="GridCell.Tab.0.right" timestamp="1578502902588">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state width="1400" height="205" key="GridCell.Tab.0.right" timestamp="1581096151455">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
     <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245456" />
+    <state width="1400" height="205" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1581096151455" />
     <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555455" />
     <state width="1055" height="199" key="GridCell.Tab.1.bottom" timestamp="1577945694478">
       <screen x="0" y="23" width="1440" height="816" />
@@ -308,12 +345,12 @@
     <state x="208" y="23" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1577932052683" />
     <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1579129875730" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.828@0.23.1440.828" timestamp="1579746464182" />
-    <state x="376" y="269" key="com.intellij.ide.util.TipDialog" timestamp="1579826399776">
+    <state x="376" y="269" key="com.intellij.ide.util.TipDialog" timestamp="1581199853672">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.814@0.23.1440.814" timestamp="1578941067567" />
-    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1579826399776" />
-    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1577929234891" />
+    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1581199853672" />
+    <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1581182827234" />
     <state x="496" y="350" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578023336433">
       <screen x="0" y="23" width="1440" height="816" />
     </state>

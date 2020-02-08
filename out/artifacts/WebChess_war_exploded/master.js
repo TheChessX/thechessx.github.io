@@ -19,6 +19,14 @@ window.onload = function() {
                 parseRequest(data);
         });
     });
+    document.getElementById("TestButton").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                test:true
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
+    });
 };
 
 function extra(secondSquareClicked) {
@@ -69,7 +77,6 @@ function parseRequest(data) {
             squares[i].removeChild(squares[i].children[0]);
         }
         var pieceAtPosI = data.position[Math.floor(i / 8)][i % 8];
-        //console.log(data.position[i/8]);
         if (pieceAtPosI != 0) {
             var image = document.createElement("img");
             image.setAttribute('src', "/img/" + pieceAtPosI + ".png");
@@ -97,7 +104,7 @@ function parseRequest(data) {
         var playAgain = document.createElement("button");
         playAgain.id = "playAgain";
         playAgain.innerText = "Click here to play another game";
-        playAgain.style.fontSize = '150%';
+        //playAgain.style.fontSize = '150%';
         playAgain.addEventListener("click", function () {
             $.post("Hello",
                 {
@@ -107,6 +114,17 @@ function parseRequest(data) {
             });
         });
         document.getElementById("headingID").appendChild(playAgain);
+    } else if (window._data.testing != null && window._data.testing == "true") {
+        if (window._data.InitialMoveSquare != null && window._data.FinalMoveSquare != null) {
+            squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
+            squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";
+        }
+        $.post("Hello",
+            {
+                TestingStill : "true"
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
     } else {
 
         if (window._data.playedMove != null) {

@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-import chessLogic.Move;
-import chessLogic.Position;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,14 +30,16 @@ public class Engine {
 	private int wbCol = 0;
 	private HashMap<String, PosInfo> map = new HashMap();
 
-	private int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	private int MAX_TIME = 120000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+
+	private int duplicateCount = 0;
 
 	//Opening Mode
 	//-1 Engine does not use theory
 	// 0 Engine plays top theory move only (most lines)
 	// 1 Engine plays random theory move, weighted by depth of theory (RECOMMENDED)
 	// 2 Engine plays random theory move
-	private int openingMode = 0;
+	private int openingMode = 2;
 	
 	public Engine() {
 		this.eval = new Evaluation();
@@ -50,7 +49,6 @@ public class Engine {
 		}
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("chessLogic/ChessXTheory.xlsx");
-			//new FileInputStream(new File("chessLogic/ChessXTheory.xlsx"));
 			setWb(WorkbookFactory.create(inputStream));
 			System.out.println("Theory loaded");
 		} catch (Exception e) {
@@ -139,11 +137,11 @@ public class Engine {
 			positions.add(pos.positionAfterMove(m));
 		}
 		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1));
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1, startTime));
 		}
 		Collections.sort(positions);
 		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1, startTime));
 			if (moves.get(i).getScore() == 1000000 * presetDepth) {
 				break;
 			}
@@ -173,6 +171,7 @@ public class Engine {
 
 
 	public Move play(Position pos) {
+		System.out.println("Normal Engine is playing");
 		long startTime = System.currentTimeMillis();
 		if (isTheory()) {
 			ArrayList<Integer> tRows = new ArrayList<Integer>();
@@ -236,6 +235,7 @@ public class Engine {
 			if (wb.getSheetAt(1).getRow(wbRow).getCell(wbCol).toString().equals("-")) {
 				theory = false;
 			}
+			System.out.println("Playing Theory.");
 			return theoryMove;
 		}
 
@@ -253,11 +253,12 @@ public class Engine {
 			positions.add(pos.positionAfterMove(m));
 		}
 		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1));
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1, startTime));
 		}
+		System.out.println("Initial sort done");
 		Collections.sort(positions);
 		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1));
+			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1, startTime));
 			if (moves.get(i).getScore() == 1000000 * presetDepth) {
 				break;
 			}
@@ -285,20 +286,23 @@ public class Engine {
 		return bestMove;
 	}
 	
-	public double treeEvalNX(Position pos, double alpha, double beta, int depth) {
-//		if (map.containsKey(pos.toString())) {
-//			if (map.get(pos.toString()).getDepthSearched() >= depth) {
-//			//System.out.println("Duplicate position found");
-//			return map.get(pos.toString()).getScore();
-//
-//			}
-//		}
-//
-//		PosInfo info = new PosInfo();
-//		info.setPos(pos);
-//		info.setDepthSearched(0);
-//		info.setScore(pos.getScore());
-//		map.put(pos.toString(), info);
+	public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis) {
+		if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) {
+			if (pos.getScore() != Double.MAX_VALUE) {
+				return pos.getScore();
+			} else {
+				return eval.evaluate(pos);
+			}
+		}
+		if (map.containsKey(pos.toString())) {
+			if (map.get(pos.toString()).getDepthSearched() >= depth) {
+				if (duplicateCount % 1000 == 0) {
+					System.out.println("1000 Duplicate position found");
+				}
+				duplicateCount++;
+				return map.get(pos.toString()).getScore();
+			}
+		}
 
 		if (depth == 0) {
 			//long startTime = System.nanoTime();
@@ -308,9 +312,9 @@ public class Engine {
 			return score;
 			//return eval.evaluate(pos);
 		}
-		long startTime = System.nanoTime();
+		//long startTime = System.nanoTime();
 		ArrayList<Position> posList1 = pos.getNextPositions();
-		long timetaken = System.nanoTime() - startTime;
+		//long timetaken = System.nanoTime() - startTime;
 		//System.out.println("MoveFinding: " + timetaken + "    "  + pos);
 		
 		if (posList1.size() == 0) {
@@ -339,21 +343,34 @@ public class Engine {
 		if (pos.isBlackToMove()) {
 			score = 1000000 * depth + 1;
 			for (Position pos1: posList1) {
-				double pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1);
+				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
+				double pos1Score;
+//				if (criticality > 2.5) {
+//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
+//				} else {
+					pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+				//}
 				if (pos1Score < score) {
-					score = pos1Score;
+						score = pos1Score;
 				}
 				if (score < beta) {
-					beta = score;
+						beta = score;
 				}
 				if (alpha >= beta) {
-					break;
+						break;
 				}
+
 			}
 		} else {
 			score = -1000000 * depth - 1;
 			for (Position pos1: posList1) {
-				double pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1);
+				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
+				double pos1Score;
+//				if (criticality > 2.5) {
+//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
+//				} else {
+					pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+				//}
 				if (pos1Score > score) {
 					score = pos1Score;
 				}
@@ -365,26 +382,33 @@ public class Engine {
 				}
 			}
 		}
+
+		PosInfo info = new PosInfo();
+		//info.setPos(pos);
+		info.setDepthSearched(depth);
+		info.setScore(score);
+		map.put(pos.toString(), info);
+
 		return score;
 	}
 
 	
-	public ArrayList<Position> nullCut(ArrayList<Position> posList, double cutAmount) {
-		for (Position pos: posList) {
-			pos.switchTurn();
-			pos.setScore(treeEvalNX(pos, -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1));
-		}
-		Collections.sort(posList);
-		int size = posList.size();
-		for (int i = 0; i < size * cutAmount; i++) {
-			posList.remove(0);
-		}
-		for (Position pos: posList) {
-			pos.setScore(Double.MAX_VALUE);
-			pos.switchTurn();
-		}
-		return posList;
-	}
+//	public ArrayList<Position> nullCut(ArrayList<Position> posList, double cutAmount) {
+//		for (Position pos: posList) {
+//			pos.switchTurn();
+//			pos.setScore(treeEvalNX(pos, -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1,));
+//		}
+//		Collections.sort(posList);
+//		int size = posList.size();
+//		for (int i = 0; i < size * cutAmount; i++) {
+//			posList.remove(0);
+//		}
+//		for (Position pos: posList) {
+//			pos.setScore(Double.MAX_VALUE);
+//			pos.switchTurn();
+//		}
+//		return posList;
+//	}
 
 	public Workbook getWb() {
 		return wb;
