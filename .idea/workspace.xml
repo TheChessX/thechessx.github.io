@@ -8,22 +8,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/TestPlay.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/TestPlay.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/TestPlay.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestPlay.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +207,7 @@
       <workItem from="1579652964921" duration="9692000" />
       <workItem from="1579804092726" duration="16968000" />
       <workItem from="1581182826513" duration="2936000" />
-      <workItem from="1581199827073" duration="1481000" />
+      <workItem from="1581199827073" duration="2716000" />
     </task>
     <servers />
   </component>
@@ -237,9 +235,10 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="549" y="161" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog/0.23.1440.823@0.23.1440.823" timestamp="1579129872077" />
-    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1579626693550">
-      <screen x="0" y="23" width="1440" height="825" />
+    <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser" timestamp="1581213253454">
+      <screen x="0" y="23" width="1440" height="816" />
     </state>
+    <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser/0.23.1440.816@0.23.1440.816" timestamp="1581213253454" />
     <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.825@0.23.1440.825" timestamp="1579626693550" />
     <state x="320" y="101" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1577769321947">
       <screen x="0" y="23" width="1440" height="823" />

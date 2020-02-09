@@ -89,7 +89,7 @@ function parseRequest(data) {
     var gameEnd = window._data.gameEnd;
     if (gameEnd != null) {
         console.log("Game has ended");
-        var message = document.createElement("h1");
+        var message = document.createElement("h3");
         message.id = "message";
         if (gameEnd == "WhiteWins") {
             message.innerText = "You Won!"

@@ -21,25 +21,25 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class Engine {
-	private Evaluation eval;
-	private int presetDepth;
+	protected Evaluation eval;
+	protected int presetDepth;
 	
-	private boolean theory = true;
-	private Workbook wb;
-	private int wbRow = 0;
-	private int wbCol = 0;
-	private HashMap<String, PosInfo> map = new HashMap();
+	protected boolean theory = true;
+	protected Workbook wb;
+	protected int wbRow = 0;
+	protected int wbCol = 0;
+	protected HashMap<String, PosInfo> map = new HashMap();
 
-	private int MAX_TIME = 120000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	protected int MAX_TIME = 120000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
-	private int duplicateCount = 0;
+	protected int duplicateCount = 0;
 
 	//Opening Mode
 	//-1 Engine does not use theory
 	// 0 Engine plays top theory move only (most lines)
 	// 1 Engine plays random theory move, weighted by depth of theory (RECOMMENDED)
 	// 2 Engine plays random theory move
-	private int openingMode = 2;
+	protected int openingMode = 2;
 	
 	public Engine() {
 		this.eval = new Evaluation();
