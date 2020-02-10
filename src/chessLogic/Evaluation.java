@@ -49,7 +49,10 @@ public class Evaluation {
 
 	//Bishops
 	public double bishopPair = 0.5;
-	
+
+	//Mobility
+	public double mobilityScore = 0.01;
+
 	public int count = 0;
 	
 	private boolean endgame = false;
@@ -409,7 +412,7 @@ public class Evaluation {
 	}
 	
 	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
-		double score = moves.size()/100.0;
+		double score = moves.size() * mobilityScore;
 		if (pos.isBlackToMove()) {
 			score *= -1;
 		}
