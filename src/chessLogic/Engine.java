@@ -30,7 +30,7 @@ public class Engine {
 	protected int wbCol = 0;
 	protected HashMap<String, PosInfo> map = new HashMap();
 
-	protected int MAX_TIME = 120000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	protected int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
 	protected int duplicateCount = 0;
 
@@ -39,7 +39,7 @@ public class Engine {
 	// 0 Engine plays top theory move only (most lines)
 	// 1 Engine plays random theory move, weighted by depth of theory (RECOMMENDED)
 	// 2 Engine plays random theory move
-	protected int openingMode = 2;
+	protected int openingMode = 1;
 	
 	public Engine() {
 		this.eval = new Evaluation();
@@ -166,7 +166,7 @@ public class Engine {
 		}
 		System.out.println("Evaluation: " + bestMove.getScore());
 		System.out.println("Move: " + bestMove);
-		return new MoveAndExplanation(bestMove, "This was the move that the engine found. Evaluation is " + bestMove.getScore());
+		return new MoveAndExplanation(bestMove, "Computer's evaluation is " + bestMove.getScore() + ".");
 	}
 
 
@@ -388,6 +388,8 @@ public class Engine {
 		info.setDepthSearched(depth);
 		info.setScore(score);
 		map.put(pos.toString(), info);
+
+
 
 		return score;
 	}

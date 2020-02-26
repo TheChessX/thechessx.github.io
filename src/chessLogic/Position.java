@@ -1007,6 +1007,23 @@ public class Position implements Comparable<Position> {
 		return result;
 	}
 
+	public String getPieceNotation(int byteValue) {
+    	if (byteValue == 1 || byteValue == 7) {
+    		return "";
+		} else if (byteValue == 2 || byteValue == 8) {
+    		return "N";
+		} else if (byteValue == 3 || byteValue == 9) {
+    		return "B";
+		} else if (byteValue == 4 || byteValue == 10) {
+    		return "R";
+		} else if (byteValue == 5 || byteValue == 11) {
+    		return "Q";
+		} else if (byteValue == 6 || byteValue == 12) {
+    		return "K";
+		}
+    	return "Not a piece.";
+	}
+
 	private byte[][] inputStartingPieces() {
     	return new byte[][] {
 				{10, 8, 9, 11, 12, 9, 8, 10},

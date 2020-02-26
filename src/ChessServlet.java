@@ -3,6 +3,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,6 +17,7 @@ public class ChessServlet extends HttpServlet{
         private boolean testingMode = false;
         private boolean firstEngineMove = true;
         private TestEngine testEngine;
+        private int moveNumber = 0;
 
 
         public void init() throws ServletException {
@@ -86,10 +88,12 @@ public class ChessServlet extends HttpServlet{
                 }
                 re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
                 re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
-
+                re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
+                re.put("MoveNumber", moveNumber);
                 firstEngineMove = !firstEngineMove;
                 currentPosition = currentPosition.positionAfterMove(currentMove);
                 currentPosition.switchTurn();
+                moveNumber++;
             } else {
                 if (request.getParameter("userMove") != null && request.getParameter("userMove").equals("true")) {
                     int square1 = Integer.valueOf(request.getParameter("square1"));
@@ -108,10 +112,16 @@ public class ChessServlet extends HttpServlet{
                             currentMove.setPromotionID((byte) 5);
                         }
 
+                        re.put("InitialMoveSquare", square1);
+                        re.put("FinalMoveSquare", square2);
+                        re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(xInitial, yInitial)));
+                        re.put("MoveNumber", moveNumber);
+
                         theoryUpdate(engine, currentMove);
 
                         currentPosition = currentPosition.positionAfterMove(currentMove);
                         currentPosition.switchTurn();
+                        moveNumber++;
 
                         if(currentPosition.getAllLegalMoves().size() == 0) {
                             double score = evaluate.evaluate(currentPosition);
@@ -124,8 +134,8 @@ public class ChessServlet extends HttpServlet{
                             }
                         }
 
-                        re.put("InitialMoveSquare", square1);
-                        re.put("FinalMoveSquare", square2);
+
+
                     } else {
                         re.put("isLegal", "No");
                     }
@@ -135,11 +145,14 @@ public class ChessServlet extends HttpServlet{
                     re.put("playedMove", "Computer");
                     re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
                     re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
+                    re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
+                    re.put("MoveNumber", moveNumber);
 
                     re.put("MoveExplanation", moveAndEx.getExplanation());
 
                     currentPosition = currentPosition.positionAfterMove(currentMove);
                     currentPosition.switchTurn();
+                    moveNumber++;
 
                     if(currentPosition.getAllLegalMoves().size() == 0) {
                         double score = currentPosition.getScore();

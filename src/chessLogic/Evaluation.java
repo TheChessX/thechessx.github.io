@@ -38,14 +38,17 @@ public class Evaluation {
 	public double rSeventhRank = 0.25;
 	public double rOpenFile = 0.35;
 	public double rConnected = 0.1;
+	public double rSemiOpenFile = 0.2;
 	
 	//Pawns
 	public double pawnConnected = 0.05;
 	public double doubledPawns = 0.2;
 	public double pawnGap = 0.1;
+	public double passedPawn = 0.1;
 	
 	//Development
-	public double developmentScore = 0.1;
+	public double knightBackRankPenalty = 0.2;
+	public double bishopBackRankPenalty = 0.1;
 
 	//Bishops
 	public double bishopPair = 0.5;
@@ -56,6 +59,8 @@ public class Evaluation {
 	public int count = 0;
 	
 	private boolean endgame = false;
+
+	// TODO piece-square tables
 	
 	public Evaluation() {
 		
@@ -83,7 +88,7 @@ public class Evaluation {
 			score = evaluatePieceValue(pos)
 					+ evaluateCenterControl(pos)
 					+ evaluateKingSafety(pos)
-					+ evaluateMobility(pos, moves)
+					// + evaluateMobility(pos, moves)
 					+ evaluateDevelopment(pos)
 					+ evaluateRooks(pos)
 					+ evaluatePawns(pos)
@@ -431,11 +436,17 @@ public class Evaluation {
 	public double evaluateDevelopment(Position pos) {
 		double score = 0.0;
 		for (int c = 0; c < 8; c++) {
-			if (pos.getSquare(0, c) > 6 && pos.getSquare(0, c) != 10 && pos.getSquare(0, c) != 12) {
-				score += developmentScore;
+			if (pos.getSquare(0, c) == 8) {
+				score += knightBackRankPenalty;
 			}
-			if (pos.getSquare(7, c) < 6 && pos.getSquare(7, c) != 4) {
-				score -= developmentScore;
+			if (pos.getSquare(0, c) == 9) {
+				score += bishopBackRankPenalty;
+			}
+			if (pos.getSquare(7, c) == 2) {
+				score -= knightBackRankPenalty;
+			}
+			if (pos.getSquare(7, c) == 3) {
+				score -= bishopBackRankPenalty;
 			}
 		}
 		return score;
@@ -492,7 +503,39 @@ public class Evaluation {
 				score += pawnGap;
 			}
 		}
-		
+
+		for (int i: whitePawns) {
+			score += Math.pow(7 - i/8, 2)/33;
+		}
+
+		for (int i: blackPawns) {
+			score -= Math.pow(i/8, 2)/33;
+		}
+
+		for (int i = 0; i < whitePawnColumns.size(); i++) {
+			boolean isPassedPawn = true;
+			for (int j = 0; j < blackPawnColumns.size(); j++) {
+				if (Math.abs(whitePawnColumns.get(i) - blackPawnColumns.get(j)) <= 1) {
+					isPassedPawn = false;
+				}
+			}
+			if (isPassedPawn) {
+				score += passedPawn;
+			}
+		}
+		for (int i = 0; i < blackPawnColumns.size(); i++) {
+			boolean isPassedPawn = true;
+			for (int j = 0; j < whitePawnColumns.size(); j++) {
+				if (Math.abs(blackPawnColumns.get(i) - whitePawnColumns.get(j)) <= 1) {
+					isPassedPawn = false;
+				}
+			}
+			if (isPassedPawn) {
+				score -= passedPawn;
+			}
+		}
+
+
 		return score;
 	}
 	
@@ -562,8 +605,13 @@ public class Evaluation {
 			}
 			int file = location % 8;
 			boolean open = true;
+			boolean semiOpen = true;
 			for (int i = 0; i < 8; i++) {
-				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
+				if (pos.getSquare(i, file) == 1) {
+					semiOpen = false;
+					open = false;
+				}
+				if (pos.getSquare(i, file) == 7) {
 					open = false;
 				}
 				if (pos.getSquare(i, file) == 4) {
@@ -573,6 +621,9 @@ public class Evaluation {
 			if (open) {
 				score += rOpenFile;
 			}
+			if (semiOpen) {
+				score += rSemiOpenFile;
+			}
 		}
 		ArrayList<Integer> blackRooks = findPiece(pos, (byte) 10);
 		for (int location: blackRooks) {
@@ -581,8 +632,13 @@ public class Evaluation {
 			}
 			int file = location % 8;
 			boolean open = true;
+			boolean semiOpen = true;
 			for (int i = 0; i < 8; i++) {
-				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
+				if (pos.getSquare(i, file) == 7) {
+					semiOpen = false;
+					open = false;
+				}
+				if (pos.getSquare(i, file) == 1) {
 					open = false;
 				}
 				if (pos.getSquare(i, file) == 10) {
@@ -591,6 +647,9 @@ public class Evaluation {
 			}
 			if (open) {
 				score -= rOpenFile;
+			}
+			if (semiOpen) {
+				score -= rSemiOpenFile;
 			}
 		}
 		return score;
