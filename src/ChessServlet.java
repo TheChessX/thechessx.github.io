@@ -197,6 +197,7 @@ public class ChessServlet extends HttpServlet{
         }
 
     private void theoryUpdate(Engine engine, Move currentMove) {
+        System.out.println("TheoryUpdate called");
         if (engine.isTheory()) {
 
             String lastMove = currentPosition.toHumanNotation(currentMove);
@@ -222,8 +223,10 @@ public class ChessServlet extends HttpServlet{
 
             if (!moveFound) {
                 engine.setTheory(false);
+                System.out.println("1 THeory");
             } else if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals("-")) {
                 engine.setTheory(false);
+                System.out.println("2 theory");
             }
         }
     }

@@ -64,6 +64,7 @@ function parseRequest(data) {
         if (document.getElementById("playAgain") != null) {
             document.getElementById("playAgain").remove();
         }
+        document.getElementById("MoveList").textContent = null;
     }
 
     for (var i = 0; i < 64; i++) {

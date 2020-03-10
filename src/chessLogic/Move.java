@@ -11,6 +11,13 @@ public class Move {
     
     private double score;
 
+    public Move() {
+        xInitial = Integer.MAX_VALUE;
+        yInitial = Integer.MAX_VALUE;
+        xFinal = Integer.MAX_VALUE;
+        yFinal = Integer.MAX_VALUE;
+    }
+
     public Move(int xInitial, int yInitial, int xFinal, int yFinal) {
         this.xInitial = xInitial;
         this.xFinal = xFinal;

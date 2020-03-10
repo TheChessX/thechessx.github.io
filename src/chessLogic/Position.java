@@ -43,6 +43,9 @@ public class Position implements Comparable<Position> {
     private boolean castleTest = false;
     
     private double score = Double.MAX_VALUE;
+
+    public Position bestNextPosition = null;
+    public Move bestNextMove = null;
     
     public Position() { // initializes starting position
         position = new byte[8][8];
@@ -984,6 +987,7 @@ public class Position implements Comparable<Position> {
     	sb.append(blackCastleQ);
     	sb.append(whiteCastleK);
     	sb.append(blackCastleQ);
+    	sb.append(enPassantColumn);
     	return sb.toString();
 	}
 

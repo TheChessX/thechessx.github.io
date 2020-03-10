@@ -9,13 +9,13 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?10">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?21">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?16" type="text/javascript"></script>
+    <script src="master.js?18" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
-    <div>
+    <div id = "boardAndExplanation">
       <table>
         <tr>
           <td class="whiteSquare square">
@@ -163,10 +163,9 @@
         </tr>
       </table>
       <div id = "explanationDiv">
-
       </div>
-      <div id = "MoveList"></div>
     </div>
+    <div id = "MoveList"></div>
   <button id = "RestartButton">Restart Game</button>
   <button id = "TestButton">Computer v. Computer</button>
   <p>Welcome to ChessX! Try to win with the White pieces. To move, click on the square of the piece that you want to move, then on the square you would like to move it to.

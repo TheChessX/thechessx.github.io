@@ -60,7 +60,67 @@ public class Evaluation {
 	
 	private boolean endgame = false;
 
-	// TODO piece-square tables
+
+	public double[][] pawnSquareTable = {
+			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+			{5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0},
+			{1.0, 1.0, 2.0, 3.0, 3.0, 2.0, 1.0, 1.0},
+			{0.5, 0.5, 1.0, 2.5, 2.5, 1.0, 0.5, 0.5},
+			{0.0, 0.0, 0.0, 2.0, 2.0, 0.0, 0.0, 0.0},
+			{0.5, -0.5, -1.0, 0.0, 0.0, -1.0, -0.5, 0.5},
+			{0.5, 1.0, 1.0, -2.0, -2.0, 1.0, 1.0, 0.5},
+			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	};
+	public double[][] knightSquareTable = {
+			{-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0},
+			{-4.0, -2.0, 0.0, 0.0, 0.0, 0.0, -2.0, -4.0},
+			{-3.0, 0.0, 1.0, 1.5, 1.5, 1.0, 0.0, -3.0},
+			{-3.0, 0.5, 1.5, 2.0, 2.0, 1.5, 0.5, -3.0},
+			{-3.0, 0.0, 1.5, 2.0, 2.0, 1.5, 0.0, -3.0},
+			{-3.0, 0.5, 1.0, 1.5, 1.5, 1.0, 0.5, -3.0},
+			{-4.0, -2.0, 0.0, 0.5, 0.5, 0.0, -2.0, -4.0},
+			{-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0}
+	};
+	public double[][] bishopSquareTable = {
+			{-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
+			{-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+			{-1.0, 0.0, 0.5, 1.0, 1.0, 0.5, 0.0, -1.0},
+			{-1.0, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, -1.0},
+			{-1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, -1.0},
+			{-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0},
+			{-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0},
+			{-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0}
+	};
+	public double[][] rookSquareTable = {
+			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+			{0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5},
+			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+			{0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0}
+	};
+	public double[][] queenSquareTable = {
+			{-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
+			{-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+			{-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0},
+			{-0.5, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+			{0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+			{-1.0, 0.5, 0,5, 0,5, 0,5, 0,5, 0.0, -1.0},
+			{-1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -1.0},
+			{-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0}
+	};
+	public double[][] kingSquareTable = {
+			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
+			{-2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0},
+			{-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0},
+			{2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0},
+			{2.0, 3.0, 1.0, 0.0, 0.0, 1.0, 3.0, 2.0}
+	};
 	
 	public Evaluation() {
 		
@@ -92,7 +152,8 @@ public class Evaluation {
 					+ evaluateDevelopment(pos)
 					+ evaluateRooks(pos)
 					+ evaluatePawns(pos)
-					+ evaluateBishopPair(pos);
+					+ evaluateBishopPair(pos)
+					+ evaluatePieceSquareTable(pos);
 			score = round(score, 2);
 			count++;
 			if (count % 10000 == 0) {
@@ -193,19 +254,19 @@ public class Evaluation {
 		score = round(score, 2);
 		return score;
 	}
-	
+
 	public double evaluateKingSafety(Position pos) {
 		double score = 0.0;
 		byte piece;
-		
-		//Finds King
-		int[] kingLocation = findKing(pos);
-		int kingR = kingLocation[0];
-		int kingC = kingLocation[1];
-		
+
+		//Finds White King
+		int whiteKingLocation = findPiece(pos, (byte) 6).get(0);
+		int whiteKingR = whiteKingLocation/8;
+		int whiteKingC = whiteKingLocation%8;
+
 		//Checks first circle around King
-		for (int r = kingR - 1; r < kingR + 2; r++) {
-			for (int c = kingC - 1; c < kingC + 2; c++) {
+		for (int r = whiteKingR - 1; r < whiteKingR + 2; r++) {
+			for (int c = whiteKingC - 1; c < whiteKingC + 2; c++) {
 				if (r > -1 && r < 8 && c > -1 && c < 8) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
@@ -224,11 +285,13 @@ public class Evaluation {
 				}
 			}
 		}
-		
+
+		//System.out.println(score);
+
 		//Checks second circle around King
-		for (int r = kingR - 2; r < kingR + 3; r++) {
-			for (int c = kingC - 2; c < kingC + 3; c++) {
-				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > kingR -2 && r < kingR + 2 && c > kingC - 2 && c < kingC + 2)) {
+		for (int r = whiteKingR - 2; r < whiteKingR + 3; r++) {
+			for (int c = whiteKingC - 2; c < whiteKingC + 3; c++) {
+				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > whiteKingR -2 && r < whiteKingR + 2 && c > whiteKingC - 2 && c < whiteKingC + 2)) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
 						score += pawnKS/2;
@@ -246,119 +309,121 @@ public class Evaluation {
 				}
 			}
 		}
-		
+
+		//System.out.println(score);
+
 		//Checks for distance from center
-		double distanceScore = (Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
-		if (pos.isBlackToMove()) {
-			score -= distanceScore;
-		} else {
-			score += distanceScore;
-		}
-		
-		//Finds King
-		kingLocation = findOppKing(pos);
-		kingR = kingLocation[0];
-		kingC = kingLocation[1];
-		
+		double distanceScore = (Math.abs(whiteKingR - 3.5) + Math.abs(whiteKingC - 3.5))/5.0;
+		score += distanceScore;
+
+		//System.out.println(score);
+
+		//Finds Black King
+		int blackKingLocation = findPiece(pos, (byte) 12).get(0);
+		int blackKingR = whiteKingLocation/8;
+		int blackKingC = whiteKingLocation%8;
+
 		//Checks first circle around King
-		for (int r = kingR - 1; r < kingR + 2; r++) {
-			for (int c = kingC - 1; c < kingC + 2; c++) {
+		for (int r = blackKingR - 1; r < blackKingR + 2; r++) {
+			for (int c = blackKingC - 1; c < blackKingC + 2; c++) {
 				if (r > -1 && r < 8 && c > -1 && c < 8) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
-						score += pawnKS;
-					} if (piece == 7) {
 						score -= pawnKS;
+					} if (piece == 7) {
+						score += pawnKS;
 					} if (piece == 2 || piece == 3) {
-						score += knightKS;
-					} if (piece == 8 || piece == 9) {
 						score -= knightKS;
+					} if (piece == 8 || piece == 9) {
+						score += knightKS;
 					} if (piece == 5) {
-						score += queenKS;
-					} if (piece == 11) {
 						score -= queenKS;
+					} if (piece == 11) {
+						score += queenKS;
 					}
 				}
 			}
 		}
-		
+
+		//System.out.println(score);
+
 		//Checks second circle around King
-		for (int r = kingR - 2; r < kingR + 3; r++) {
-			for (int c = kingC - 2; c < kingC + 3; c++) {
-				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > kingR -2 && r < kingR + 2 && c > kingC - 2 && c < kingC + 2)) {
+		for (int r = blackKingR - 2; r < blackKingR + 3; r++) {
+			for (int c = blackKingC - 2; c < blackKingC + 3; c++) {
+				if (r > -1 && r < 8 && c > -1 && c < 8 && !(r > blackKingR -2 && r < blackKingR + 2 && c > blackKingC - 2 && c < blackKingC + 2)) {
 					piece = pos.getSquare(r, c);
 					if (piece == 1) {
-						score += pawnKS/2;
-					} if (piece == 7) {
 						score -= pawnKS/2;
+					} if (piece == 7) {
+						score += pawnKS/2;
 					} if (piece == 2 || piece == 3) {
-						score += knightKS/2;
-					} if (piece == 8 || piece == 9) {
 						score -= knightKS/2;
+					} if (piece == 8 || piece == 9) {
+						score += knightKS/2;
 					} if (piece == 5) {
-						score += queenKS/2;
-					} if (piece == 11) {
 						score -= queenKS/2;
+					} if (piece == 11) {
+						score += queenKS/2;
 					}
 				}
 			}
 		}
-		
+
+		//System.out.println(score);
+
 		//Checks for distance from center
-		distanceScore = (2 * Math.abs(kingR - 3.5) + Math.abs(kingC - 3.5))/5.0;
-		if (pos.isBlackToMove()) {
-			score += distanceScore;
-		} else {
-			score -= distanceScore;
-		}
-		
+		distanceScore = (Math.abs(blackKingR - 3.5) + Math.abs(blackKingC - 3.5))/5.0;
+		score -= distanceScore;
+
+		//System.out.println(score);
+
 		score = round(score, 2);
 		return score;
 	}
-	
+
 	/*Finds location of the king corresponding to which color's move it is.
 	 * Returns an array of two integers for the row and column.
 	 * Returns {-1, -1} if king is not found (this should never happen).
 	 */
-	private int[] findKing(Position pos) {
-		byte targetKing;
-		if (pos.isBlackToMove()) {
-			targetKing = 12;
-		} else {
-			targetKing = 6;
-		}
-		int[] kingLocation = {-1, -1};
-		for (int r = 0; r < 8; r++) {
-			for (int c = 0; c < 8; c++) {
-				if (pos.getSquare(r, c) == targetKing) {
-					kingLocation[0] = r;
-					kingLocation[1] = c;
-					return kingLocation;
-				}
-			}
-		}
-		return kingLocation;
-	}
-	
-	private int[] findOppKing(Position pos) {
-		byte targetKing;
-		if (pos.isBlackToMove()) {
-			targetKing = 6;
-		} else {
-			targetKing = 12;
-		}
-		int[] kingLocation = {-1, -1};
-		for (int r = 0; r < 8; r++) {
-			for (int c = 0; c < 8; c++) {
-				if (pos.getSquare(r, c) == targetKing) {
-					kingLocation[0] = r;
-					kingLocation[1] = c;
-					return kingLocation;
-				}
-			}
-		}
-		return kingLocation;
-	}
+//	private int[] findKing(Position pos) {
+//		byte targetKing;
+//		if (pos.isBlackToMove()) {
+//			targetKing = 12;
+//		} else {
+//			targetKing = 6;
+//		}
+//		int[] kingLocation = {-1, -1};
+//		for (int r = 0; r < 8; r++) {
+//			for (int c = 0; c < 8; c++) {
+//				if (pos.getSquare(r, c) == targetKing) {
+//					kingLocation[0] = r;
+//					kingLocation[1] = c;
+//					return kingLocation;
+//				}
+//			}
+//		}
+//		return kingLocation;
+//	}
+//
+//	private int[] findOppKing(Position pos) {
+//		byte targetKing;
+//		if (pos.isBlackToMove()) {
+//			targetKing = 6;
+//		} else {
+//			targetKing = 12;
+//		}
+//		int[] kingLocation = {-1, -1};
+//		for (int r = 0; r < 8; r++) {
+//			for (int c = 0; c < 8; c++) {
+//				if (pos.getSquare(r, c) == targetKing) {
+//					kingLocation[0] = r;
+//					kingLocation[1] = c;
+//					return kingLocation;
+//				}
+//			}
+//		}
+//		return kingLocation;
+//	}
 	
 	public double evaluateCenterControl(Position pos) {
 		double score = 0.0;
@@ -403,7 +468,7 @@ public class Evaluation {
 		return score;
 	}
 	
-	private double round(double x, double n) {
+	public double round(double x, double n) {
 		String format = "#.";
 		for (int i = 0; i < n; i ++) {
 			format += "#";
@@ -667,7 +732,42 @@ public class Evaluation {
 		}
 		return score;
 	}
-	
+
+	public double evaluatePieceSquareTable(Position pos) {
+		double score = 0.0;
+		for (int r = 0; r < 8; r++) {
+			for (int c = 0; c < 8; c++) {
+				if (pos.getSquare(r, c) == 1) {
+					score += pawnSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 2) {
+					score += knightSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 3) {
+					score += bishopSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 4) {
+					score += rookSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 5) {
+					score += queenSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 6) {
+					score += kingSquareTable[r][c];
+				} else if (pos.getSquare(r, c) == 7) {
+					score -= pawnSquareTable[7 - r][7 - c];
+				} else if (pos.getSquare(r, c) == 8) {
+					score -= knightSquareTable[7 - r][7 - c];
+				} else if (pos.getSquare(r, c) == 9) {
+					score -= bishopSquareTable[7 - r][7 - c];
+				} else if (pos.getSquare(r, c) == 10) {
+					score -= rookSquareTable[7 - r][7 - c];
+				} else if (pos.getSquare(r, c) == 11) {
+					score -= queenSquareTable[7 - r][7 - c];
+				} else if (pos.getSquare(r, c) == 12) {
+					score -= kingSquareTable[7 - r][7 - c];
+				}
+			}
+		}
+		return round(score/20, 2);
+	}
+
+
 	private ArrayList<Integer> findPiece(Position pos, byte id) {
 		ArrayList<Integer> pieceLocations = new ArrayList<Integer>();
 		for (int r = 0; r < 8; r++) {
