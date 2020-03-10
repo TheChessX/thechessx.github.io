@@ -1,12 +1,9 @@
-package chessLogic;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-import chessLogic.Move;
-import chessLogic.Position;
+import data.Move;
+import data.Position;
 
 /* Distance from center
  * Same color pawns around
@@ -19,8 +16,8 @@ public class Evaluation {
 	//Piece Values
 	public final double pawnV = 1;
 	public final double rookV = 5;
-	public final double knightV = 3.05;
-	public final double bishopV = 3.45;
+	public final double knightV = 3;
+	public final double bishopV = 3;
 	public final double queenV = 9;
 	
 	//Center Control
@@ -38,29 +35,16 @@ public class Evaluation {
 	public double rSeventhRank = 0.25;
 	public double rOpenFile = 0.35;
 	public double rConnected = 0.1;
-	public double rSemiOpenFile = 0.2;
 	
 	//Pawns
 	public double pawnConnected = 0.05;
 	public double doubledPawns = 0.2;
 	public double pawnGap = 0.1;
-	public double passedPawn = 0.1;
 	
 	//Development
-	public double knightBackRankPenalty = 0.2;
-	public double bishopBackRankPenalty = 0.1;
-
-	//Bishops
-	public double bishopPair = 0.5;
-
-	//Mobility
-	public double mobilityScore = 0.01;
-
-	public int count = 0;
+	public double developmentScore = 0.1;
 	
-	private boolean endgame = false;
-
-
+	//Piece Square Tables
 	public double[][] pawnSquareTable = {
 			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
 			{5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0},
@@ -70,7 +54,7 @@ public class Evaluation {
 			{0.5, -0.5, -1.0, 0.0, 0.0, -1.0, -0.5, 0.5},
 			{0.5, 1.0, 1.0, -2.0, -2.0, 1.0, 1.0, 0.5},
 			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	};
+		};
 	public double[][] knightSquareTable = {
 			{-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0},
 			{-4.0, -2.0, 0.0, 0.0, 0.0, 0.0, -2.0, -4.0},
@@ -80,7 +64,7 @@ public class Evaluation {
 			{-3.0, 0.5, 1.0, 1.5, 1.5, 1.0, 0.5, -3.0},
 			{-4.0, -2.0, 0.0, 0.5, 0.5, 0.0, -2.0, -4.0},
 			{-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0}
-	};
+		};
 	public double[][] bishopSquareTable = {
 			{-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
 			{-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
@@ -90,7 +74,7 @@ public class Evaluation {
 			{-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0},
 			{-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0},
 			{-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0}
-	};
+		};
 	public double[][] rookSquareTable = {
 			{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
 			{0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5},
@@ -100,7 +84,7 @@ public class Evaluation {
 			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
 			{-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
 			{0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0}
-	};
+		};
 	public double[][] queenSquareTable = {
 			{-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
 			{-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
@@ -110,7 +94,7 @@ public class Evaluation {
 			{-1.0, 0.5, 0,5, 0,5, 0,5, 0,5, 0.0, -1.0},
 			{-1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -1.0},
 			{-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0}
-	};
+		};
 	public double[][] kingSquareTable = {
 			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
 			{-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
@@ -120,81 +104,16 @@ public class Evaluation {
 			{-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0},
 			{2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0},
 			{2.0, 3.0, 1.0, 0.0, 0.0, 1.0, 3.0, 2.0}
-	};
+		};
+	
+	public int count = 0;
+	
+	private boolean endgame = false;
 	
 	public Evaluation() {
 		
 	}
-
-	public double evaluate(Position pos) {
-		double score;
-		if (endgame) {
-			score = evaluateEndgame(pos);
-		} else {
-			ArrayList<Move> moves = pos.getAllLegalMoves();
-			if (moves.size() == 0) {
-				if (pos.inCheck()) {
-					//System.out.println("Checkmate detected");
-					if (pos.isBlackToMove()) {
-						return 1000000;
-					} else {
-						return -1000000;
-					}
-				} else {
-					return 0;
-				}
-			}
-
-			score = evaluatePieceValue(pos)
-					+ evaluateCenterControl(pos)
-					+ evaluateKingSafety(pos)
-					// + evaluateMobility(pos, moves)
-					+ evaluateDevelopment(pos)
-					+ evaluateRooks(pos)
-					+ evaluatePawns(pos)
-					+ evaluateBishopPair(pos)
-					+ evaluatePieceSquareTable(pos);
-			score = round(score, 2);
-			count++;
-			if (count % 10000 == 0) {
-				System.out.println(count/10000 + "0k positions evaluated");
-			}
-		}
-		return score;
-	}
-
-	public double evaluateEndgame(Position pos) {
-		double score;
-		ArrayList<Move> moves = pos.getAllLegalMoves();
-		if (moves.size() == 0) {
-			if (pos.inCheck()) {
-				//System.out.println("Checkmate detected");
-				if (pos.isBlackToMove()) {
-					return 1000000;
-				} else {
-					return -1000000;
-				}
-			} else {
-				return 0;
-			}
-		}
-
-		score = evaluatePieceValue(pos)
-				+ evaluateKingActivity(pos)
-				+ evaluateMobility(pos, moves)
-				+ evaluateRooks(pos)
-				+ evaluatePawnsEndgame(pos)
-				+ evaluateBishopPair(pos);
-		score = round(score, 2);
-		count++;
-		if (count % 10000 == 0) {
-			System.out.println(count/10000 + "0k positions evaluated");
-		}
-		return score;
-	}
-
-
-
+	
 	public double evaluatePieceValue(Position pos) {
 		double score = 0.0;
 		for (int i = 0; i < 8; i++) {
@@ -254,16 +173,16 @@ public class Evaluation {
 		score = round(score, 2);
 		return score;
 	}
-
+	
 	public double evaluateKingSafety(Position pos) {
 		double score = 0.0;
 		byte piece;
-
+		
 		//Finds White King
 		int whiteKingLocation = findPiece(pos, (byte) 6).get(0);
 		int whiteKingR = whiteKingLocation/8;
 		int whiteKingC = whiteKingLocation%8;
-
+		
 		//Checks first circle around King
 		for (int r = whiteKingR - 1; r < whiteKingR + 2; r++) {
 			for (int c = whiteKingC - 1; c < whiteKingC + 2; c++) {
@@ -285,9 +204,9 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//System.out.println(score);
-
+		
 		//Checks second circle around King
 		for (int r = whiteKingR - 2; r < whiteKingR + 3; r++) {
 			for (int c = whiteKingC - 2; c < whiteKingC + 3; c++) {
@@ -309,20 +228,20 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//System.out.println(score);
-
+		
 		//Checks for distance from center
 		double distanceScore = (Math.abs(whiteKingR - 3.5) + Math.abs(whiteKingC - 3.5))/5.0;
 		score += distanceScore;
-
+		
 		//System.out.println(score);
-
+		
 		//Finds Black King
 		int blackKingLocation = findPiece(pos, (byte) 12).get(0);
 		int blackKingR = whiteKingLocation/8;
 		int blackKingC = whiteKingLocation%8;
-
+		
 		//Checks first circle around King
 		for (int r = blackKingR - 1; r < blackKingR + 2; r++) {
 			for (int c = blackKingC - 1; c < blackKingC + 2; c++) {
@@ -344,9 +263,9 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//System.out.println(score);
-
+		
 		//Checks second circle around King
 		for (int r = blackKingR - 2; r < blackKingR + 3; r++) {
 			for (int c = blackKingC - 2; c < blackKingC + 3; c++) {
@@ -368,19 +287,19 @@ public class Evaluation {
 				}
 			}
 		}
-
+		
 		//System.out.println(score);
-
+		
 		//Checks for distance from center
 		distanceScore = (Math.abs(blackKingR - 3.5) + Math.abs(blackKingC - 3.5))/5.0;
 		score -= distanceScore;
-
+		
 		//System.out.println(score);
-
+		
 		score = round(score, 2);
 		return score;
 	}
-
+	
 	/*Finds location of the king corresponding to which color's move it is.
 	 * Returns an array of two integers for the row and column.
 	 * Returns {-1, -1} if king is not found (this should never happen).
@@ -404,7 +323,7 @@ public class Evaluation {
 //		}
 //		return kingLocation;
 //	}
-//
+//	
 //	private int[] findOppKing(Position pos) {
 //		byte targetKing;
 //		if (pos.isBlackToMove()) {
@@ -468,7 +387,7 @@ public class Evaluation {
 		return score;
 	}
 	
-	public double round(double x, double n) {
+	private double round(double x, double n) {
 		String format = "#.";
 		for (int i = 0; i < n; i ++) {
 			format += "#";
@@ -482,17 +401,17 @@ public class Evaluation {
 	}
 	
 	public double evaluateMobility(Position pos, ArrayList<Move> moves) {
-		double score = moves.size() * mobilityScore;
+		double score = moves.size()/100.0;
 		if (pos.isBlackToMove()) {
 			score *= -1;
 		}
-//		pos.setBlackToMove(!pos.isBlackToMove());
-//		if (pos.isBlackToMove()) {
-//			score -= pos.getAllLegalMoves().size()/100.0;
-//		} else {
-//			score += pos.getAllLegalMoves().size()/100.0;
-//		}
-//		pos.setBlackToMove(!pos.isBlackToMove());
+		pos.setBlackToMove(!pos.isBlackToMove());
+		if (pos.isBlackToMove()) {
+			score -= pos.getAllLegalMoves().size()/100.0;
+		} else {
+			score += pos.getAllLegalMoves().size()/100.0;
+		}
+		pos.setBlackToMove(!pos.isBlackToMove());
 		//System.out.println(score);
 		score = round(score, 2);
 		return score;
@@ -501,18 +420,78 @@ public class Evaluation {
 	public double evaluateDevelopment(Position pos) {
 		double score = 0.0;
 		for (int c = 0; c < 8; c++) {
-			if (pos.getSquare(0, c) == 8) {
-				score += knightBackRankPenalty;
+			if (pos.getSquare(0, c) > 6 && pos.getSquare(0, c) != 10 && pos.getSquare(0, c) != 12) {
+				score += developmentScore;
 			}
-			if (pos.getSquare(0, c) == 9) {
-				score += bishopBackRankPenalty;
+			if (pos.getSquare(7, c) < 6 && pos.getSquare(7, c) != 4 && pos.getSquare(7, c) != 0) {
+				score -= developmentScore;
 			}
-			if (pos.getSquare(7, c) == 2) {
-				score -= knightBackRankPenalty;
+			//System.out.println(score);
+		}
+		return score;
+	}
+	
+	public double evaluate(Position pos) {
+		double score;
+		if (endgame) {
+			score = evaluateEndgame(pos);
+		} else {
+			ArrayList<Move> moves = pos.getAllLegalMoves();
+			if (moves.size() == 0) {
+				if (pos.inCheck()) {
+					//System.out.println("Checkmate detected");
+		    		if (pos.isBlackToMove()) {
+		    			return 1000000;
+		    		} else {
+		    			return -1000000;
+		    		}
+				} else {
+					return 0;
+				}
 			}
-			if (pos.getSquare(7, c) == 3) {
-				score -= bishopBackRankPenalty;
+			
+			score = evaluatePieceValue(pos)
+					+ evaluateCenterControl(pos) 
+					+ evaluateKingSafety(pos)
+					//+ evaluateMobility(pos, moves)
+					+ evaluateDevelopment(pos)
+					+ evaluateRooks(pos)
+					+ evaluatePawns(pos)
+					+ evaluatePieceSquareTable(pos);
+			score = round(score, 2);
+			count++;
+			if (count % 10000 == 0) {
+				System.out.println(count/10000 + "0k positions evaluated");
 			}
+		}
+		return score;
+	}
+	
+	public double evaluateEndgame(Position pos) {
+		double score;
+		ArrayList<Move> moves = pos.getAllLegalMoves();
+		if (moves.size() == 0) {
+			if (pos.inCheck()) {
+				//System.out.println("Checkmate detected");
+	    		if (pos.isBlackToMove()) {
+	    			return 1000000;
+	    		} else {
+	    			return -1000000;
+	    		}
+			} else {
+				return 0;
+			}
+		}
+		
+		score = evaluatePieceValue(pos)
+				+ evaluateKingActivity(pos) 
+				+ evaluateMobility(pos, moves)
+				+ evaluateRooks(pos)
+				+ evaluatePawnsEndgame(pos);
+		score = round(score, 2);
+		count++;
+		if (count % 10000 == 0) {
+			System.out.println(count/10000 + "0k positions evaluated");
 		}
 		return score;
 	}
@@ -568,39 +547,7 @@ public class Evaluation {
 				score += pawnGap;
 			}
 		}
-
-		for (int i: whitePawns) {
-			score += Math.pow(7 - i/8, 2)/33;
-		}
-
-		for (int i: blackPawns) {
-			score -= Math.pow(i/8, 2)/33;
-		}
-
-		for (int i = 0; i < whitePawnColumns.size(); i++) {
-			boolean isPassedPawn = true;
-			for (int j = 0; j < blackPawnColumns.size(); j++) {
-				if (Math.abs(whitePawnColumns.get(i) - blackPawnColumns.get(j)) <= 1) {
-					isPassedPawn = false;
-				}
-			}
-			if (isPassedPawn) {
-				score += passedPawn;
-			}
-		}
-		for (int i = 0; i < blackPawnColumns.size(); i++) {
-			boolean isPassedPawn = true;
-			for (int j = 0; j < whitePawnColumns.size(); j++) {
-				if (Math.abs(blackPawnColumns.get(i) - whitePawnColumns.get(j)) <= 1) {
-					isPassedPawn = false;
-				}
-			}
-			if (isPassedPawn) {
-				score -= passedPawn;
-			}
-		}
-
-
+		
 		return score;
 	}
 	
@@ -664,19 +611,14 @@ public class Evaluation {
 	public double evaluateRooks(Position pos) {
 		double score = 0.0;
 		ArrayList<Integer> whiteRooks = findPiece(pos, (byte) 4);
-		for (int location : whiteRooks) {
+		for (int location: whiteRooks) {
 			if (location / 8 == 1) {
 				score += rSeventhRank;
 			}
 			int file = location % 8;
 			boolean open = true;
-			boolean semiOpen = true;
 			for (int i = 0; i < 8; i++) {
-				if (pos.getSquare(i, file) == 1) {
-					semiOpen = false;
-					open = false;
-				}
-				if (pos.getSquare(i, file) == 7) {
+				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
 					open = false;
 				}
 				if (pos.getSquare(i, file) == 4) {
@@ -686,9 +628,6 @@ public class Evaluation {
 			if (open) {
 				score += rOpenFile;
 			}
-			if (semiOpen) {
-				score += rSemiOpenFile;
-			}
 		}
 		ArrayList<Integer> blackRooks = findPiece(pos, (byte) 10);
 		for (int location: blackRooks) {
@@ -697,13 +636,8 @@ public class Evaluation {
 			}
 			int file = location % 8;
 			boolean open = true;
-			boolean semiOpen = true;
 			for (int i = 0; i < 8; i++) {
-				if (pos.getSquare(i, file) == 7) {
-					semiOpen = false;
-					open = false;
-				}
-				if (pos.getSquare(i, file) == 1) {
+				if (pos.getSquare(i, file) == 1 || pos.getSquare(i, file) == 7) {
 					open = false;
 				}
 				if (pos.getSquare(i, file) == 10) {
@@ -713,26 +647,10 @@ public class Evaluation {
 			if (open) {
 				score -= rOpenFile;
 			}
-			if (semiOpen) {
-				score -= rSemiOpenFile;
-			}
 		}
 		return score;
 	}
-
-	public double evaluateBishopPair(Position pos) {
-		double score = 0;
-		ArrayList<Integer> whiteBishops = findPiece(pos, (byte) 3);
-		if (whiteBishops.size() == 2) {
-			score += bishopPair;
-		}
-		ArrayList<Integer> blackBishops = findPiece(pos, (byte) 9);
-		if (blackBishops.size() == 2) {
-			score -= bishopPair;
-		}
-		return score;
-	}
-
+	
 	public double evaluatePieceSquareTable(Position pos) {
 		double score = 0.0;
 		for (int r = 0; r < 8; r++) {
@@ -766,8 +684,7 @@ public class Evaluation {
 		}
 		return round(score/20, 2);
 	}
-
-
+	
 	private ArrayList<Integer> findPiece(Position pos, byte id) {
 		ArrayList<Integer> pieceLocations = new ArrayList<Integer>();
 		for (int r = 0; r < 8; r++) {

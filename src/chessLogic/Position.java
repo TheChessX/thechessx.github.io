@@ -1,9 +1,7 @@
-package chessLogic;
+package data;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -32,6 +30,8 @@ public class Position implements Comparable<Position> {
     private byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
     ArrayList<Move> moveList = new ArrayList<Move>();
+    ArrayList<Move> captureList = new ArrayList<Move>();
+    ArrayList<Move> otherList = new ArrayList<Move>();
     
     private int enPassantColumn = -1;
 
@@ -43,9 +43,6 @@ public class Position implements Comparable<Position> {
     private boolean castleTest = false;
     
     private double score = Double.MAX_VALUE;
-
-    public Position bestNextPosition = null;
-    public Move bestNextMove = null;
     
     public Position() { // initializes starting position
         position = new byte[8][8];
@@ -74,6 +71,8 @@ public class Position implements Comparable<Position> {
 
     public ArrayList<Move> getAllLegalMoves() {
         moveList = new ArrayList<Move>();
+        captureList = new ArrayList<Move>();
+        otherList = new ArrayList<Move>();
     	if (moveList.size() == 0) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -88,6 +87,10 @@ public class Position implements Comparable<Position> {
     		//legal = true;
     		Move potentialMov = (Move) moveList.get(i);
     		Position potentialPos = new Position(this);
+    		boolean capture = false;
+    		if (potentialPos.getSquare(potentialMov.getxFinal(), potentialMov.getyFinal()) % 6 >= potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()) % 6 && !(potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()) % 6 + potentialPos.getSquare(potentialMov.getxFinal(), potentialMov.getyFinal()) % 6 == 0)) {
+    			capture = true;
+    		}
     		if (potentialMov.getPromotionID() != 0) {
     			potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialMov.getPromotionID());
     		} else {
@@ -108,6 +111,12 @@ public class Position implements Comparable<Position> {
     		if (inCheck(potentialPos)) {
     			moveList.remove(i);
     			i--;
+    		} else {
+    			if (capture) {
+    				captureList.add(potentialMov);
+    			} else {
+    				otherList.add(potentialMov);
+    			}
     		}
     	}
         return moveList;
@@ -313,12 +322,18 @@ public class Position implements Comparable<Position> {
 	
 	public ArrayList<Position> getNextPositions() {
 		ArrayList<Position> posList = new ArrayList<Position>();
-
 		ArrayList<Move> movList = this.getAllLegalMoves();
 		for (Move m: movList) {
 			posList.add(positionAfterMove(m));
 		}
-		
+		return posList;
+	}
+	
+	public ArrayList<Position> getNextPositions(ArrayList<Move> movList) {
+		ArrayList<Position> posList = new ArrayList<Position>();
+		for (Move m: movList) {
+			posList.add(positionAfterMove(m));
+		}
 		return posList;
 	}
 	
@@ -974,61 +989,15 @@ public class Position implements Comparable<Position> {
 		return moveNotation;
     }
     
+    public ArrayList<Move> getCaptureList() {
+    	return captureList;
+    }
     
-    public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	for (int i = 0; i < 8; i++) {
-    		for (int j = 0; j < 8; j++) {
-				sb.append(position[i][j] + " ");
-			}
-		}
-    	sb.append(blackToMove);
-    	sb.append(blackCastleK);
-    	sb.append(blackCastleQ);
-    	sb.append(whiteCastleK);
-    	sb.append(blackCastleQ);
-    	sb.append(enPassantColumn);
-    	return sb.toString();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Position position1 = (Position) o;
-		return blackToMove == position1.blackToMove &&
-				whiteCastleK == position1.whiteCastleK &&
-				whiteCastleQ == position1.whiteCastleQ &&
-				blackCastleK == position1.blackCastleK &&
-				blackCastleQ == position1.blackCastleQ &&
-				Arrays.equals(position, position1.position);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = Objects.hash(blackToMove, whiteCastleK, whiteCastleQ, blackCastleK, blackCastleQ);
-		result = 31 * result + Arrays.hashCode(position);
-		return result;
-	}
-
-	public String getPieceNotation(int byteValue) {
-    	if (byteValue == 1 || byteValue == 7) {
-    		return "";
-		} else if (byteValue == 2 || byteValue == 8) {
-    		return "N";
-		} else if (byteValue == 3 || byteValue == 9) {
-    		return "B";
-		} else if (byteValue == 4 || byteValue == 10) {
-    		return "R";
-		} else if (byteValue == 5 || byteValue == 11) {
-    		return "Q";
-		} else if (byteValue == 6 || byteValue == 12) {
-    		return "K";
-		}
-    	return "Not a piece.";
-	}
-
-	private byte[][] inputStartingPieces() {
+    public ArrayList<Move> getOtherList() {
+    	return otherList;
+    }
+    
+    private byte[][] inputStartingPieces() {
     	return new byte[][] {
 				{10, 8, 9, 11, 12, 9, 8, 10},
 				{7, 7, 7, 7, 7, 7, 7, 7},
@@ -1053,4 +1022,8 @@ public class Position implements Comparable<Position> {
 				{0, 0, 0, 0, 0, 0, 6, 0}
 			};
     }
+
+	public ArrayList<Move> getMoveList() {
+		return moveList;
+	}
 }
