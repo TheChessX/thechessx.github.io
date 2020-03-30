@@ -21,7 +21,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class Engine {
-	protected Evaluation eval;
+	protected TestEvaluation eval;
 	protected int presetDepth;
 	
 	protected boolean theory = true;
@@ -42,7 +42,7 @@ public class Engine {
 	protected int openingMode = 1;
 	
 	public Engine() {
-		this.eval = new Evaluation();
+		this.eval = new TestEvaluation();
 		this.presetDepth = 4; //Looks n plies ahead
 		if (this.openingMode == -1) {
 			theory = false;
@@ -57,6 +57,7 @@ public class Engine {
 	}
 
 	public MoveAndExplanation playAndExplain(Position pos) {
+		System.out.println("Normal Engine Playing");
 		long startTime = System.currentTimeMillis();
 		if (isTheory()) {
 			Move theoryMove = getTheoryMove(pos);
@@ -125,7 +126,7 @@ public class Engine {
 			//bestCurrentMove = new Move();
 			ArrayList<Move> legalMoves = nextPos.getAllLegalMoves();
 			if (nextPos.isBlackToMove()) {
-				System.out.println("Black to move");
+				//System.out.println("Black to move");
 				Double bestScore = Double.MAX_VALUE;
 				System.out.println(legalMoves.size());
 				for (Move m : legalMoves) {
@@ -134,17 +135,17 @@ public class Engine {
 					try {
 						posScore = map.get(nextPos.positionAfterMove(m).toString()).getScore();
 					} catch (NullPointerException n) {
-						System.out.println(m + " Is not in map (b)");
+						//System.out.println(m + " Is not in map (b)");
 					}
 					//}
 					if (posScore < bestScore) {
 						bestScore = posScore;
 						bestCurrentMove = m;
-						System.out.println("New best move: " + bestCurrentMove + " for position " + i + "moves away.");
+						//System.out.println("New best move: " + bestCurrentMove + " for position " + i + "moves away.");
 					}
 				}
 			} else {
-				System.out.println("White to move");
+				//System.out.println("White to move");
 				Double bestScore = (-1) * Double.MAX_VALUE;
 				System.out.println(legalMoves.size());
 				for (Move m : legalMoves) {
@@ -153,15 +154,15 @@ public class Engine {
 					try {
 						posScore = map.get(nextPos.positionAfterMove(m).toString()).getScore();
 					} catch (NullPointerException n) {
-						System.out.println(m + " Is not in map (w)");
+						//System.out.println(m + " Is not in map (w)");
 					}
 					//}
 					if (posScore > bestScore) {
 						bestScore = posScore;
 						bestCurrentMove = m;
-						System.out.println("New best move: " + bestCurrentMove + " for position " + i + "moves away.");
+						//System.out.println("New best move: " + bestCurrentMove + " for position " + i + "moves away.");
 					} else {
-						System.out.println("New not-best move: " + m + " for position " + i + "moves away. Evaluation: " + posScore);
+						//System.out.println("New not-best move: " + m + " for position " + i + "moves away. Evaluation: " + posScore);
 					}
 				}
 				System.out.println(bestScore);
@@ -172,13 +173,13 @@ public class Engine {
 		}
 		movesInSequence.add(bestCurrentMove);
 		positionsInSequence.add(nextPos);
-		System.out.println("End of loop");
+		//System.out.println("End of loop");
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < movesInSequence.size(); i++) {
 			sb.append(positionsInSequence.get(i).toHumanNotation(movesInSequence.get(i)));
 			sb.append(", ");
-			System.out.println(positionsInSequence.get(i).toHumanNotation(movesInSequence.get(i)));
-			System.out.println(movesInSequence.get(i).toRawString() + "Evaluation: " + movesInSequence.get(i).getScore());
+			//System.out.println(positionsInSequence.get(i).toHumanNotation(movesInSequence.get(i)));
+			//System.out.println(movesInSequence.get(i).toRawString() + "Evaluation: " + movesInSequence.get(i).getScore());
 		}
 		return new MoveAndExplanation(bestMove, "Computer's evaluation is " + bestMove.getScore() +
 				". \n The sequence of moves that the engine thinks is best is: " + sb.toString() + "\n" +
@@ -265,7 +266,7 @@ public class Engine {
 		if (map.containsKey(pos.toString())) {
 			if (map.get(pos.toString()).getDepthSearched() >= depth) {
 				if (duplicateCount % 1000 == 0) {
-					System.out.println("1000 Duplicate position found");
+					//System.out.println("1000 Duplicate position found");
 				}
 				duplicateCount++;
 				return map.get(pos.toString()).getScore();
@@ -286,11 +287,14 @@ public class Engine {
 			//return eval.evaluate(pos);
 		}
 		//long startTime = System.nanoTime();
-		ArrayList<Position> posList1 = pos.getNextPositions();
+//		ArrayList<Position> posList1 = pos.getNextPositions();
 		//long timetaken = System.nanoTime() - startTime;
 		//System.out.println("MoveFinding: " + timetaken + "    "  + pos);
-		
-		if (posList1.size() == 0) {
+
+		ArrayList<Move> legalMoves = pos.getAllLegalMoves();
+
+
+		if (legalMoves.size() == 0) {
 			//System.out.println(pos.getScore() * (depth + 1));
 			if (pos.getScore() == Double.MAX_VALUE) {
 				Double score = eval.evaluate(pos) * (depth + 1);
@@ -310,11 +314,27 @@ public class Engine {
 			return score;
 		}
 
-		
+		ArrayList<Position> posList1 = pos.getNextPositions(pos.getCaptureList());
+
 		for (Position p: posList1) {
 			p.setScore(eval.evaluate(p));
 		}
 		Collections.sort(posList1);
+
+		ArrayList<Position> posList2 = pos.getNextPositions(pos.getOtherList());
+
+		for (Position p: posList2) {
+			p.setScore(eval.evaluate(p));
+		}
+		Collections.sort(posList2);
+
+		posList1.addAll(posList2);
+
+		
+//		for (Position p: posList1) {
+//			p.setScore(eval.evaluate(p));
+//		}
+//		Collections.sort(posList1);
 		
 		
 //		if (depth > 2 && pos.isBlackToMove() && eval.evaluate(pos) < alpha - 1) {
@@ -523,6 +543,7 @@ public class Engine {
 			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
 			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
 			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
+			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
 		} else {
 			sb.append("This is a middlegame position. \n");
 			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
@@ -532,6 +553,33 @@ public class Engine {
 			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
 			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
 			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
+			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+		}
+		return sb.toString();
+	}
+	public String getInformation(TestEvaluation eval, Position pos) {
+		StringBuilder sb = new StringBuilder();
+		//sb.append("Evaluation: " + pos.getScore() + "\n");
+		if (eval.isEndgame()) {
+			sb.append("This is an endgame position. \n");
+			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
+			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
+			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+			sb.append("Hanging Pieces: " + eval.evaluateCapturesPossible(pos) + "\n");
+
+		} else {
+			sb.append("This is a middlegame position. \n");
+			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
+			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
+			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
+			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
+			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
+			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+			sb.append("Hanging Pieces: " + eval.evaluateCapturesPossible(pos) + "\n");
 		}
 		return sb.toString();
 	}

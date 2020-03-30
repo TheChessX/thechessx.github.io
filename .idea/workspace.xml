@@ -8,25 +8,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/TestsForEvaluation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/img/LeftArrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/img/RightArrow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WebChess.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/META-INF/WebChess.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/META-INF/WebChess.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Move.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
@@ -73,21 +82,26 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$USER_HOME$/Downloads" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/img" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="chessLogic" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/img" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="chessLogic" />
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="chessLogic" />
     </key>
   </component>
   <component name="RunManager" selected="JAR Application.xmlbeans-2.6.0.jar">
@@ -263,6 +277,10 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="299" y="33" key="CommitChangelistDialog2/0.23.1440.822@0.23.1440.822" timestamp="1581096455084" />
+    <state x="475" y="140" key="DetectedRootsChooserDialog" timestamp="1585535305719">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="475" y="140" key="DetectedRootsChooserDialog/0.23.1440.822@0.23.1440.822" timestamp="1585535305719" />
     <state width="1400" height="205" key="GridCell.Tab.0.bottom" timestamp="1581096151455">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
@@ -343,12 +361,13 @@
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694479" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245458" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555332" />
-    <state x="208" y="23" width="1024" height="814" key="SettingsEditor" timestamp="1583429070625">
-      <screen x="0" y="23" width="1440" height="826" />
+    <state x="208" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1585536068787">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="208" y="23" width="1024" height="814" key="SettingsEditor/0.23.1440.814@0.23.1440.814" timestamp="1578332359039" />
     <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1579717256547" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1577932052683" />
+    <state x="208" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1585536068787" />
     <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1579129875730" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.826@0.23.1440.826" timestamp="1583429070625" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.828@0.23.1440.828" timestamp="1579746464182" />
@@ -366,11 +385,12 @@
       <screen x="0" y="23" width="1440" height="814" />
     </state>
     <state x="114" y="35" key="new project wizard/0.23.1440.814@0.23.1440.814" timestamp="1578331990145" />
-    <state x="371" y="163" width="670" height="687" key="search.everywhere.popup" timestamp="1583428210105">
-      <screen x="0" y="23" width="1440" height="826" />
+    <state x="371" y="164" width="670" height="690" key="search.everywhere.popup" timestamp="1585362036234">
+      <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="371" y="161" width="670" height="676" key="search.everywhere.popup/0.23.1440.814@0.23.1440.814" timestamp="1578504127461" />
     <state x="371" y="162" width="670" height="683" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1580836931978" />
     <state x="371" y="163" width="670" height="687" key="search.everywhere.popup/0.23.1440.826@0.23.1440.826" timestamp="1583428210105" />
+    <state x="371" y="164" width="670" height="690" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1585362036234" />
   </component>
 </project>

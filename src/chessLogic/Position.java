@@ -32,6 +32,8 @@ public class Position implements Comparable<Position> {
     private byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
     ArrayList<Move> moveList = new ArrayList<Move>();
+	ArrayList<Move> captureList = new ArrayList<Move>();
+	ArrayList<Move> otherList = new ArrayList<Move>();
     
     private int enPassantColumn = -1;
 
@@ -72,29 +74,39 @@ public class Position implements Comparable<Position> {
         return position[xPos][yPos];
     }
 
-    public ArrayList<Move> getAllLegalMoves() {
-        moveList = new ArrayList<Move>();
-    	if (moveList.size() == 0) {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (position[i][j] != 0) {
-                        addMovesForPiece(i, j);
-                    }
-                }
-            }
-        }
-    	//boolean legal = true;
-    	for (int i = 0; i < moveList.size(); i++) {
-    		//legal = true;
-    		Move potentialMov = (Move) moveList.get(i);
-    		Position potentialPos = new Position(this);
-    		if (potentialMov.getPromotionID() != 0) {
-    			potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialMov.getPromotionID());
-    		} else {
-    			potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()));
-    		}
-    		potentialPos.setSquare(potentialMov.getxInitial(), potentialMov.getyInitial(), (byte) 0);
-    		potentialPos.setBlackToMove(!this.blackToMove);
+	public ArrayList<Move> getAllLegalMoves() {
+		moveList = new ArrayList<Move>();
+		captureList = new ArrayList<Move>();
+		otherList = new ArrayList<Move>();
+		if (moveList.size() == 0) {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (position[i][j] != 0) {
+						addMovesForPiece(i, j);
+					}
+				}
+			}
+		}
+		//boolean legal = true;
+		for (int i = 0; i < moveList.size(); i++) {
+			//legal = true;
+			Move potentialMov = (Move) moveList.get(i);
+			Position potentialPos = new Position(this);
+			boolean capture = false;
+//			if (potentialPos.getSquare(potentialMov.getxFinal(), potentialMov.getyFinal()) % 6 >= potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()) % 6 &&
+//					!(potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()) % 6 + potentialPos.getSquare(potentialMov.getxFinal(), potentialMov.getyFinal()) % 6 == 0)) {
+//				capture = true;
+//			}
+			if (potentialPos.getSquare(potentialMov.getxFinal(), potentialMov.getyFinal()) != 0) {
+				capture = true;
+			}
+			if (potentialMov.getPromotionID() != 0) {
+				potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialMov.getPromotionID());
+			} else {
+				potentialPos.setSquare(potentialMov.getxFinal(), potentialMov.getyFinal(), potentialPos.getSquare(potentialMov.getxInitial(), potentialMov.getyInitial()));
+			}
+			potentialPos.setSquare(potentialMov.getxInitial(), potentialMov.getyInitial(), (byte) 0);
+			potentialPos.setBlackToMove(!this.blackToMove);
 //    		int[] kingLocation = findKing(potentialPos);
 //    		int kingR = kingLocation[0];
 //    		int kingC = kingLocation[1];
@@ -105,15 +117,22 @@ public class Position implements Comparable<Position> {
 //    				break;
 //    			}
 //    		}
-    		if (inCheck(potentialPos)) {
-    			moveList.remove(i);
-    			i--;
-    		}
-    	}
-        return moveList;
-    }
-    
-    public ArrayList<Move> getAllLegalMovesNoCheck() {
+			if (inCheck(potentialPos)) {
+				moveList.remove(i);
+				i--;
+			} else {
+				if (capture) {
+					captureList.add(potentialMov);
+				} else {
+					otherList.add(potentialMov);
+				}
+			}
+		}
+		return moveList;
+	}
+
+
+	public ArrayList<Move> getAllLegalMovesNoCheck() {
         moveList = new ArrayList<Move>();
     	if (moveList.size() == 0) {
             for (int i = 0; i < 8; i++) {
@@ -321,7 +340,16 @@ public class Position implements Comparable<Position> {
 		
 		return posList;
 	}
-	
+
+	public ArrayList<Position> getNextPositions(ArrayList<Move> movList) {
+		ArrayList<Position> posList = new ArrayList<Position>();
+		for (Move m: movList) {
+			posList.add(positionAfterMove(m));
+		}
+		return posList;
+	}
+
+
 	public void setScore(double score) {
 		this.score = score;
 	}
@@ -1026,6 +1054,18 @@ public class Position implements Comparable<Position> {
     		return "K";
 		}
     	return "Not a piece.";
+	}
+
+	public ArrayList<Move> getMoveList() {
+		return moveList;
+	}
+
+	public ArrayList<Move> getCaptureList() {
+		return captureList;
+	}
+
+	public ArrayList<Move> getOtherList() {
+		return otherList;
 	}
 
 	private byte[][] inputStartingPieces() {

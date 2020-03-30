@@ -18,6 +18,8 @@ public class ChessServlet extends HttpServlet{
         private boolean firstEngineMove = true;
         private TestEngine testEngine;
         private int moveNumber = 0;
+        private ArrayList<Position> positionList = new ArrayList<>(); // TODO refactor so that this is a list of past positions, then simply return position to show.
+        private int currentMoveIndex = 0;
 
 
         public void init() throws ServletException {
@@ -26,6 +28,7 @@ public class ChessServlet extends HttpServlet{
             currentPosition = new Position();
             engine = new Engine();
             evaluate = new Evaluation();
+            positionList.add(new Position());
         }
 
         public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,12 +62,15 @@ public class ChessServlet extends HttpServlet{
                 re.put("testing", "true");
 
                 Move currentMove;
+                MoveAndExplanation moveEx;
 
-                if (firstEngineMove) {
-                    currentMove = engine.play(currentPosition);
+                if (!firstEngineMove) {
+                    moveEx = engine.playAndExplain(currentPosition);
+                    currentMove = moveEx.getMove();
                     theoryUpdate(testEngine, currentMove);
                 } else {
-                    currentMove = testEngine.play(currentPosition);
+                    moveEx = testEngine.playAndExplain(currentPosition);
+                    currentMove = moveEx.getMove();
                     theoryUpdate(engine, currentMove);
                 }
 
@@ -76,6 +82,8 @@ public class ChessServlet extends HttpServlet{
 
 
                 System.out.println(currentMove);
+                System.out.println(moveEx.getExplanation());
+
                 if (currentPosition.getAllLegalMoves().size() == 0) {
                     double score = evaluate.evaluate(currentPosition);
                     if (score == 0) {
@@ -93,7 +101,22 @@ public class ChessServlet extends HttpServlet{
                 firstEngineMove = !firstEngineMove;
                 currentPosition = currentPosition.positionAfterMove(currentMove);
                 currentPosition.switchTurn();
+                positionList.add(currentPosition);
                 moveNumber++;
+                currentMoveIndex++;
+            } else if (request.getParameter("previousMove") != null && request.getParameter("previousMove").equals("true")) {
+                if (currentMoveIndex > 0) {
+                    currentMoveIndex--;
+                    re.put("move", positionList.get(currentMoveIndex).toString());
+                }
+            } else if (request.getParameter("nextMove") != null && request.getParameter("nextMove").equals("true")) {
+                if (currentMoveIndex < moveNumber) {
+                    currentMoveIndex++;
+                    re.put("move", positionList.get(currentMoveIndex).toString());
+                    if (currentMoveIndex == moveNumber) {
+                        re.put("isLastPosition", "true");
+                    }
+                }
             } else {
                 if (request.getParameter("userMove") != null && request.getParameter("userMove").equals("true")) {
                     int square1 = Integer.valueOf(request.getParameter("square1"));
@@ -121,7 +144,9 @@ public class ChessServlet extends HttpServlet{
 
                         currentPosition = currentPosition.positionAfterMove(currentMove);
                         currentPosition.switchTurn();
+                        positionList.add(currentPosition);
                         moveNumber++;
+                        currentMoveIndex++;
 
                         if(currentPosition.getAllLegalMoves().size() == 0) {
                             double score = evaluate.evaluate(currentPosition);
@@ -133,8 +158,6 @@ public class ChessServlet extends HttpServlet{
                                 re.put("gameEnd", "WhiteWins");
                             }
                         }
-
-
 
                     } else {
                         re.put("isLegal", "No");
@@ -148,11 +171,14 @@ public class ChessServlet extends HttpServlet{
                     re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
                     re.put("MoveNumber", moveNumber);
 
+
                     re.put("MoveExplanation", moveAndEx.getExplanation());
 
                     currentPosition = currentPosition.positionAfterMove(currentMove);
                     currentPosition.switchTurn();
+                    positionList.add(currentPosition);
                     moveNumber++;
+                    currentMoveIndex = moveNumber;
 
                     if(currentPosition.getAllLegalMoves().size() == 0) {
                         double score = currentPosition.getScore();
@@ -166,7 +192,7 @@ public class ChessServlet extends HttpServlet{
                     }
                 }
             }
-            re.put("position", addPosition(currentPosition));
+            re.put("position", addPosition(positionList.get(currentMoveIndex)));
             log((System.currentTimeMillis() - startTime) + "");
             out.print(re.toString());
             out.flush();
@@ -223,7 +249,7 @@ public class ChessServlet extends HttpServlet{
 
             if (!moveFound) {
                 engine.setTheory(false);
-                System.out.println("1 THeory");
+                System.out.println("1 Theory");
             } else if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals("-")) {
                 engine.setTheory(false);
                 System.out.println("2 theory");

@@ -1,5 +1,7 @@
 var firstSquareClickedOn = -1;
 var squares = document.getElementsByClassName("square");
+var isLatestPosition = true;
+var stillTesting = true;
 window.onload = function() {
     $.post("Hello",
         {
@@ -26,24 +28,75 @@ window.onload = function() {
             }).always(function (data, status) {
             parseRequest(data);
         });
+        toggle();
+    });
+
+    function toggle() {
+        document.getElementById("TestButton").innerText = "Stop Computer v. Computer";
+        var old_element = document.getElementById("TestButton");
+        var new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+        document.getElementById("TestButton").addEventListener("click", function () {
+            stillTesting = false;
+            toggleBack();
+        });
+    }
+
+    function toggleBack() {
+        document.getElementById("TestButton").innerText = "Computer v. Computer";
+        var old_element = document.getElementById("TestButton");
+        var new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+        document.getElementById("TestButton").addEventListener("click", function () {
+            stillTesting = true;
+            $.post("Hello",
+                {
+                    test:true
+                }).always(function (data, status) {
+                parseRequest(data);
+            });
+            toggle();
+        });
+    }
+
+    document.getElementById("NextMove").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                nextMove:true
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
+    });
+    document.getElementById("PreviousMove").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                previousMove:true
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
+        isLatestPosition = false;
     });
 };
 
 function extra(secondSquareClicked) {
     return function() {
-        if (firstSquareClickedOn != -1) {
-            $.post("Hello",
-                {
-                    square1:firstSquareClickedOn,
-                    square2:secondSquareClicked,
-                    userMove:true
-                }).always(function(data, status) {
-                parseRequest(data);
+        if (isLatestPosition) {
+            if (firstSquareClickedOn != -1) {
+                $.post("Hello",
+                    {
+                        square1: firstSquareClickedOn,
+                        square2: secondSquareClicked,
+                        userMove: true
+                    }).always(function (data, status) {
+                    parseRequest(data);
 
-            });
-            firstSquareClickedOn = -1;
+                });
+                firstSquareClickedOn = -1;
+            } else {
+                firstSquareClickedOn = secondSquareClicked;
+            }
         } else {
-            firstSquareClickedOn = secondSquareClicked;
+            alert("Please use the arrows below the board to get to the latest position.");
         }
     };
 }
@@ -65,6 +118,10 @@ function parseRequest(data) {
             document.getElementById("playAgain").remove();
         }
         document.getElementById("MoveList").textContent = null;
+    }
+
+    if (window._data.isLastPosition != null && window._data.isLastPosition == "true") {
+        isLatestPosition = true;
     }
 
     for (var i = 0; i < 64; i++) {
@@ -153,12 +210,14 @@ function parseRequest(data) {
 
         }
         if (window._data.testing != null && window._data.testing == "true") {
-            $.post("Hello",
-                {
-                    TestingStill : "true"
-                }).always(function (data, status) {
-                parseRequest(data);
-            });
+            if (stillTesting) {
+                $.post("Hello",
+                    {
+                        TestingStill: "true"
+                    }).always(function (data, status) {
+                    parseRequest(data);
+                });
+            }
         } else {
 
             if (window._data.playedMove != null) {
@@ -174,6 +233,7 @@ function parseRequest(data) {
                         });
                     }
                 } else if (window._data.playedMove == "Computer") {
+                    isLatestPosition = true;
                     var explanation = document.createElement("p");
                     explanation.id = "explanation";
                     explanation.innerText = window._data.MoveExplanation;

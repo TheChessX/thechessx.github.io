@@ -9,167 +9,172 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?21">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?26">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?18" type="text/javascript"></script>
+    <script src="master.js?27" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
-    <div id = "boardAndExplanation">
-      <table>
-        <tr>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/10.png" class="piece blackRook"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/8.png" class="piece blackKnight"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/9.png" class="piece blackBishop"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/11.png" class="piece blackQueen"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/12.png" class="piece blackKing"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/9.png" class="piece blackBishop"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/8.png" class="piece blackKnight"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/10.png" class="piece blackRook"></img>
-          </td>
-        </tr>
-        <tr>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
-          </td>
-        </tr>
-        <tr>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-        </tr>
-        <tr>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-        </tr>
-        <tr>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-        </tr>
-        <tr>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-          <td class="blackSquare square"></td>
-          <td class="whiteSquare square"></td>
-        </tr>
-        <tr>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
-          </td>
-        </tr>
-        <tr>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/5.png" class="piece whiteQueen"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/6.png" class="piece whiteKing"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
-          </td>
-          <td class="blackSquare square">
-            <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
-          </td>
-          <td class="whiteSquare square">
-            <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
-          </td>
-        </tr>
-      </table>
+      <div id = "boardAndExplanation">
+        <div id = "moveToggle_Board">
+          <table>
+            <tr>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/10.png" class="piece blackRook"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/8.png" class="piece blackKnight"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/9.png" class="piece blackBishop"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/11.png" class="piece blackQueen"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/12.png" class="piece blackKing"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/9.png" class="piece blackBishop"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/8.png" class="piece blackKnight"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/10.png" class="piece blackRook"></img>
+              </td>
+            </tr>
+            <tr>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+              </td>
+            </tr>
+            <tr>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+            </tr>
+            <tr>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+            </tr>
+            <tr>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+            </tr>
+            <tr>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+              <td class="blackSquare square"></td>
+              <td class="whiteSquare square"></td>
+            </tr>
+            <tr>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+              </td>
+            </tr>
+            <tr>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/5.png" class="piece whiteQueen"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/6.png" class="piece whiteKing"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
+              </td>
+              <td class="blackSquare square">
+                <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
+              </td>
+              <td class="whiteSquare square">
+                <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
+              </td>
+            </tr>
+          </table>
+          <button id = "PreviousMove" ><img src="${pageContext.request.contextPath}/img/LeftArrow.png"></img></button>
+          <button id = "NextMove" ><img src="${pageContext.request.contextPath}/img/RightArrow.png"></img></button>
+        </div>
       <div id = "explanationDiv">
       </div>
     </div>
     <div id = "MoveList"></div>
-  <button id = "RestartButton">Restart Game</button>
-  <button id = "TestButton">Computer v. Computer</button>
-  <p>Welcome to ChessX! Try to win with the White pieces. To move, click on the square of the piece that you want to move, then on the square you would like to move it to.
-  The computer will play for the Black pieces; it takes approximately ten seconds to play each move.
-  You can also have the computer play itself. Enjoy!</p>
+    <button id = "RestartButton">Restart Game</button>
+    <button id = "TestButton">Computer v. Computer</button>
+    <button id = "TestSpecificButton">Test the computer in certain specific positions.</button>
+    <p>Welcome to ChessX! Try to win with the White pieces. To move, click on the square of the piece that you want to move, then on the square you would like to move it to.
+    The computer will play for the Black pieces; it takes approximately ten seconds to play each move.
+    You can also have the computer play itself. Enjoy!</p>
   </body>
 </html>

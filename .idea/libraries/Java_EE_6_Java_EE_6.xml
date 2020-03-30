@@ -15,13 +15,9 @@
       <root url="jar://$PROJECT_DIR$/lib/poi-ooxml-3.17.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/poi-ooxml-schemas-3.17.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/xmlbeans-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/junit-4.13.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/Downloads/gson-2.6.2-sources.jar!/" />
-    </SOURCES>
-    <excluded>
-      <root url="jar://$USER_HOME$/Downloads/gson-2.6.2-sources.jar!/" />
-    </excluded>
+    <SOURCES />
   </library>
 </component>

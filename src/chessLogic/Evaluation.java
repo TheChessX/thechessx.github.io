@@ -19,8 +19,8 @@ public class Evaluation {
 	//Piece Values
 	public final double pawnV = 1;
 	public final double rookV = 5;
-	public final double knightV = 3.05;
-	public final double bishopV = 3.45;
+	public final double knightV = 3;
+	public final double bishopV = 3;
 	public final double queenV = 9;
 	
 	//Center Control
@@ -156,8 +156,8 @@ public class Evaluation {
 					+ evaluatePieceSquareTable(pos);
 			score = round(score, 2);
 			count++;
-			if (count % 10000 == 0) {
-				System.out.println(count/10000 + "0k positions evaluated");
+			if (count % 100000 == 0) {
+				System.out.println(count/100000 + "00k positions evaluated");
 			}
 		}
 		return score;

@@ -21,8 +21,12 @@ body {
     font-size: 14px;
     padding: 2px;
 }
-table {
+
+#moveToggle_Board {
     float: left;
+}
+
+table {
     width: 418px;
     padding: 20px;
     table-layout: fixed;
@@ -34,5 +38,5 @@ table {
     text-align: center;
 }
 #TestButton {
-    visibility: collapse;
+    /* visibility: collapse; */
 }
