@@ -149,8 +149,8 @@ public class TestEvaluation {
 					+ evaluateRooks(pos)
 					+ evaluatePawns(pos)
 					+ evaluateBishopPair(pos)
-					+ evaluatePieceSquareTable(pos)
-					+ evaluateCapturesPossible(pos);
+					+ evaluatePieceSquareTable(pos);
+					//+ evaluateHangingPieces(pos);
 			score = round(score, 2);
 			count++;
 			if (count % 100000 == 0) {
@@ -181,8 +181,8 @@ public class TestEvaluation {
 				+ evaluateMobility(pos, moves)
 				+ evaluateRooks(pos)
 				+ evaluatePawnsEndgame(pos)
-				+ evaluateBishopPair(pos)
-				+ evaluateCapturesPossible(pos);
+				+ evaluateBishopPair(pos);
+				//+ evaluateHangingPieces(pos);
 		score = round(score, 2);
 		count++;
 		if (count % 10000 == 0) {
@@ -765,9 +765,8 @@ public class TestEvaluation {
 		return round(score/20, 2);
 	}
 
-	public double evaluateCapturesPossible(Position pos) {
-		Position pos1 = new Position(pos);
-		pos1.switchTurn();
+	public double evaluateHangingPieces(Position pos) {
+		Position pos1 = pos.switchTurn();
 		ArrayList<Move> reverseTurnMoves = pos1.getAllLegalMoves();
 		int hangingToMove = 0;
 		int hangingOpponent = 0;
@@ -776,6 +775,7 @@ public class TestEvaluation {
 			for (Move m2 : reverseTurnMoves) {
 				if (m1.getxFinal() == m2.getxFinal() && m1.getyFinal() == m2.getyFinal()) {
 					isHangingPiece = false;
+					break;
 				}
 			}
 			if (isHangingPiece) {
@@ -800,10 +800,6 @@ public class TestEvaluation {
 		}
 
 	}
-
-
-
-
 
 	private ArrayList<Integer> findPiece(Position pos, byte id) {
 		ArrayList<Integer> pieceLocations = new ArrayList<Integer>();

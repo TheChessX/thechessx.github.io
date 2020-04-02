@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 public class Position implements Comparable<Position> {
 
-
     /*
         Byte[][] stores the current chess position. Correspondence of number to piece:
         0 - empty
@@ -34,6 +33,8 @@ public class Position implements Comparable<Position> {
     ArrayList<Move> moveList = new ArrayList<Move>();
 	ArrayList<Move> captureList = new ArrayList<Move>();
 	ArrayList<Move> otherList = new ArrayList<Move>();
+
+	//private boolean[][] protectedSquares = new boolean[8][8];
     
     private int enPassantColumn = -1;
 
@@ -65,6 +66,11 @@ public class Position implements Comparable<Position> {
         }
         setBlackToMove(p.isBlackToMove());
     }
+
+    public Position(byte[][] b) {
+    	position = b.clone();
+    	setBlackToMove(false);
+	}
 
     public void setSquare(int xPos, int yPos, byte value) {
         position[xPos][yPos] = value;

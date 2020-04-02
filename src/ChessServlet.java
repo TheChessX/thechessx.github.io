@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import chessLogic.*;
+
 
 public class ChessServlet extends HttpServlet{
 

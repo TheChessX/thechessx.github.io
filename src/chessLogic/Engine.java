@@ -5,18 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
@@ -567,7 +557,7 @@ public class Engine {
 			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
 			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
 			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-			sb.append("Hanging Pieces: " + eval.evaluateCapturesPossible(pos) + "\n");
+			sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
 
 		} else {
 			sb.append("This is a middlegame position. \n");
@@ -579,7 +569,7 @@ public class Engine {
 			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
 			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
 			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-			sb.append("Hanging Pieces: " + eval.evaluateCapturesPossible(pos) + "\n");
+			sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
 		}
 		return sb.toString();
 	}

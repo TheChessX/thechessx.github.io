@@ -8,37 +8,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/TestsForEvaluation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/LeftArrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/RightArrow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/junit-4.13.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/TestsForTestEvaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WebChess.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/META-INF/WebChess.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/TestsForEvaluation.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndExplanation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndExplanation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/META-INF/WebChess.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndExplanation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndExplanation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestsForEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestsForEvaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndExplanation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndExplanation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +45,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -77,34 +75,88 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
     <property name="findjar.last.used.dir" value="$USER_HOME$/Downloads" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
+    <key name="CreateTestDialog.RecentsKey">
       <recent name="chessLogic" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/web/img" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="chessLogic" />
+    <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/web/img" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="chessLogic" />
+      <recent name="" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="chessLogic" />
+    </key>
   </component>
-  <component name="RunManager" selected="JAR Application.xmlbeans-2.6.0.jar">
+  <component name="RunManager" selected="JUnit.TestsForTestEvaluation">
+    <configuration name="TestsForEvaluation (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestsForEvaluation" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestsForEvaluation" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="chessLogic" />
+      <option name="MAIN_CLASS_NAME" value="chessLogic.TestsForEvaluation" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestsForTestEvaluation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestsForTestEvaluation" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestsForTestEvaluation.testCapturesPossible" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestsForTestEvaluation" />
+      <option name="METHOD_NAME" value="testCapturesPossible" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="xmlbeans-2.6.0.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/lib/xmlbeans-2.6.0.jar" />
       <method v="2" />
@@ -182,8 +234,19 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JAR Application.xmlbeans-2.6.0.jar" />
+      <item itemvalue="JUnit.TestsForEvaluation" />
+      <item itemvalue="Tomcat Server.TomcatServ" />
+      <item itemvalue="JUnit.TestsForEvaluation (1)" />
+      <item itemvalue="JUnit.TestsForTestEvaluation" />
+      <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestsForTestEvaluation" />
+        <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
+        <item itemvalue="JUnit.TestsForEvaluation (1)" />
         <item itemvalue="JAR Application.xmlbeans-2.6.0.jar" />
       </list>
     </recent_temporary>
@@ -247,19 +310,26 @@
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="319" y="100" key="#Tomcat_Server/0.23.1440.823@0.23.1440.823" timestamp="1577740016931" />
-    <state x="0" y="23" width="1440" height="823" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577939353639">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state x="0" y="23" width="1440" height="822" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585600629858">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="0" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.821@0.23.1440.821" timestamp="1577939353639" />
+    <state x="0" y="23" width="1440" height="822" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.822@0.23.1440.822" timestamp="1585600629858" />
     <state x="0" y="23" width="1440" height="823" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.823@0.23.1440.823" timestamp="1577769518783" />
+    <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1585617999814">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.821@0.23.1440.821" timestamp="1585617999814" />
+    <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.822@0.23.1440.822" timestamp="1585601278915" />
     <state x="549" y="161" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog" timestamp="1579129872077">
       <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="549" y="161" key="#com.intellij.ide.ui.customization.CustomizableActionsPanel.FindAvailableActionsDialog/0.23.1440.823@0.23.1440.823" timestamp="1579129872077" />
-    <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser" timestamp="1581213253454">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1585796292699">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser/0.23.1440.816@0.23.1440.816" timestamp="1581213253454" />
+    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.823@0.23.1440.823" timestamp="1585796292699" />
     <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.825@0.23.1440.825" timestamp="1579626693550" />
     <state x="320" y="101" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1577769321947">
       <screen x="0" y="23" width="1440" height="823" />
@@ -281,62 +351,62 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="475" y="140" key="DetectedRootsChooserDialog/0.23.1440.822@0.23.1440.822" timestamp="1585535305719" />
-    <state width="1400" height="205" key="GridCell.Tab.0.bottom" timestamp="1581096151455">
-      <screen x="0" y="23" width="1440" height="822" />
+    <state width="1400" height="256" key="GridCell.Tab.0.bottom" timestamp="1585795163909">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
     <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
-    <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1577942245456" />
-    <state width="1400" height="205" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1581096151455" />
-    <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1577769555455" />
-    <state width="1400" height="205" key="GridCell.Tab.0.center" timestamp="1581096151454">
-      <screen x="0" y="23" width="1440" height="822" />
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1585619317174" />
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
+    <state width="1400" height="256" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585795163909" />
+    <state width="1400" height="256" key="GridCell.Tab.0.center" timestamp="1585795163908">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
     <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
-    <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1577942245455" />
-    <state width="1400" height="205" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1581096151454" />
-    <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1577769555454" />
-    <state width="1400" height="205" key="GridCell.Tab.0.left" timestamp="1581096151453">
-      <screen x="0" y="23" width="1440" height="822" />
+    <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
+    <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
+    <state width="1400" height="256" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1585795163908" />
+    <state width="1400" height="256" key="GridCell.Tab.0.left" timestamp="1585795163907">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
     <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1577945694476" />
-    <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1577942245455" />
-    <state width="1400" height="205" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1581096151453" />
-    <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1577769555454" />
-    <state width="1400" height="205" key="GridCell.Tab.0.right" timestamp="1581096151455">
-      <screen x="0" y="23" width="1440" height="822" />
+    <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1585619317172" />
+    <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
+    <state width="1400" height="256" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1585795163907" />
+    <state width="1400" height="256" key="GridCell.Tab.0.right" timestamp="1585795163908">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1358" height="199" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
     <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
-    <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245456" />
-    <state width="1400" height="205" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1581096151455" />
-    <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555455" />
-    <state width="1055" height="199" key="GridCell.Tab.1.bottom" timestamp="1577945694478">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
+    <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
+    <state width="1400" height="256" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1585795163908" />
+    <state width="1400" height="256" key="GridCell.Tab.1.bottom" timestamp="1585795163911">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1055" height="199" key="GridCell.Tab.1.bottom/0.23.1440.816@0.23.1440.816" timestamp="1577945694478" />
     <state width="1055" height="199" key="GridCell.Tab.1.bottom/0.23.1440.821@0.23.1440.821" timestamp="1577942245457" />
-    <state width="1055" height="199" key="GridCell.Tab.1.bottom/0.23.1440.823@0.23.1440.823" timestamp="1577769555331" />
-    <state width="1055" height="199" key="GridCell.Tab.1.center" timestamp="1577945694478">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1400" height="256" key="GridCell.Tab.1.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585795163911" />
+    <state width="1400" height="256" key="GridCell.Tab.1.center" timestamp="1585795163910">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1055" height="199" key="GridCell.Tab.1.center/0.23.1440.816@0.23.1440.816" timestamp="1577945694478" />
     <state width="1055" height="199" key="GridCell.Tab.1.center/0.23.1440.821@0.23.1440.821" timestamp="1577942245457" />
-    <state width="1055" height="199" key="GridCell.Tab.1.center/0.23.1440.823@0.23.1440.823" timestamp="1577769555330" />
-    <state width="1055" height="199" key="GridCell.Tab.1.left" timestamp="1577945694477">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1400" height="256" key="GridCell.Tab.1.center/0.23.1440.823@0.23.1440.823" timestamp="1585795163910" />
+    <state width="1400" height="256" key="GridCell.Tab.1.left" timestamp="1585795163909">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1055" height="199" key="GridCell.Tab.1.left/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1055" height="199" key="GridCell.Tab.1.left/0.23.1440.821@0.23.1440.821" timestamp="1577942245456" />
-    <state width="1055" height="199" key="GridCell.Tab.1.left/0.23.1440.823@0.23.1440.823" timestamp="1577769555330" />
-    <state width="1055" height="199" key="GridCell.Tab.1.right" timestamp="1577945694478">
-      <screen x="0" y="23" width="1440" height="816" />
+    <state width="1400" height="256" key="GridCell.Tab.1.left/0.23.1440.823@0.23.1440.823" timestamp="1585795163909" />
+    <state width="1400" height="256" key="GridCell.Tab.1.right" timestamp="1585795163911">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state width="1055" height="199" key="GridCell.Tab.1.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694478" />
     <state width="1055" height="199" key="GridCell.Tab.1.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245457" />
-    <state width="1055" height="199" key="GridCell.Tab.1.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555331" />
+    <state width="1400" height="256" key="GridCell.Tab.1.right/0.23.1440.823@0.23.1440.823" timestamp="1585795163910" />
     <state width="1055" height="199" key="GridCell.Tab.2.bottom" timestamp="1577945694479">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
@@ -361,14 +431,14 @@
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694479" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.821@0.23.1440.821" timestamp="1577942245458" />
     <state width="1055" height="199" key="GridCell.Tab.2.right/0.23.1440.823@0.23.1440.823" timestamp="1577769555332" />
-    <state x="208" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1585536068787">
+    <state x="153" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1585600890575">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="208" y="23" width="1024" height="814" key="SettingsEditor/0.23.1440.814@0.23.1440.814" timestamp="1578332359039" />
     <state x="208" y="23" width="1024" height="816" key="SettingsEditor/0.23.1440.816@0.23.1440.816" timestamp="1579717256547" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1577932052683" />
-    <state x="208" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1585536068787" />
-    <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1579129875730" />
+    <state x="153" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1585600890575" />
+    <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1585599706392" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.826@0.23.1440.826" timestamp="1583429070625" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.828@0.23.1440.828" timestamp="1579746464182" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog" timestamp="1581199853672">
@@ -377,14 +447,23 @@
     <state x="376" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.814@0.23.1440.814" timestamp="1578941067567" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1581199853672" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1581182827234" />
+    <state x="419" y="329" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585600206923">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="419" y="329" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.23.1440.822@0.23.1440.822" timestamp="1585600206923" />
     <state x="496" y="350" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578023336433">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="496" y="350" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.816@0.23.1440.816" timestamp="1578023336433" />
-    <state x="114" y="35" key="new project wizard" timestamp="1578331990145">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="479" y="162" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1585600227093">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="479" y="162" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.23.1440.822@0.23.1440.822" timestamp="1585600227092" />
+    <state x="114" y="35" key="new project wizard" timestamp="1585600065707">
+      <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="114" y="35" key="new project wizard/0.23.1440.814@0.23.1440.814" timestamp="1578331990145" />
+    <state x="114" y="35" key="new project wizard/0.23.1440.822@0.23.1440.822" timestamp="1585600065707" />
     <state x="371" y="164" width="670" height="690" key="search.everywhere.popup" timestamp="1585362036234">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
@@ -392,5 +471,19 @@
     <state x="371" y="162" width="670" height="683" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1580836931978" />
     <state x="371" y="163" width="670" height="687" key="search.everywhere.popup/0.23.1440.826@0.23.1440.826" timestamp="1583428210105" />
     <state x="371" y="164" width="670" height="690" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1585362036234" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/chessLogic/TestEvaluation.java</url>
+          <line>767</line>
+          <properties class="chessLogic.TestEvaluation" method="evaluateHangingPieces">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
