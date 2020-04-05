@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class Position implements Comparable<Position> {
 
-    /*
+    	/*
         Byte[][] stores the current chess position. Correspondence of number to piece:
         0 - empty
         1 - white pawn
@@ -28,13 +28,13 @@ public class Position implements Comparable<Position> {
         False - White
         Board is stored as x,y with top left being 0,0
          */
-    private byte[][] position; //indexed 0 to 7
+    private final byte[][] position; //indexed 0 to 7
     private boolean blackToMove;
     ArrayList<Move> moveList = new ArrayList<Move>();
 	ArrayList<Move> captureList = new ArrayList<Move>();
 	ArrayList<Move> otherList = new ArrayList<Move>();
 
-	//private boolean[][] protectedSquares = new boolean[8][8];
+	private boolean[][] whiteProtectedSquares = new boolean[8][8]; // This holds a boolean chessboard array of all of the squares that white could attack.
     
     private int enPassantColumn = -1;
 
@@ -46,15 +46,14 @@ public class Position implements Comparable<Position> {
     private boolean castleTest = false;
     
     private double score = Double.MAX_VALUE;
-
-    public Position bestNextPosition = null;
-    public Move bestNextMove = null;
     
-    public Position() { // initializes starting position
-        position = new byte[8][8];
-        position = inputStartingPieces();
+    public Position() {
+		byte[][] position1; // initializes starting position
+        position1 = new byte[8][8];
+        position1 = inputStartingPieces();
         //position = inputCustomPosition();
-        setBlackToMove(false);
+		position = position1;
+		setBlackToMove(false);
     }
 
     public Position(Position p) {
@@ -81,7 +80,10 @@ public class Position implements Comparable<Position> {
     }
 
 	public ArrayList<Move> getAllLegalMoves() {
-		moveList = new ArrayList<Move>();
+		if (moveList.size() != 0) {
+			return moveList;
+		}
+    	moveList = new ArrayList<Move>();
 		captureList = new ArrayList<Move>();
 		otherList = new ArrayList<Move>();
 		if (moveList.size() == 0) {
@@ -93,9 +95,7 @@ public class Position implements Comparable<Position> {
 				}
 			}
 		}
-		//boolean legal = true;
 		for (int i = 0; i < moveList.size(); i++) {
-			//legal = true;
 			Move potentialMov = (Move) moveList.get(i);
 			Position potentialPos = new Position(this);
 			boolean capture = false;
@@ -113,16 +113,7 @@ public class Position implements Comparable<Position> {
 			}
 			potentialPos.setSquare(potentialMov.getxInitial(), potentialMov.getyInitial(), (byte) 0);
 			potentialPos.setBlackToMove(!this.blackToMove);
-//    		int[] kingLocation = findKing(potentialPos);
-//    		int kingR = kingLocation[0];
-//    		int kingC = kingLocation[1];
-//    		ArrayList<Move> potentialLegalMoves = potentialPos.getAllLegalMovesNoCheck();
-//    		for (Move potentialNextMove: potentialLegalMoves) {
-//    			if (potentialNextMove.getxFinal() == kingR && potentialNextMove.getyFinal() == kingC) {
-//    				legal = false;
-//    				break;
-//    			}
-//    		}
+
 			if (inCheck(potentialPos)) {
 				moveList.remove(i);
 				i--;
@@ -405,9 +396,9 @@ public class Position implements Comparable<Position> {
                 }
             }
             if (yPos != 7 && position[xPos - 1][yPos + 1] >= 7) { // one capture
-            	for (byte id = 2; id <= 5; id++) {
-            		moveList.add(new Move(xPos, yPos, xPos - 1, yPos + 1, id));
-            	}
+					for (byte id = 2; id <= 5; id++) {
+						moveList.add(new Move(xPos, yPos, xPos - 1, yPos + 1, id));
+					}
             }
             if (yPos != 0 && position[xPos - 1][yPos - 1] >= 7) { // other capture
             	for (byte id = 2; id <= 5; id++) {
@@ -427,7 +418,7 @@ public class Position implements Comparable<Position> {
 	        if (yPos != 7 && xPos > 0 && position[xPos - 1][yPos + 1] >= 7) { // one capture
 	            moveList.add(new Move(xPos, yPos, xPos - 1, yPos + 1));
 	        }
-	        if (xPos != 0 && yPos != 0 && position[xPos - 1][yPos - 1] >= 7) { // other capture
+	        if (yPos != 0 && xPos != 0 && position[xPos - 1][yPos - 1] >= 7) { // other capture
 	            moveList.add(new Move(xPos, yPos, xPos - 1, yPos - 1));
 	        }
     	}

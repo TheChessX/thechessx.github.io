@@ -8,34 +8,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/junit-4.13.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/TestsForTestEvaluation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/TestsForMoveAndResultingPosition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WebChess.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/TestsForEvaluation.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndExplanation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndExplanation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndResultingPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndResultingPosition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/PosInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/PosInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Position.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndExplanation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndExplanation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndResultingPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndResultingPosition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/PosInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/PosInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Position.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestsForEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestsForEvaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndExplanation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndExplanation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +114,7 @@
       <recent name="chessLogic" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestsForTestEvaluation">
+  <component name="RunManager" selected="JUnit.TestsForMoveAndResultingPosition.testComparator">
     <configuration name="TestsForEvaluation (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WebChess" />
       <option name="PACKAGE_NAME" value="" />
@@ -134,6 +131,16 @@
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestsForMoveAndResultingPosition.testComparator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestsForMoveAndResultingPosition" />
+      <option name="METHOD_NAME" value="testComparator" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -241,9 +248,11 @@
       <item itemvalue="JUnit.TestsForEvaluation (1)" />
       <item itemvalue="JUnit.TestsForTestEvaluation" />
       <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
+      <item itemvalue="JUnit.TestsForMoveAndResultingPosition.testComparator" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestsForMoveAndResultingPosition.testComparator" />
         <item itemvalue="JUnit.TestsForTestEvaluation" />
         <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
         <item itemvalue="JUnit.TestsForEvaluation (1)" />
@@ -351,34 +360,34 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="475" y="140" key="DetectedRootsChooserDialog/0.23.1440.822@0.23.1440.822" timestamp="1585535305719" />
-    <state width="1400" height="256" key="GridCell.Tab.0.bottom" timestamp="1585795163909">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom" timestamp="1586050128467">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1358" height="199" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1586050128467" />
     <state width="1055" height="199" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1585619317174" />
     <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
     <state width="1400" height="256" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585795163909" />
-    <state width="1400" height="256" key="GridCell.Tab.0.center" timestamp="1585795163908">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="204" key="GridCell.Tab.0.center" timestamp="1586050128466">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1358" height="199" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
+    <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
     <state width="1055" height="199" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
     <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
     <state width="1400" height="256" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1585795163908" />
-    <state width="1400" height="256" key="GridCell.Tab.0.left" timestamp="1585795163907">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="204" key="GridCell.Tab.0.left" timestamp="1586050128466">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1358" height="199" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1578502902587" />
+    <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
     <state width="1055" height="199" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1577945694476" />
     <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1585619317172" />
     <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
     <state width="1400" height="256" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1585795163907" />
-    <state width="1400" height="256" key="GridCell.Tab.0.right" timestamp="1585795163908">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="204" key="GridCell.Tab.0.right" timestamp="1586050128466">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1358" height="199" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1578502902588" />
+    <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
     <state width="1055" height="199" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1577945694477" />
     <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
     <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
@@ -464,26 +473,12 @@
     </state>
     <state x="114" y="35" key="new project wizard/0.23.1440.814@0.23.1440.814" timestamp="1578331990145" />
     <state x="114" y="35" key="new project wizard/0.23.1440.822@0.23.1440.822" timestamp="1585600065707" />
-    <state x="371" y="164" width="670" height="690" key="search.everywhere.popup" timestamp="1585362036234">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state x="371" y="161" width="670" height="676" key="search.everywhere.popup" timestamp="1586019312797">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state x="371" y="161" width="670" height="676" key="search.everywhere.popup/0.23.1440.814@0.23.1440.814" timestamp="1578504127461" />
+    <state x="371" y="161" width="670" height="676" key="search.everywhere.popup/0.23.1440.814@0.23.1440.814" timestamp="1586019312797" />
     <state x="371" y="162" width="670" height="683" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1580836931978" />
     <state x="371" y="163" width="670" height="687" key="search.everywhere.popup/0.23.1440.826@0.23.1440.826" timestamp="1583428210105" />
     <state x="371" y="164" width="670" height="690" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1585362036234" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/chessLogic/TestEvaluation.java</url>
-          <line>767</line>
-          <properties class="chessLogic.TestEvaluation" method="evaluateHangingPieces">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

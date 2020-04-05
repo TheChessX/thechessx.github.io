@@ -172,7 +172,6 @@
     <div id = "MoveList"></div>
     <button id = "RestartButton">Restart Game</button>
     <button id = "TestButton">Computer v. Computer</button>
-    <button id = "TestSpecificButton">Test the computer in certain specific positions.</button>
     <p>Welcome to ChessX! Try to win with the White pieces. To move, click on the square of the piece that you want to move, then on the square you would like to move it to.
     The computer will play for the Black pieces; it takes approximately ten seconds to play each move.
     You can also have the computer play itself. Enjoy!</p>

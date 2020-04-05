@@ -20,7 +20,7 @@ public class Engine {
 	protected int wbCol = 0;
 	protected HashMap<String, PosInfo> map = new HashMap();
 
-	protected int MAX_TIME = 28000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	protected int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
 	protected int duplicateCount = 0;
 
@@ -347,7 +347,6 @@ public class Engine {
 				//}
 				if (pos1Score < score) {
 						score = pos1Score;
-						pos.bestNextPosition = pos1;
 				}
 				if (score < beta) {
 						beta = score;
@@ -369,7 +368,6 @@ public class Engine {
 				//}
 				if (pos1Score > score) {
 					score = pos1Score;
-					pos.bestNextPosition = pos1;
 				}
 				if (score > alpha) {
 					alpha = score;
@@ -550,27 +548,27 @@ public class Engine {
 	public String getInformation(TestEvaluation eval, Position pos) {
 		StringBuilder sb = new StringBuilder();
 		//sb.append("Evaluation: " + pos.getScore() + "\n");
-		if (eval.isEndgame()) {
-			sb.append("This is an endgame position. \n");
-			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
-			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
-			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
-			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
-			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-			sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
-
-		} else {
-			sb.append("This is a middlegame position. \n");
-			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
-			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
-			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
-			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
-			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
-			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
-			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
-			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-			sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
-		}
+//		if (eval.isEndgame()) {
+//			sb.append("This is an endgame position. \n");
+//			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+//			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
+//			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+//			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
+//			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+//			//sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
+//
+//		} else {
+//			sb.append("This is a middlegame position. \n");
+//			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+//			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
+//			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
+//			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
+//			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+//			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
+//			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
+//			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+//			//sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
+//		}
 		return sb.toString();
 	}
 }

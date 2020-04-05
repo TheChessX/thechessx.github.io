@@ -4,6 +4,7 @@ public class PosInfo {
     private Position pos;
     private double score;
     private int depthSearched;
+    private Move bestMove;
 
     public Position getPos() {
         return pos;
@@ -27,5 +28,13 @@ public class PosInfo {
 
     public void setDepthSearched(int depthSearched) {
         this.depthSearched = depthSearched;
+    }
+
+    public Move getBestMove() {
+        return bestMove;
+    }
+
+    public void setBestMove(Move bestMove) {
+        this.bestMove = bestMove;
     }
 }

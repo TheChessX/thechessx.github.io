@@ -320,8 +320,8 @@ public class Evaluation {
 
 		//Finds Black King
 		int blackKingLocation = findPiece(pos, (byte) 12).get(0);
-		int blackKingR = whiteKingLocation/8;
-		int blackKingC = whiteKingLocation%8;
+		int blackKingR = blackKingLocation/8;
+		int blackKingC = blackKingLocation%8;
 
 		//Checks first circle around King
 		for (int r = blackKingR - 1; r < blackKingR + 2; r++) {
