@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class Engine {
-	protected TestEvaluation eval;
+	protected Evaluation eval;
 	protected int presetDepth;
 	
 	protected boolean theory = true;
@@ -32,8 +32,8 @@ public class Engine {
 	protected int openingMode = 1;
 	
 	public Engine() {
-		this.eval = new TestEvaluation();
-		this.presetDepth = 4; //Looks n plies ahead
+		this.eval = new Evaluation();
+		this.presetDepth = 6; //Looks n plies ahead
 		if (this.openingMode == -1) {
 			theory = false;
 		}
@@ -234,77 +234,22 @@ public class Engine {
 	}
 	
 	public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis) {
-		if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) {
-			if (pos.getScore() != Double.MAX_VALUE) {
-				Double score = pos.getScore();
-				PosInfo info = new PosInfo();
-				//info.setPos(pos);
-				info.setDepthSearched(0);
-				info.setScore(score);
-				map.put(pos.toString(), info);
-				return pos.getScore();
-			} else {
-				Double score = eval.evaluate(pos);
-				PosInfo info = new PosInfo();
-				//info.setPos(pos);
-				info.setDepthSearched(0);
-				info.setScore(score);
-				map.put(pos.toString(), info);
-				return eval.evaluate(pos);
-			}
+		if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) { // check if time exceeded, end search and return
+			return addToMap(pos, 0);
 		}
-		if (map.containsKey(pos.toString())) {
+		if (map.containsKey(pos.toString())) { // if already searched, return
 			if (map.get(pos.toString()).getDepthSearched() >= depth) {
-				if (duplicateCount % 1000 == 0) {
-					//System.out.println("1000 Duplicate position found");
-				}
-				duplicateCount++;
 				return map.get(pos.toString()).getScore();
 			}
 		}
 
-		if (depth == 0) {
-			//long startTime = System.nanoTime();
-			double score = pos.getScore();
-			//long timetaken = System.nanoTime() - startTime;
-			//System.out.println("Evaluation Time: " + timetaken);
-			PosInfo info = new PosInfo();
-			//info.setPos(pos);
-			info.setDepthSearched(depth);
-			info.setScore(score);
-			map.put(pos.toString(), info);
-			return score;
-			//return eval.evaluate(pos);
-		}
-		//long startTime = System.nanoTime();
-//		ArrayList<Position> posList1 = pos.getNextPositions();
-		//long timetaken = System.nanoTime() - startTime;
-		//System.out.println("MoveFinding: " + timetaken + "    "  + pos);
-
-		ArrayList<Move> legalMoves = pos.getAllLegalMoves();
-
-
-		if (legalMoves.size() == 0) {
-			//System.out.println(pos.getScore() * (depth + 1));
-			if (pos.getScore() == Double.MAX_VALUE) {
-				Double score = eval.evaluate(pos) * (depth + 1);
-				PosInfo info = new PosInfo();
-				//info.setPos(pos);
-				info.setDepthSearched(depth);
-				info.setScore(score);
-				map.put(pos.toString(), info);
-				return score;
-			}
-			Double score = pos.getScore() * (depth + 1);
-			PosInfo info = new PosInfo();
-			//info.setPos(pos);
-			info.setDepthSearched(depth);
-			info.setScore(score);
-			map.put(pos.toString(), info);
-			return score;
+		if (depth == 0) { // if end node, add to map and return result
+			return addToMap(pos, 0);
 		}
 
-		ArrayList<Position> posList1 = pos.getNextPositions(pos.getCaptureList());
+		pos.getAllLegalMoves(); // this is necessary so that the position finds the captures and non-captures requested later
+
+		ArrayList<Position> posList1 = pos.getNextPositions(pos.getCaptureList()); // searches
 
 		for (Position p: posList1) {
 			p.setScore(eval.evaluate(p));
@@ -320,19 +265,9 @@ public class Engine {
 
 		posList1.addAll(posList2);
 
-		
-//		for (Position p: posList1) {
-//			p.setScore(eval.evaluate(p));
-//		}
-//		Collections.sort(posList1);
-		
-		
-//		if (depth > 2 && pos.isBlackToMove() && eval.evaluate(pos) < alpha - 1) {
-//			depth = 2;
-//		}
-//		if (depth > 2 && !pos.isBlackToMove() && eval.evaluate(pos) > beta + 1) {
-//			depth = 2;
-//		}
+		if (posList1.size() == 0) {
+			return addEndToMap(pos, depth);
+		}
 
 		double score;
 		if (pos.isBlackToMove()) {
@@ -525,24 +460,24 @@ public class Engine {
 	public String getInformation(Evaluation eval, Position pos) {
 		StringBuilder sb = new StringBuilder();
 		//sb.append("Evaluation: " + pos.getScore() + "\n");
-		if (eval.isEndgame()) {
-			sb.append("This is an endgame position. \n");
-			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
-			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
-			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
-			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
-			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-		} else {
-			sb.append("This is a middlegame position. \n");
-			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
-			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
-			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
-			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
-			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
-			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
-			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
-			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
-		}
+//		if (eval.isEndgame()) {
+//			sb.append("This is an endgame position. \n");
+//			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+//			sb.append("King Activity: " + eval.evaluateKingActivity(pos)+ "\n");
+//			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+//			sb.append("Pawns: " + eval.evaluatePawnsEndgame(pos) + "\n");
+//			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+//		} else {
+//			sb.append("This is a middlegame position. \n");
+//			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
+//			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
+//			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
+//			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
+//			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
+//			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
+//			sb.append("Piece-Square Table: " + eval.evaluatePieceSquareTable(pos) + "\n");
+//			sb.append("Bishop Pair advantage: " + eval.evaluateBishopPair(pos) + "\n");
+//		}
 		return sb.toString();
 	}
 	public String getInformation(TestEvaluation eval, Position pos) {
@@ -570,5 +505,30 @@ public class Engine {
 //			//sb.append("Hanging Pieces: " + eval.evaluateHangingPieces(pos) + "\n");
 //		}
 		return sb.toString();
+	}
+    protected double addToMap(Position pos, int depth) {
+		PosInfo info = new PosInfo();
+		info.setDepthSearched(depth);
+		Double score;
+		if (pos.getScore() != Double.MAX_VALUE) {
+			score = pos.getScore();
+		} else {
+			score = eval.evaluate(pos);
+		}
+		info.setScore(score);
+		map.put(pos.toString(), info);
+		return score;
+	}
+
+	protected double addEndToMap(Position pos, int depth) {
+		PosInfo info = new PosInfo();
+		info.setDepthSearched(depth);
+		if (pos.getScore() == Double.MAX_VALUE) {
+			pos.setScore(eval.evaluate(pos));
+		}
+		Double score = pos.getScore() * (depth + 1);
+		info.setScore(score);
+		map.put(pos.toString(), info);
+		return score;
 	}
 }

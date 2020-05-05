@@ -9,9 +9,9 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?26">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?28">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?27" type="text/javascript"></script>
+    <script src="master.js?32" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
@@ -163,8 +163,10 @@
               </td>
             </tr>
           </table>
+          <button id = "BackToStart" ><img id = "DoubleLeftID" src="${pageContext.request.contextPath}/img/DoubleLeft.png"></img></button>
           <button id = "PreviousMove" ><img src="${pageContext.request.contextPath}/img/LeftArrow.png"></img></button>
           <button id = "NextMove" ><img src="${pageContext.request.contextPath}/img/RightArrow.png"></img></button>
+          <button id = "toEnd" ><img id = "DoubleRightID" src="${pageContext.request.contextPath}/img/DoubleRight.png"></img></button>
         </div>
       <div id = "explanationDiv">
       </div>

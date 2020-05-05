@@ -100,6 +100,7 @@ public class ChessServlet extends HttpServlet{
                 re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
                 re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
                 re.put("MoveNumber", moveNumber);
+                re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
                 firstEngineMove = !firstEngineMove;
                 currentPosition = currentPosition.positionAfterMove(currentMove);
                 currentPosition.switchTurn();
@@ -109,16 +110,18 @@ public class ChessServlet extends HttpServlet{
             } else if (request.getParameter("previousMove") != null && request.getParameter("previousMove").equals("true")) {
                 if (currentMoveIndex > 0) {
                     currentMoveIndex--;
-                    re.put("move", positionList.get(currentMoveIndex).toString());
                 }
             } else if (request.getParameter("nextMove") != null && request.getParameter("nextMove").equals("true")) {
                 if (currentMoveIndex < moveNumber) {
                     currentMoveIndex++;
-                    re.put("move", positionList.get(currentMoveIndex).toString());
                     if (currentMoveIndex == moveNumber) {
                         re.put("isLastPosition", "true");
                     }
                 }
+            } else if (request.getParameter("toBeginning") != null && request.getParameter("toBeginning").equals("true")) {
+                currentMoveIndex = 0;
+            } else if (request.getParameter("toEnd") != null && request.getParameter("toEnd").equals("true")) {
+                currentMoveIndex = moveNumber;
             } else {
                 if (request.getParameter("userMove") != null && request.getParameter("userMove").equals("true")) {
                     int square1 = Integer.valueOf(request.getParameter("square1"));
@@ -141,6 +144,8 @@ public class ChessServlet extends HttpServlet{
                         re.put("FinalMoveSquare", square2);
                         re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(xInitial, yInitial)));
                         re.put("MoveNumber", moveNumber);
+                        re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
+
 
                         theoryUpdate(engine, currentMove);
 
@@ -172,6 +177,7 @@ public class ChessServlet extends HttpServlet{
                     re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
                     re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
                     re.put("MoveNumber", moveNumber);
+                    re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
 
 
                     re.put("MoveExplanation", moveAndEx.getExplanation());

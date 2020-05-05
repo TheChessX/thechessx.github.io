@@ -76,6 +76,24 @@ window.onload = function() {
         });
         isLatestPosition = false;
     });
+    document.getElementById("BackToStart").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                toBeginning :true
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
+        isLatestPosition = false;
+    });
+    document.getElementById("toEnd").addEventListener("click", function () {
+        $.post("Hello",
+            {
+                toEnd :true
+            }).always(function (data, status) {
+            parseRequest(data);
+        });
+        isLatestPosition = true;
+    });
 };
 
 function extra(secondSquareClicked) {
@@ -177,36 +195,15 @@ function parseRequest(data) {
             squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
             squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";
 
-            var notationLetter;
-            var col = window._data.FinalMoveSquare % 8;
-            if (col == 0) {
-                notationLetter = "a";
+            if (window._data.MoveNotation != null) {
+                if (window._data.MoveNumber%2 == 0) {
+                    document.getElementById("MoveList").textContent += Math.floor(window._data.MoveNumber / 2 + 1) + ". " + window._data.MoveNotation;
+                } else {
+                    document.getElementById("MoveList").textContent += " " + window._data.MoveNotation + " ";
+                }
             }
-            if (col == 1) {
-                notationLetter = "b";
-            }
-            if (col == 2) {
-                notationLetter = "c";
-            }
-            if (col == 3) {
-                notationLetter = "d";
-            }
-            if (col == 4) {
-                notationLetter = "e";
-            }
-            if (col == 5) {
-                notationLetter = "f";
-            }
-            if (col == 6) {
-                notationLetter = "g";
-            }
-            if (col == 7) {
-                notationLetter = "h";
-            }
-            var row = 8 - Math.floor(window._data.FinalMoveSquare/8);
-            var moveNum = Math.floor(window._data.MoveNumber/2 + 1);
 
-            document.getElementById("MoveList").textContent += moveNum + ". " + window._data.PieceMoved + notationLetter + row + " ";
+            //document.getElementById("MoveList").textContent += moveNum + ". " + window._data.PieceMoved + notationLetter + row + " ";
 
         }
         if (window._data.testing != null && window._data.testing == "true") {

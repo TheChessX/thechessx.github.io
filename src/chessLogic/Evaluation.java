@@ -15,7 +15,7 @@ import chessLogic.Position;
  * Opposing pawns around
  */
 
-public class Evaluation {
+public class Evaluation { // distanceScore is wrong in kingsafety?
 	//Piece Values
 	public final double pawnV = 1;
 	public final double rookV = 5;
@@ -147,7 +147,7 @@ public class Evaluation {
 
 			score = evaluatePieceValue(pos)
 					+ evaluateCenterControl(pos)
-					+ evaluateKingSafety(pos)
+					// + evaluateKingSafety(pos)
 					// + evaluateMobility(pos, moves)
 					+ evaluateDevelopment(pos)
 					+ evaluateRooks(pos)

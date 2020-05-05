@@ -60,7 +60,11 @@ public class MoveAndResultingPosition implements Comparable<MoveAndResultingPosi
     }
 
     public Double getScore() {
-        return score;
+        if (score != null) {
+            return score;
+        } else {
+            return eval.evaluate(pos);
+        }
     }
 
     public void setScore(double score) {
@@ -73,5 +77,11 @@ public class MoveAndResultingPosition implements Comparable<MoveAndResultingPosi
 
     public void setBlackToMove(boolean blackToMove) {
         this.blackToMove = blackToMove;
+    }
+
+    public MoveAndResultingPosition clone() {
+        MoveAndResultingPosition toReturn = new MoveAndResultingPosition(this.getMove(), this.getPos(), this.isBlackToMove());
+        toReturn.setScore(this.getScore());
+        return toReturn;
     }
 }

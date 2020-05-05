@@ -25,7 +25,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class TestEngine extends Engine{
 
     TestEvaluation eval;
-    Engine normEn = new Engine();
 
     public TestEngine() {
         this.eval = new TestEvaluation();
@@ -71,7 +70,7 @@ public class TestEngine extends Engine{
         int depth = 1;
         while (System.currentTimeMillis() - startTime < MAX_TIME) {
             for (int i = 0; i < movesAndPos.size(); i++) {
-                movesAndPos.get(i).setScore(normEn.treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, depth, startTime));
+                movesAndPos.get(i).setScore(treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, depth, startTime));
                 if (movesAndPos.get(i).getScore() == 1000000 * presetDepth) {
                     break;
                 }
@@ -135,7 +134,7 @@ public class TestEngine extends Engine{
         int depth = 1;
         while (System.currentTimeMillis() - startTime < MAX_TIME && depth <=5) {
             for (int i = 0; i < movesAndPos.size(); i++) {
-                movesAndPos.get(i).setScore(normEn.treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (depth - 1) - 2, 1000000 * (depth - 1) + 2, depth, startTime));
+                movesAndPos.get(i).setScore(treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (depth - 1) - 2, 1000000 * (depth - 1) + 2, depth, startTime));
                 if (movesAndPos.get(i).getScore() == 1000000 * presetDepth) {
                     break;
                 }
@@ -245,105 +244,71 @@ public class TestEngine extends Engine{
 
 
     public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis) {
+        pos.setScore(eval.evaluate(pos));
         if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) {
-            if (pos.getScore() != Double.MAX_VALUE) {
-                Double score = pos.getScore();
-                PosInfo info = new PosInfo();
-                //info.setPos(pos);
-                info.setDepthSearched(0);
-                info.setScore(score);
-                map.put(pos.toString(), info);
-                return pos.getScore();
-            } else {
-                Double score = eval.evaluate(pos);
-                PosInfo info = new PosInfo();
-                //info.setPos(pos);
-                info.setDepthSearched(0);
-                info.setScore(score);
-                map.put(pos.toString(), info);
-                return eval.evaluate(pos);
-            }
+            return addToMap(pos, 0);
         }
-        //Move hashMove = null;
+        ArrayList<MoveAndResultingPosition> hashMoves = null;
         if (map.containsKey(pos.toString())) {
-            int depthSearched = map.get(pos.toString()).getDepthSearched();
-            if (depthSearched >= depth) {
-                if (duplicateCount % 10000 == 0) {
-                    System.out.println("10k Duplicate position found");
+            hashMoves = map.get(pos.toString()).getOrderedMoves();
+            if (map.get(pos.toString()).getDepthSearched() >= depth) {
+                if (duplicateCount % 1000 == 0) {
+                    //System.out.println("1000 Duplicate position found");
                 }
                 duplicateCount++;
                 return map.get(pos.toString()).getScore();
             }
-//            if (depthSearched > 0) {
-//                hashMove = map.get(pos.toString()).getBestMove();
-//            }
         }
 
         if (depth == 0) {
-            //long startTime = System.nanoTime();
-            double score = pos.getScore();
-            //long timetaken = System.nanoTime() - startTime;
-            //System.out.println("Evaluation Time: " + timetaken);
-            PosInfo info = new PosInfo();
-            //info.setPos(pos);
-            info.setDepthSearched(0);
-            info.setScore(score);
-            map.put(pos.toString(), info);
-            return score;
-            //return eval.evaluate(pos);
+            return addToMap(pos, 0);
         }
-        //long startTime = System.nanoTime();
-        ArrayList<Position> legalMoves = pos.getNextPositions();
-        //long timetaken = System.nanoTime() - startTime;
-        //System.out.println("MoveFinding: " + timetaken + "    "  + pos);
+
+
+        ArrayList<Move> legalMoves = pos.getAllLegalMoves();
+
 
         if (legalMoves.size() == 0) {
-            //System.out.println(pos.getScore() * (depth + 1));
-            Double score;
-            if (pos.getScore() == Double.MAX_VALUE) {
-                score = eval.evaluate(pos) * (depth + 1);
-            } else {
-                score = pos.getScore() * (depth + 1);
+            return addEndToMap(pos, depth);
+        }
+        ArrayList<MoveAndResultingPosition> posList1;
+        if (hashMoves == null) {
+            posList1 = new ArrayList<>();
+            ArrayList<Move> captures = pos.getCaptureList();
+            ArrayList<Position> nextPos1 = pos.getNextPositions(pos.getCaptureList());
+            for (int i = 0; i < captures.size(); i++) {
+                posList1.add(new MoveAndResultingPosition(captures.get(i), nextPos1.get(i), pos.isBlackToMove()));
             }
-            PosInfo info = new PosInfo();
-            //info.setPos(pos);
-            info.setDepthSearched(0);
-            info.setScore(score);
-            map.put(pos.toString(), info);
-            return score;
+
+            for (MoveAndResultingPosition p : posList1) {
+                p.getPos().setScore(eval.evaluate(p.getPos()));
+            }
+            Collections.sort(posList1);
+
+            ArrayList<MoveAndResultingPosition> posList2 = new ArrayList<MoveAndResultingPosition>();
+            ArrayList<Move> otherMoves = pos.getOtherList();
+            ArrayList<Position> nextPos2 = pos.getNextPositions(pos.getOtherList());
+            for (int i = 0; i < otherMoves.size(); i++) {
+                posList2.add(new MoveAndResultingPosition(otherMoves.get(i), nextPos2.get(i), pos.isBlackToMove()));
+            }
+
+            for (MoveAndResultingPosition p : posList2) {
+                p.getPos().setScore(eval.evaluate(p.getPos()));
+            }
+            Collections.sort(posList2);
+
+            posList1.addAll(posList2);
+        } else {
+            posList1 = hashMoves;
+            System.out.println("HashingUsed");
         }
 
 
+//		for (Position p: posList1) {
+//			p.setScore(eval.evaluate(p));
+//		}
+//		Collections.sort(posList1);
 
-        ArrayList<MoveAndResultingPosition> posList1 = new ArrayList<>();
-        ArrayList<Position> nextPos1 = pos.getNextPositions(pos.getCaptureList());
-        for (int i = 0; i < pos.getCaptureList().size(); i++) {
-            posList1.add(new MoveAndResultingPosition(pos.getCaptureList().get(i), nextPos1.get(i), pos.isBlackToMove()));
-        }
-
-        for (MoveAndResultingPosition p: posList1) {
-            p.getPos().setScore(eval.evaluate(p.getPos()));
-        }
-
-        Collections.sort(posList1);
-
-        ArrayList<MoveAndResultingPosition> posList2 = new ArrayList<>();
-        ArrayList<Position> nextPos2 = pos.getNextPositions(pos.getOtherList());
-        for (int i = 0; i < pos.getOtherList().size(); i++) {
-            posList1.add(new MoveAndResultingPosition(pos.getOtherList().get(i), nextPos2.get(i), pos.isBlackToMove()));
-        }
-
-        for (MoveAndResultingPosition p: posList2) {
-            p.getPos().setScore(eval.evaluate(p.getPos()));
-        }
-
-        Collections.sort(posList2);
-
-//        if (hashMove != null) {
-//            posList1.add(new MoveAndResultingPosition(hashMove, pos.positionAfterMove(hashMove), pos.isBlackToMove()));
-//        }
-
-        posList1.addAll(posList2);
 
 //		if (depth > 2 && pos.isBlackToMove() && eval.evaluate(pos) < alpha - 1) {
 //			depth = 2;
@@ -351,21 +316,22 @@ public class TestEngine extends Engine{
 //		if (depth > 2 && !pos.isBlackToMove() && eval.evaluate(pos) > beta + 1) {
 //			depth = 2;
 //		}
-        Move bestMove = null;
+        ArrayList<MoveAndResultingPosition> hashList = new ArrayList<>();
         double score;
         if (pos.isBlackToMove()) {
             score = 1000000 * depth + 1;
-            for (int i = 0; i < posList1.size(); i++) {
+            for (MoveAndResultingPosition pos1AndMove: posList1) {
+                Position pos1 = pos1AndMove.getPos();
+                pos1.setScore(pos1AndMove.getScore());
                 //double criticality = Math.abs(pos.getScore() - pos1.getScore());
                 double pos1Score;
 //				if (criticality > 2.5) {
 //					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
 //				} else {
-                pos1Score = treeEvalNX(posList1.get(i).getPos(), alpha, beta, depth - 1, startTimeMillis);
+                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
                 //}
                 if (pos1Score < score) {
                     score = pos1Score;
-                    bestMove = posList1.get(i).getMove();
                 }
                 if (score < beta) {
                     beta = score;
@@ -373,20 +339,24 @@ public class TestEngine extends Engine{
                 if (alpha >= beta) {
                     break;
                 }
+                MoveAndResultingPosition posForHash = pos1AndMove.clone();
+                posForHash.setScore(pos1Score);
+                hashList.add(posForHash);
             }
         } else {
             score = -1000000 * depth - 1;
-            for (int i = 0; i < posList1.size(); i++) {
+            for (MoveAndResultingPosition pos1AndMove: posList1) {
+                Position pos1 = pos1AndMove.getPos();
+                pos1.setScore(pos1AndMove.getScore());
                 //double criticality = Math.abs(pos.getScore() - pos1.getScore());
                 double pos1Score;
 //				if (criticality > 2.5) {
 //					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
 //				} else {
-                pos1Score = treeEvalNX(posList1.get(i).getPos(), alpha, beta, depth - 1, startTimeMillis);
+                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
                 //}
                 if (pos1Score > score) {
                     score = pos1Score;
-                    bestMove = posList1.get(i).getMove();
                 }
                 if (score > alpha) {
                     alpha = score;
@@ -394,14 +364,19 @@ public class TestEngine extends Engine{
                 if (alpha >= beta) {
                     break;
                 }
+                MoveAndResultingPosition posForHash = pos1AndMove.clone();
+                posForHash.setScore(pos1Score);
+                hashList.add(posForHash);
             }
         }
+
+        Collections.sort(hashList);
 
         PosInfo info = new PosInfo();
         //info.setPos(pos);
         info.setDepthSearched(depth);
         info.setScore(score);
-        info.setBestMove(bestMove);
+        info.setOrderedMoves(hashList);
         map.put(pos.toString(), info);
         return score;
     }

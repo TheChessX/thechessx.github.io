@@ -20,26 +20,26 @@ public class TestEvaluation {
 	public final double queenV = 9;
 
 	//Center Control
-	public double PawnCOV = 0.2; //outside ring
-	public double PawnCIV = 0.6; //inside ring
-	public double KnightCOV = 0.2;
-	public double KnightCIV = 0.4;
+	public double PawnCOV = 0.1; //outside ring
+	public double PawnCIV = 0.3; //inside ring
+	public double KnightCOV = 0.1;
+	public double KnightCIV = 0.2;
 
 	//King Safety
-	public double pawnKS = 0.15;
-	public double knightKS = 0.1;
-	public double queenKS = 0.05;
+	public double pawnKS = 0.075;
+	public double knightKS = 0.05; // both knights and bishops
+	public double queenKS = 0.025;
 
 	//Rooks
-	public double rSeventhRank = 0.25;
-	public double rOpenFile = 0.35;
-	public double rConnected = 0.1;
-	public double rSemiOpenFile = 0.2;
+	public double rSeventhRank = 0.125;
+	public double rOpenFile = 0.175;
+	public double rConnected = 0.05;
+	public double rSemiOpenFile = 0.1;
 
 	//Pawns
-	public double pawnConnected = 0.05;
-	public double doubledPawns = 0.2;
-	public double pawnGap = 0.1;
+	public double pawnConnected = 0.025;
+	public double doubledPawns = 0.1;
+	public double pawnGap = 0.05;
 	public double passedPawn = 0.1;
 
 	//Development
@@ -47,10 +47,10 @@ public class TestEvaluation {
 	public double bishopBackRankPenalty = 0.1;
 
 	//Bishops
-	public double bishopPair = 0.5;
+	public double bishopPair = 0.4;
 
 	//Mobility
-	public double mobilityScore = 0.01;
+	public double mobilityScore = 0.005;
 
 	public int count = 0;
 
@@ -143,7 +143,7 @@ public class TestEvaluation {
 
 			score = evaluatePieceValue(pos)
 					+ evaluateCenterControl(pos)
-					+ evaluateKingSafety(pos)
+					// + evaluateKingSafety(pos)
 					// + evaluateMobility(pos, moves)
 					+ evaluateDevelopment(pos)
 					+ evaluateRooks(pos)
