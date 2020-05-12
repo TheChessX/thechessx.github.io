@@ -135,11 +135,17 @@ function parseRequest(data) {
         if (document.getElementById("playAgain") != null) {
             document.getElementById("playAgain").remove();
         }
+
         document.getElementById("MoveList").textContent = null;
     }
 
     if (window._data.isLastPosition != null && window._data.isLastPosition == "true") {
         isLatestPosition = true;
+    }
+
+
+    if (window._data.clearMoves != null && window._data.clearMoves == "true") {
+        document.getElementById("MoveList").textContent = null;
     }
 
     for (var i = 0; i < 64; i++) {

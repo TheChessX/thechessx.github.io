@@ -8,37 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/img/DoubleLeft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/DoubleRight.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndResultingPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/MoveAndResultingPosition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/PosInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/PosInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/chessLogic/TestEvaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/META-INF/WebChess.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndResultingPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/MoveAndResultingPosition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/PosInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/PosInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/chessLogic/TestEvaluation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/master.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -314,7 +293,8 @@
       <workItem from="1587748475157" duration="264000" />
       <workItem from="1587870645499" duration="6345000" />
       <workItem from="1588284985471" duration="316000" />
-      <workItem from="1588631276534" duration="4268000" />
+      <workItem from="1588631276534" duration="4562000" />
+      <workItem from="1589314457537" duration="3872000" />
     </task>
     <servers />
   </component>
@@ -397,6 +377,10 @@
     <state x="153" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1585600890575" />
     <state x="206" y="23" width="1024" height="823" key="SettingsEditor/0.23.1440.823@0.23.1440.823" timestamp="1585599706392" />
     <state x="208" y="23" key="SettingsEditor/0.23.1440.826@0.23.1440.826" timestamp="1583429070625" />
+    <state x="438" y="172" width="540" height="524" key="StructurePopup" timestamp="1589316653277">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="438" y="172" width="540" height="524" key="StructurePopup/0.23.1440.821@0.23.1440.821" timestamp="1589316653277" />
     <state x="668" y="426" key="com.intellij.ide.util.TipDialog" timestamp="1587870645462">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>

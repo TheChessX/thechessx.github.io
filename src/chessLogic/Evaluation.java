@@ -58,7 +58,7 @@ public class Evaluation { // distanceScore is wrong in kingsafety?
 
 	public int count = 0;
 	
-	private boolean endgame = false;
+	protected boolean endgame = false;
 
 
 	public double[][] pawnSquareTable = {

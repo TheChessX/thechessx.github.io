@@ -17,33 +17,20 @@ public class MoveAndResultingPosition implements Comparable<MoveAndResultingPosi
 
     @Override
     public int compareTo(MoveAndResultingPosition o) {
-        double pos1Score = pos.getScore();
-        if (pos1Score == Double.MAX_VALUE) {
-            pos1Score = eval.evaluate(pos);
-        }
-        if (score != null) {
-            pos1Score = score;
-        }
-        double pos2Score = o.getPos().getScore();
-        if (pos2Score == Double.MAX_VALUE) {
-            pos2Score = eval.evaluate(o.getPos());
-        }
-        if (o.getScore() != null) {
-            pos2Score = o.getScore();
-        }
+        int positionComparison = o.getPos().compareTo(pos);
 
         if (blackToMove) {
-            if (pos2Score > pos1Score) {
+            if (positionComparison < 0) {
                 return -1;
-            } else if (pos2Score == pos1Score) {
+            } else if (positionComparison == 0) {
                 return 0;
             } else {
                 return 1;
             }
         } else {
-            if (pos2Score > pos1Score) {
+            if (positionComparison < 0) {
                 return 1;
-            } else if (pos2Score == pos1Score) {
+            } else if (positionComparison == 0) {
                 return 0;
             } else {
                 return -1;

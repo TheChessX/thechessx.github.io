@@ -46,7 +46,9 @@ public class Position implements Comparable<Position> {
     private boolean castleTest = false;
     
     private double score = Double.MAX_VALUE;
-    
+
+    private Evaluation eval = new Evaluation();
+
     public Position() {
 		byte[][] position1; // initializes starting position
         position1 = new byte[8][8];
@@ -352,6 +354,9 @@ public class Position implements Comparable<Position> {
 	}
 	
 	public double getScore() {
+    	if (score == Double.MAX_VALUE) {
+    		return eval.evaluate(this);
+		}
 		return score;
 	}
     

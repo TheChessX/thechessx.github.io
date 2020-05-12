@@ -20,7 +20,7 @@ public class ChessServlet extends HttpServlet{
         private boolean firstEngineMove = true;
         private TestEngine testEngine;
         private int moveNumber = 0;
-        private ArrayList<Position> positionList = new ArrayList<>(); // TODO refactor so that this is a list of past positions, then simply return position to show.
+        private ArrayList<Position> positionList = new ArrayList<>();
         private int currentMoveIndex = 0;
 
 
@@ -50,7 +50,12 @@ public class ChessServlet extends HttpServlet{
                 currentPosition = new Position();
                 engine = new Engine();
                 evaluate = new Evaluation();
+                positionList.clear();
+                positionList.add(currentPosition);
+                currentMoveIndex = 0;
+                moveNumber = 0;
                 re.put("restarting", "true");
+                re.put("clearMoves", "true");
             } else if (request.getParameter("loadPage") != null && request.getParameter("loadPage").equals("true")) {
                 re.put("loadpagecalled", "nothing");
             } else if (request.getParameter("test") != null && request.getParameter("test").equals("true")) {
@@ -59,6 +64,7 @@ public class ChessServlet extends HttpServlet{
                 evaluate = new Evaluation();
                 testEngine = new TestEngine();
                 re.put("testing", "true");
+                re.put("clearMoves", "true");
                 testingMode = true;
             } else if (request.getParameter("TestingStill") != null && request.getParameter("TestingStill").equals("true")) {
                 re.put("testing", "true");
