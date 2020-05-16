@@ -20,7 +20,7 @@ public class Engine {
 	protected int wbCol = 0;
 	protected HashMap<String, PosInfo> map = new HashMap();
 
-	protected int MAX_TIME = 30000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	protected int MAX_TIME = 1000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
 	//Opening Mode
 	//-1 Engine does not use theory
@@ -385,36 +385,29 @@ public class Engine {
 		return sb.toString();
 	}
     protected double addToMap(Position pos, int depth) {
-		PosInfo info = new PosInfo();
-		info.setDepthSearched(depth);
-		Double score;
+		double score;
 		if (pos.getScore() != Double.MAX_VALUE) {
 			score = pos.getScore();
 		} else {
 			score = eval.evaluate(pos);
 		}
-		info.setScore(score);
-		map.put(pos.toString(), info);
+		addToMap(pos, depth, score);
 		return score;
 	}
 
 	protected void addToMap(Position pos, int depth, double score) {
 		PosInfo info = new PosInfo();
-		//info.setPos(pos);
 		info.setDepthSearched(depth);
 		info.setScore(score);
 		map.put(pos.toString(), info);
 	}
 
 	protected double addEndToMap(Position pos, int depth) {
-		PosInfo info = new PosInfo();
-		info.setDepthSearched(depth);
 		if (pos.getScore() == Double.MAX_VALUE) {
 			pos.setScore(eval.evaluate(pos));
 		}
-		Double score = pos.getScore() * (depth + 1);
-		info.setScore(score);
-		map.put(pos.toString(), info);
+		double score = pos.getScore() * (depth + 1);
+		addToMap(pos, depth, score);
 		return score;
 	}
 

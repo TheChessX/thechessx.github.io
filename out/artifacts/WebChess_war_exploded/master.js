@@ -171,32 +171,7 @@ function parseRequest(data) {
 
     var gameEnd = window._data.gameEnd;
     if (gameEnd != null) {
-        console.log("Game has ended");
-        var message = document.createElement("h3");
-        message.id = "message";
-        if (gameEnd == "WhiteWins") {
-            message.innerText = "You Won!"
-        }
-        if (gameEnd == "BlackWins") {
-            message.innerText = "You Lost"
-        }
-        if (gameEnd == "Stalemate") {
-            message.innerText = "Draw"
-        }
-        document.getElementById("headingID").appendChild(message);
-        var playAgain = document.createElement("button");
-        playAgain.id = "playAgain";
-        playAgain.innerText = "Click here to play another game";
-        //playAgain.style.fontSize = '150%';
-        playAgain.addEventListener("click", function () {
-            $.post("Hello",
-                {
-                    restart:true
-                }).always(function (data, status) {
-                parseRequest(data);
-            });
-        });
-        document.getElementById("headingID").appendChild(playAgain);
+        gameOver();
     } else {
         if (window._data.testing != null && window._data.testing == "true") {
             if (stillTesting) {
@@ -248,7 +223,34 @@ function parseRequest(data) {
         }
     }
 
-
+    function gameOver() {
+        console.log("Game has ended");
+        var message = document.createElement("h3");
+        message.id = "message";
+        if (gameEnd == "WhiteWins") {
+            message.innerText = "You Won!"
+        }
+        if (gameEnd == "BlackWins") {
+            message.innerText = "You Lost"
+        }
+        if (gameEnd == "Stalemate") {
+            message.innerText = "Draw"
+        }
+        document.getElementById("headingID").appendChild(message);
+        var playAgain = document.createElement("button");
+        playAgain.id = "playAgain";
+        playAgain.innerText = "Click here to play another game";
+        //playAgain.style.fontSize = '150%';
+        playAgain.addEventListener("click", function () {
+            $.post("Hello",
+                {
+                    restart:true
+                }).always(function (data, status) {
+                parseRequest(data);
+            });
+        });
+        document.getElementById("headingID").appendChild(playAgain);
+    }
 }
 
 

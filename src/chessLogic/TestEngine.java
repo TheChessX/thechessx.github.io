@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class TestEngine extends Engine{
 
     Evaluation eval;
+    int hashCounter;
 
     public TestEngine() {
         this.eval = new Evaluation();
@@ -44,6 +45,9 @@ public class TestEngine extends Engine{
     @Override
     public MoveAndExplanation playAndExplain(Position pos) {
         System.out.println("Test Engine Playing");
+
+        hashCounter = 0;
+
         long startTime = System.currentTimeMillis();
         if (isTheory()) {
             Move theoryMove = getTheoryMove(pos);
@@ -155,9 +159,9 @@ public class TestEngine extends Engine{
         if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) {
             return addToMap(pos, 0);
         }
-        ArrayList<MoveAndResultingPosition> hashMoves = null;
+        Move hashMove = null;
         if (map.containsKey(pos.toString())) {
-            hashMoves = map.get(pos.toString()).getOrderedMoves();
+            hashMove = map.get(pos.toString()).getBestMove();
             if (map.get(pos.toString()).getDepthSearched() >= depth) {
                 return map.get(pos.toString()).getScore();
             }
@@ -169,47 +173,52 @@ public class TestEngine extends Engine{
 
         ArrayList<Move> legalMoves = pos.getAllLegalMoves();
 
-
         if (legalMoves.size() == 0) {
             return addEndToMap(pos, depth);
         }
         ArrayList<MoveAndResultingPosition> posList1;
-        if (hashMoves == null || hashMoves.size() == 0) {
-            posList1 = new ArrayList<>();
-            ArrayList<Move> captures = pos.getCaptureList();
-            ArrayList<Position> nextPos1 = pos.getNextPositions(pos.getCaptureList());
-            for (int i = 0; i < captures.size(); i++) {
-                posList1.add(new MoveAndResultingPosition(captures.get(i), nextPos1.get(i)));
-            }
 
-            for (MoveAndResultingPosition p : posList1) {
-                p.getPos().setScore(eval.evaluate(p.getPos()));
-            }
-            Collections.sort(posList1);
+        posList1 = new ArrayList<>();
+        ArrayList<Move> captures = pos.getCaptureList();
+        ArrayList<Position> nextPos1 = pos.getNextPositions(pos.getCaptureList());
+        for (int i = 0; i < captures.size(); i++) {
+            posList1.add(new MoveAndResultingPosition(captures.get(i), nextPos1.get(i)));
+        }
+        for (MoveAndResultingPosition p : posList1) {
+            p.getPos().setScore(eval.evaluate(p.getPos()));
+        }
+        Collections.sort(posList1);
 
-            ArrayList<MoveAndResultingPosition> posList2 = new ArrayList<MoveAndResultingPosition>();
-            ArrayList<Move> otherMoves = pos.getOtherList();
-            ArrayList<Position> nextPos2 = pos.getNextPositions(pos.getOtherList());
-            for (int i = 0; i < otherMoves.size(); i++) {
-                posList2.add(new MoveAndResultingPosition(otherMoves.get(i), nextPos2.get(i)));
-            }
-
-            for (MoveAndResultingPosition p : posList2) {
-                p.getPos().setScore(eval.evaluate(p.getPos()));
-            }
-            Collections.sort(posList2);
-
-            posList1.addAll(posList2);
-        } else {
-            posList1 = hashMoves;
-            System.out.println("HashingUsed");
-//            for (MoveAndResultingPosition m : posList1) {
-//                System.out.println(pos.toHumanNotation(m.getMove()));
-//            }
+        ArrayList<MoveAndResultingPosition> posList2 = new ArrayList<MoveAndResultingPosition>();
+        ArrayList<Move> otherMoves = pos.getOtherList();
+        ArrayList<Position> nextPos2 = pos.getNextPositions(pos.getOtherList());
+        for (int i = 0; i < otherMoves.size(); i++) {
+            posList2.add(new MoveAndResultingPosition(otherMoves.get(i), nextPos2.get(i)));
         }
 
-        ArrayList<MoveAndResultingPosition> hashList = new ArrayList<>();
+        for (MoveAndResultingPosition p : posList2) {
+            p.getPos().setScore(eval.evaluate(p.getPos()));
+        }
+        Collections.sort(posList2);
+
+        posList1.addAll(posList2);
+
+        if (hashMove != null) {
+            hashCounter++;
+            if (hashCounter % 1000 == 0) {
+                System.out.println("Hashing");
+            }
+            for (int i = 0; i < posList1.size(); i++) {
+                if (hashMove.equals(posList1.get(i).getMove())) {
+                    posList1.remove(i);
+                    break;
+                }
+            }
+            posList1.add(0, new MoveAndResultingPosition(hashMove, pos.positionAfterMove(hashMove)));
+        }
+
         double score;
+        Move bestMove = null;
         if (pos.isBlackToMove()) {
             score = 1000000 * depth + 1;
             for (MoveAndResultingPosition pos1AndMove: posList1) {
@@ -224,6 +233,7 @@ public class TestEngine extends Engine{
                 //}
                 if (pos1Score < score) {
                     score = pos1Score;
+                    bestMove = pos1AndMove.getMove();
                 }
                 if (score < beta) {
                     beta = score;
@@ -231,9 +241,6 @@ public class TestEngine extends Engine{
                 if (alpha >= beta) {
                     break;
                 }
-                MoveAndResultingPosition posForHash = pos1AndMove.clone();
-                posForHash.setScore(pos1Score);
-                hashList.add(posForHash);
             }
         } else {
             score = -1000000 * depth - 1;
@@ -249,6 +256,7 @@ public class TestEngine extends Engine{
                 //}
                 if (pos1Score > score) {
                     score = pos1Score;
+                    bestMove = pos1AndMove.getMove();
                 }
                 if (score > alpha) {
                     alpha = score;
@@ -256,19 +264,15 @@ public class TestEngine extends Engine{
                 if (alpha >= beta) {
                     break;
                 }
-                MoveAndResultingPosition posForHash = pos1AndMove.clone();
-                posForHash.setScore(pos1Score);
-                hashList.add(posForHash);
             }
         }
 
-        Collections.sort(hashList);
 
         PosInfo info = new PosInfo();
         //info.setPos(pos);
         info.setDepthSearched(depth);
         info.setScore(score);
-        info.setOrderedMoves(hashList);
+        info.setBestMove(bestMove);
         map.put(pos.toString(), info);
         return score;
     }

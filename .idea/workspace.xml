@@ -11,12 +11,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestsForMoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestsForMoveAndResultingPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -294,7 +292,7 @@
       <workItem from="1588284985471" duration="316000" />
       <workItem from="1588631276534" duration="4562000" />
       <workItem from="1589314457537" duration="4661000" />
-      <workItem from="1589474200337" duration="11065000" />
+      <workItem from="1589474200337" duration="16260000" />
     </task>
     <servers />
   </component>
@@ -314,9 +312,10 @@
     </state>
     <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.821@0.23.1440.821" timestamp="1585617999814" />
     <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.822@0.23.1440.822" timestamp="1585601278915" />
-    <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser" timestamp="1585796292699">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser" timestamp="1589601397675">
+      <screen x="0" y="23" width="1440" height="812" />
     </state>
+    <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser/0.23.1440.812@0.23.1440.812" timestamp="1589601397675" />
     <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser/0.23.1440.816@0.23.1440.816" timestamp="1581213253454" />
     <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.823@0.23.1440.823" timestamp="1585796292699" />
     <state x="299" y="33" key="CommitChangelistDialog2" timestamp="1581096455084">

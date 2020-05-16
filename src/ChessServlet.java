@@ -22,7 +22,7 @@ public class ChessServlet extends HttpServlet{
         private int moveNumber = 0;
         private ArrayList<Position> positionList = new ArrayList<>();
         private int currentMoveIndex = 0;
-
+        private JSONObject re;
 
         public void init() throws ServletException {
             // Do required initialization
@@ -38,34 +38,16 @@ public class ChessServlet extends HttpServlet{
 
             long startTime = System.currentTimeMillis();
 
-            // Set response content type
-            //response.setContentType("text/html");
-
             response.setContentType("application/json;charset=UTF-8");
             ServletOutputStream out = response.getOutputStream();
-            JSONObject re = new JSONObject();
-
+            re = new JSONObject();
 
             if (request.getParameter("restart") != null && request.getParameter("restart").equals("true")) {
-                currentPosition = new Position();
-                engine = new Engine();
-                evaluate = new Evaluation();
-                positionList.clear();
-                positionList.add(currentPosition);
-                currentMoveIndex = 0;
-                moveNumber = 0;
-                re.put("restarting", "true");
-                re.put("clearMoves", "true");
+                handleRestart();
             } else if (request.getParameter("loadPage") != null && request.getParameter("loadPage").equals("true")) {
                 re.put("loadpagecalled", "nothing");
             } else if (request.getParameter("test") != null && request.getParameter("test").equals("true")) {
-                currentPosition = new Position();
-                engine = new Engine();
-                evaluate = new Evaluation();
-                testEngine = new TestEngine();
-                re.put("testing", "true");
-                re.put("clearMoves", "true");
-                testingMode = true;
+                beginTesting();
             } else if (request.getParameter("TestingStill") != null && request.getParameter("TestingStill").equals("true")) {
                 re.put("testing", "true");
 
@@ -92,27 +74,11 @@ public class ChessServlet extends HttpServlet{
                 System.out.println(currentMove);
                 System.out.println(moveEx.getExplanation());
 
-                if (currentPosition.getAllLegalMoves().size() == 0) {
-                    double score = evaluate.evaluate(currentPosition);
-                    if (score == 0) {
-                        re.put("gameEnd", "Stalemate");
-                    } else if (score < 0) {
-                        re.put("gameEnd", "BlackWins");
-                    } else if (score > 0) {
-                        re.put("gameEnd", "WhiteWins");
-                    }
-                }
-                re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
-                re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
-                re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
-                re.put("MoveNumber", moveNumber);
-                re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
+                returnMoveInfo(currentMove);
+                storeMove(currentMove);
+                checkGameFinished();
                 firstEngineMove = !firstEngineMove;
-                currentPosition = currentPosition.positionAfterMove(currentMove);
-                currentPosition.switchTurn();
-                positionList.add(currentPosition);
-                moveNumber++;
-                currentMoveIndex++;
+
             } else if (request.getParameter("previousMove") != null && request.getParameter("previousMove").equals("true")) {
                 if (currentMoveIndex > 0) {
                     currentMoveIndex--;
@@ -155,22 +121,9 @@ public class ChessServlet extends HttpServlet{
 
                         theoryUpdate(engine, currentMove);
 
-                        currentPosition = currentPosition.positionAfterMove(currentMove);
-                        currentPosition.switchTurn();
-                        positionList.add(currentPosition);
-                        moveNumber++;
-                        currentMoveIndex++;
+                        storeMove(currentMove);
 
-                        if(currentPosition.getAllLegalMoves().size() == 0) {
-                            double score = evaluate.evaluate(currentPosition);
-                            if (score == 0) {
-                                re.put("gameEnd", "Stalemate");
-                            } else if (score < 0) {
-                                re.put("gameEnd", "BlackWins");
-                            } else if (score > 0) {
-                                re.put("gameEnd", "WhiteWins");
-                            }
-                        }
+                        checkGameFinished();
 
                     } else {
                         re.put("isLegal", "No");
@@ -179,31 +132,14 @@ public class ChessServlet extends HttpServlet{
                     MoveAndExplanation moveAndEx = engine.playAndExplain(currentPosition);
                     Move currentMove = moveAndEx.getMove();
                     re.put("playedMove", "Computer");
-                    re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
-                    re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
-                    re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
-                    re.put("MoveNumber", moveNumber);
-                    re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
+                    returnMoveInfo(currentMove);
 
 
                     re.put("MoveExplanation", moveAndEx.getExplanation());
 
-                    currentPosition = currentPosition.positionAfterMove(currentMove);
-                    currentPosition.switchTurn();
-                    positionList.add(currentPosition);
-                    moveNumber++;
-                    currentMoveIndex = moveNumber;
+                    storeMove(currentMove);
 
-                    if(currentPosition.getAllLegalMoves().size() == 0) {
-                        double score = currentPosition.getScore();
-                        if (score == 0) {
-                            re.put("gameEnd", "Stalemate");
-                        } else if (score < 0) {
-                            re.put("gameEnd", "WhiteWins");
-                        } else if (score > 0) {
-                            re.put("gameEnd", "BlackWins");
-                        }
-                    }
+                    checkGameFinished();
                 }
             }
             re.put("position", addPosition(positionList.get(currentMoveIndex)));
@@ -270,36 +206,71 @@ public class ChessServlet extends HttpServlet{
             }
         }
     }
-//    private void theoryUpdate(TestEngine engine, Move currentMove) {
-//        if (engine.isTheory()) {
-//
-//            String lastMove = currentPosition.toHumanNotation(currentMove);
-//
-//            boolean moveFound = false;
-//            int totalRows = engine.getWb().getSheetAt(1).getPhysicalNumberOfRows();
-//            if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals(lastMove)) {
-//                engine.setWbCol(engine.getWbCol() + 1);
-//                moveFound = true;
-//            } else {
-//                engine.setWbRow(engine.getWbRow() + 1);
-//                while (engine.getWbRow() < totalRows && !(engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()) == null) && (engine.getWbCol() == 0 || engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol() - 1).toString().equals("-"))) {
-//                    if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals(lastMove)) {
-//                        engine.setWbCol(engine.getWbCol() + 1);
-//                        moveFound = true;
-//                        break;
-//                    }
-//                    engine.setWbRow(engine.getWbRow() + 1);
-//                }
-//            }
-//
-//            //System.out.println(engine.getWbRow() + " " + engine.getWbCol());
-//
-//            if (!moveFound) {
-//                engine.setTheory(false);
-//            } else if (engine.getWb().getSheetAt(1).getRow(engine.getWbRow()).getCell(engine.getWbCol()).toString().equals("-")) {
-//                engine.setTheory(false);
-//            }
-//        }
-//    }
 
+    private void handleRestart() {
+        currentPosition = new Position();
+        engine = new Engine();
+        evaluate = new Evaluation();
+        positionList.clear();
+        positionList.add(currentPosition);
+        currentMoveIndex = 0;
+        moveNumber = 0;
+        re.put("restarting", "true");
+        re.put("clearMoves", "true");
+    }
+
+    private void beginTesting() {
+        currentPosition = new Position();
+        engine = new Engine();
+        evaluate = new Evaluation();
+        testEngine = new TestEngine();
+        re.put("testing", "true");
+        re.put("clearMoves", "true");
+        testingMode = true;
+        currentMoveIndex = 0;
+        moveNumber = 0;
+        positionList.clear();
+        positionList.add(currentPosition);
+    }
+
+    private void checkGameFinished() {
+        if(currentPosition.getAllLegalMoves().size() == 0) {
+            double score = currentPosition.getScore();
+            if (score == 0) {
+                re.put("gameEnd", "Stalemate");
+            } else if (score > 0) {
+                re.put("gameEnd", "WhiteWins");
+            } else if (score < 0) {
+                re.put("gameEnd", "BlackWins");
+            }
+        }
+    }
+
+    private boolean gameConcluded() {
+        if(currentPosition.getAllLegalMoves().size() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void storeMove(Move currentMove) {
+        currentPosition = currentPosition.positionAfterMove(currentMove);
+        currentPosition.switchTurn();
+        positionList.add(currentPosition);
+        moveNumber++;
+        currentMoveIndex++;
+    }
+
+    private void returnMoveInfo(Move currentMove) {
+        re.put("InitialMoveSquare", currentMove.getxInitial() * 8 + currentMove.getyInitial());
+        re.put("FinalMoveSquare", currentMove.getxFinal() * 8 + currentMove.getyFinal());
+        re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
+        re.put("MoveNumber", moveNumber);
+        re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
+    }
+
+    private void checkForDraw() {
+        //TODO
+    }
 }

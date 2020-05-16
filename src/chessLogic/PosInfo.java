@@ -6,7 +6,7 @@ public class PosInfo {
     private Position pos;
     private double score;
     private int depthSearched;
-    private ArrayList<MoveAndResultingPosition> orderedMoves;
+    Move bestMove;
 
     public Position getPos() {
         return pos;
@@ -32,11 +32,11 @@ public class PosInfo {
         this.depthSearched = depthSearched;
     }
 
-    public ArrayList<MoveAndResultingPosition> getOrderedMoves() {
-        return orderedMoves;
+    public Move getBestMove() {
+        return bestMove;
     }
 
-    public void setOrderedMoves(ArrayList<MoveAndResultingPosition> orderedMoves) {
-        this.orderedMoves = (ArrayList<MoveAndResultingPosition>) orderedMoves.clone();
+    public void setBestMove(Move bestMove) {
+        this.bestMove = bestMove;
     }
 }
