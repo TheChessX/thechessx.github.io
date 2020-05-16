@@ -13,16 +13,14 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class Engine {
 	protected Evaluation eval;
 	protected int presetDepth;
-	
+
 	protected boolean theory = true;
 	protected Workbook wb;
 	protected int wbRow = 0;
 	protected int wbCol = 0;
 	protected HashMap<String, PosInfo> map = new HashMap();
 
-	protected int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
-
-	protected int duplicateCount = 0;
+	protected int MAX_TIME = 30000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
 	//Opening Mode
 	//-1 Engine does not use theory
@@ -30,7 +28,7 @@ public class Engine {
 	// 1 Engine plays random theory move, weighted by depth of theory (RECOMMENDED)
 	// 2 Engine plays random theory move
 	protected int openingMode = 1;
-	
+
 	public Engine() {
 		this.eval = new Evaluation();
 		this.presetDepth = 6; //Looks n plies ahead
@@ -74,7 +72,7 @@ public class Engine {
 		Collections.sort(positions);
 		for (int i = 0; i < moves.size(); i++) {
 			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1, startTime));
-			if (moves.get(i).getScore() == 1000000 * presetDepth) {
+			if (!pos.isBlackToMove() && moves.get(i).getScore() == 1000000 * presetDepth || pos.isBlackToMove() && moves.get(i).getScore() == -1000000 * presetDepth) {
 				break;
 			}
 			if (System.currentTimeMillis() - startTime > MAX_TIME) {
@@ -121,13 +119,13 @@ public class Engine {
 				System.out.println(legalMoves.size());
 				for (Move m : legalMoves) {
 					Double posScore = Double.MAX_VALUE;
-					//if (map.containsKey(nextPos.positionAfterMove(m).toString())) {
+					if (map.containsKey(nextPos.positionAfterMove(m).toString())) {
 					try {
 						posScore = map.get(nextPos.positionAfterMove(m).toString()).getScore();
 					} catch (NullPointerException n) {
 						//System.out.println(m + " Is not in map (b)");
 					}
-					//}
+					}
 					if (posScore < bestScore) {
 						bestScore = posScore;
 						bestCurrentMove = m;
@@ -140,13 +138,13 @@ public class Engine {
 				System.out.println(legalMoves.size());
 				for (Move m : legalMoves) {
 					Double posScore = (-1) * Double.MAX_VALUE;
-					//if (map.containsKey(nextPos.positionAfterMove(m).toString())) {
+					if (map.containsKey(nextPos.positionAfterMove(m).toString())) {
 					try {
 						posScore = map.get(nextPos.positionAfterMove(m).toString()).getScore();
 					} catch (NullPointerException n) {
 						//System.out.println(m + " Is not in map (w)");
 					}
-					//}
+					}
 					if (posScore > bestScore) {
 						bestScore = posScore;
 						bestCurrentMove = m;
@@ -176,63 +174,6 @@ public class Engine {
 				"The evaluation breakdown for the final position is: " + getInformation(eval, positionsInSequence.get(positionsInSequence.size()-1)));
 	}
 
-
-	public Move play(Position pos) {
-		System.out.println("Normal Engine is playing");
-		long startTime = System.currentTimeMillis();
-		if (isTheory()) {
-			Move theoryMove = getTheoryMove(pos);
-			System.out.println("Playing Theory.");
-			return theoryMove;
-		}
-
-		eval.count = 0;
-		if (eval.evaluatePieceValueNoPawns(pos) <= 18) {
-			eval.setEndgame(true);
-			presetDepth = 4;
-		} else {
-			eval.setEndgame(false);
-			presetDepth = 4;
-		}
-		ArrayList<Move> moves = pos.getAllLegalMoves();
-		ArrayList<Position> positions = new ArrayList<Position>();
-		for (Move m: moves) {
-			positions.add(pos.positionAfterMove(m));
-		}
-		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1, startTime));
-		}
-		System.out.println("Initial sort done");
-		Collections.sort(positions);
-		for (int i = 0; i < moves.size(); i++) {
-			moves.get(i).setScore(treeEvalNX(positions.get(i), -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, presetDepth - 1, startTime));
-			if (moves.get(i).getScore() == 1000000 * presetDepth) {
-				break;
-			}
-			if (System.currentTimeMillis() - startTime > MAX_TIME) {
-				break;
-			}
-		}
-		
-		Move bestMove = moves.get(0);
-		if (pos.isBlackToMove()) {
-			for (Move m: moves) {
-				if (m.getScore() < bestMove.getScore()) {
-					bestMove = m;
-				}
-			}
-		} else {
-			for (Move m: moves) {
-				if (m.getScore() > bestMove.getScore()) {
-					bestMove = m;
-				}
-			}
-		}
-		System.out.println("Evaluation: " + bestMove.getScore());
-		System.out.println("Move: " + bestMove);
-		return bestMove;
-	}
-	
 	public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis) {
 		if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) { // check if time exceeded, end search and return
 			return addToMap(pos, 0);
@@ -269,75 +210,12 @@ public class Engine {
 			return addEndToMap(pos, depth);
 		}
 
-		double score;
-		if (pos.isBlackToMove()) {
-			score = 1000000 * depth + 1;
-			for (Position pos1: posList1) {
-				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
-				double pos1Score;
-//				if (criticality > 2.5) {
-//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
-//				} else {
-					pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
-				//}
-				if (pos1Score < score) {
-						score = pos1Score;
-				}
-				if (score < beta) {
-						beta = score;
-				}
-				if (alpha >= beta) {
-						break;
-				}
+		double score = searchSubnodes(pos, depth, alpha, beta, startTimeMillis, posList1);
 
-			}
-		} else {
-			score = -1000000 * depth - 1;
-			for (Position pos1: posList1) {
-				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
-				double pos1Score;
-//				if (criticality > 2.5) {
-//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
-//				} else {
-					pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
-				//}
-				if (pos1Score > score) {
-					score = pos1Score;
-				}
-				if (score > alpha) {
-					alpha = score;
-				}
-				if (alpha >= beta) {
-					break;
-				}
-			}
-		}
-
-		PosInfo info = new PosInfo();
-		//info.setPos(pos);
-		info.setDepthSearched(depth);
-		info.setScore(score);
-		map.put(pos.toString(), info);
+		addToMap(pos, depth, score);
 		return score;
 	}
 
-	
-//	public ArrayList<Position> nullCut(ArrayList<Position> posList, double cutAmount) {
-//		for (Position pos: posList) {
-//			pos.switchTurn();
-//			pos.setScore(treeEvalNX(pos, -1000000 * (presetDepth - 1) - 2, 1000000 * (presetDepth - 1) + 2, 1,));
-//		}
-//		Collections.sort(posList);
-//		int size = posList.size();
-//		for (int i = 0; i < size * cutAmount; i++) {
-//			posList.remove(0);
-//		}
-//		for (Position pos: posList) {
-//			pos.setScore(Double.MAX_VALUE);
-//			pos.switchTurn();
-//		}
-//		return posList;
-//	}
 
 	public Workbook getWb() {
 		return wb;
@@ -520,6 +398,14 @@ public class Engine {
 		return score;
 	}
 
+	protected void addToMap(Position pos, int depth, double score) {
+		PosInfo info = new PosInfo();
+		//info.setPos(pos);
+		info.setDepthSearched(depth);
+		info.setScore(score);
+		map.put(pos.toString(), info);
+	}
+
 	protected double addEndToMap(Position pos, int depth) {
 		PosInfo info = new PosInfo();
 		info.setDepthSearched(depth);
@@ -529,6 +415,53 @@ public class Engine {
 		Double score = pos.getScore() * (depth + 1);
 		info.setScore(score);
 		map.put(pos.toString(), info);
+		return score;
+	}
+
+	protected double searchSubnodes(Position pos, int depth, double alpha, double beta, long startTimeMillis, ArrayList<Position> posList1) {
+		double score;
+		if (pos.isBlackToMove()) {
+			score = 1000000 * depth + 1;
+			for (Position pos1: posList1) {
+				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
+				double pos1Score;
+//				if (criticality > 2.5) {
+//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
+//				} else {
+				pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+				//}
+				if (pos1Score < score) {
+					score = pos1Score;
+				}
+				if (score < beta) {
+					beta = score;
+				}
+				if (alpha >= beta) {
+					break;
+				}
+
+			}
+		} else {
+			score = -1000000 * depth - 1;
+			for (Position pos1: posList1) {
+				//double criticality = Math.abs(pos.getScore() - pos1.getScore());
+				double pos1Score;
+//				if (criticality > 2.5) {
+//					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
+//				} else {
+				pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+				//}
+				if (pos1Score > score) {
+					score = pos1Score;
+				}
+				if (score > alpha) {
+					alpha = score;
+				}
+				if (alpha >= beta) {
+					break;
+				}
+			}
+		}
 		return score;
 	}
 }

@@ -11,7 +11,7 @@
     <title>ChessX</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?28">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?33" type="text/javascript"></script>
+    <script src="master.js?34" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>

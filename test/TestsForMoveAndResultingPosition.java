@@ -32,7 +32,7 @@ public class TestsForMoveAndResultingPosition {
         positions.add(new Position(Position10));
         positions.add(new Position(Position11));
         for (Move m : positions.get(11).getAllLegalMoves()) {
-            moveAndResultingPositions.add(new MoveAndResultingPosition(m, positions.get(11).positionAfterMove(m), false));
+            moveAndResultingPositions.add(new MoveAndResultingPosition(m, positions.get(11).positionAfterMove(m)));
         }
     }
 

@@ -11,12 +11,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/MoveAndResultingPosition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEvaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestsForMoveAndResultingPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestsForMoveAndResultingPosition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
@@ -294,7 +293,8 @@
       <workItem from="1587870645499" duration="6345000" />
       <workItem from="1588284985471" duration="316000" />
       <workItem from="1588631276534" duration="4562000" />
-      <workItem from="1589314457537" duration="3872000" />
+      <workItem from="1589314457537" duration="4661000" />
+      <workItem from="1589474200337" duration="11065000" />
     </task>
     <servers />
   </component>
@@ -381,9 +381,10 @@
       <screen x="0" y="23" width="1440" height="821" />
     </state>
     <state x="438" y="172" width="540" height="524" key="StructurePopup/0.23.1440.821@0.23.1440.821" timestamp="1589316653277" />
-    <state x="668" y="426" key="com.intellij.ide.util.TipDialog" timestamp="1587870645462">
-      <screen x="0" y="23" width="2560" height="1337" />
+    <state x="376" y="268" key="com.intellij.ide.util.TipDialog" timestamp="1589474206553">
+      <screen x="0" y="23" width="1440" height="812" />
     </state>
+    <state x="376" y="268" key="com.intellij.ide.util.TipDialog/0.23.1440.812@0.23.1440.812" timestamp="1589474206553" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1581199853672" />
     <state x="376" y="269" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1581182827234" />
     <state x="668" y="426" key="com.intellij.ide.util.TipDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1587870645462" />
@@ -405,10 +406,11 @@
     <state x="114" y="35" key="new project wizard/0.23.1440.822@0.23.1440.822" timestamp="1585600065707" />
     <state x="114" y="35" key="new project wizard/0.23.1440.833@0.23.1440.833" timestamp="1587253344076" />
     <state x="203" y="42" key="new project wizard/0.23.2560.1338@0.23.2560.1338" timestamp="1588130559512" />
-    <state x="371" y="159" width="670" height="665" key="search.everywhere.popup" timestamp="1588636774154">
-      <screen x="0" y="23" width="1440" height="800" />
+    <state x="371" y="161" width="670" height="675" key="search.everywhere.popup" timestamp="1589476162018">
+      <screen x="0" y="23" width="1440" height="812" />
     </state>
     <state x="371" y="159" width="670" height="665" key="search.everywhere.popup/0.23.1440.800@0.23.1440.800" timestamp="1588636774154" />
+    <state x="371" y="161" width="670" height="675" key="search.everywhere.popup/0.23.1440.812@0.23.1440.812" timestamp="1589476162018" />
     <state x="371" y="161" width="670" height="676" key="search.everywhere.popup/0.23.1440.814@0.23.1440.814" timestamp="1586019312797" />
     <state x="371" y="162" width="670" height="683" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1580836931978" />
     <state x="371" y="163" width="670" height="687" key="search.everywhere.popup/0.23.1440.826@0.23.1440.826" timestamp="1583428210105" />

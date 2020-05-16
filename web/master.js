@@ -137,6 +137,7 @@ function parseRequest(data) {
         }
 
         document.getElementById("MoveList").textContent = null;
+        isLatestPosition = true;
     }
 
     if (window._data.isLastPosition != null && window._data.isLastPosition == "true") {
@@ -197,21 +198,6 @@ function parseRequest(data) {
         });
         document.getElementById("headingID").appendChild(playAgain);
     } else {
-        if (window._data.InitialMoveSquare != null && window._data.FinalMoveSquare != null) {
-            squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
-            squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";
-
-            if (window._data.MoveNotation != null) {
-                if (window._data.MoveNumber%2 == 0) {
-                    document.getElementById("MoveList").textContent += Math.floor(window._data.MoveNumber / 2 + 1) + ". " + window._data.MoveNotation;
-                } else {
-                    document.getElementById("MoveList").textContent += " " + window._data.MoveNotation + " ";
-                }
-            }
-
-            //document.getElementById("MoveList").textContent += moveNum + ". " + window._data.PieceMoved + notationLetter + row + " ";
-
-        }
         if (window._data.testing != null && window._data.testing == "true") {
             if (stillTesting) {
                 $.post("Hello",
@@ -244,6 +230,21 @@ function parseRequest(data) {
                     document.getElementById("explanationDiv").appendChild(explanation);
                 }
             }
+        }
+        if (window._data.InitialMoveSquare != null && window._data.FinalMoveSquare != null) {
+            squares[window._data.InitialMoveSquare].style.backgroundColor = "Yellow";
+            squares[window._data.FinalMoveSquare].style.backgroundColor = "Yellow";
+
+            if (window._data.MoveNotation != null) {
+                if (window._data.MoveNumber%2 == 0) {
+                    document.getElementById("MoveList").textContent += Math.floor(window._data.MoveNumber / 2 + 1) + ". " + window._data.MoveNotation;
+                } else {
+                    document.getElementById("MoveList").textContent += " " + window._data.MoveNotation + " ";
+                }
+            }
+
+            //document.getElementById("MoveList").textContent += moveNum + ". " + window._data.PieceMoved + notationLetter + row + " ";
+
         }
     }
 

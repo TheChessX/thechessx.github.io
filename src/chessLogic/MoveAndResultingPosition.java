@@ -1,41 +1,19 @@
 package chessLogic;
 
-import org.junit.Test;
-
 public class MoveAndResultingPosition implements Comparable<MoveAndResultingPosition> {
     private Move move;
     private Position pos;
     private Double score = null;
-    private boolean blackToMove; // This variable stores who's move it was when this move was being considered, so it is the opposite of the side who's move it actually is in the stored position.
     private static TestEvaluation eval = new TestEvaluation();
 
-    public MoveAndResultingPosition(Move m, Position p, boolean blackToMove) {
+    public MoveAndResultingPosition(Move m, Position p) {
         move = m;
         pos = p;
-        this.blackToMove = blackToMove;
     }
 
     @Override
     public int compareTo(MoveAndResultingPosition o) {
-        int positionComparison = o.getPos().compareTo(pos);
-
-        if (blackToMove) {
-            if (positionComparison < 0) {
-                return -1;
-            } else if (positionComparison == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } else {
-            if (positionComparison < 0) {
-                return 1;
-            } else if (positionComparison == 0) {
-                return 0;
-            } else {
-                return -1;
-            }
-        }
+        return pos.compareTo(o.getPos());
     }
 
     public Position getPos() {
@@ -56,18 +34,12 @@ public class MoveAndResultingPosition implements Comparable<MoveAndResultingPosi
 
     public void setScore(double score) {
         this.score = score;
+        pos.setScore(score);
     }
 
-    public boolean isBlackToMove() {
-        return blackToMove;
-    }
-
-    public void setBlackToMove(boolean blackToMove) {
-        this.blackToMove = blackToMove;
-    }
 
     public MoveAndResultingPosition clone() {
-        MoveAndResultingPosition toReturn = new MoveAndResultingPosition(this.getMove(), this.getPos(), this.isBlackToMove());
+        MoveAndResultingPosition toReturn = new MoveAndResultingPosition(this.getMove(), this.getPos());
         toReturn.setScore(this.getScore());
         return toReturn;
     }
