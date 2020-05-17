@@ -233,7 +233,7 @@ function parseRequest(data) {
         if (gameEnd == "BlackWins") {
             message.innerText = "You Lost"
         }
-        if (gameEnd == "Stalemate") {
+        if (gameEnd == "Draw") {
             message.innerText = "Draw"
         }
         document.getElementById("headingID").appendChild(message);

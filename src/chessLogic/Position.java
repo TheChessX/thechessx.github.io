@@ -2125,7 +2125,7 @@ public class Position implements Comparable<Position> {
 				whiteCastleQ == position1.whiteCastleQ &&
 				blackCastleK == position1.blackCastleK &&
 				blackCastleQ == position1.blackCastleQ &&
-				Arrays.equals(position, position1.position);
+				Arrays.deepEquals(position, position1.position);
 	}
 
 	@Override

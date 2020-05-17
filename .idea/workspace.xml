@@ -8,13 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test/TestsForPosition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/WEB-INF/classes/ChessServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war_exploded/master.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/WebChess/ChessServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/PosInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/master.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/master.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +103,7 @@
       <recent name="chessLogic" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestsForMoveAndResultingPosition.testComparator">
+  <component name="RunManager" selected="JUnit.TestsForPosition">
     <configuration name="TestsForEvaluation (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WebChess" />
       <option name="PACKAGE_NAME" value="" />
@@ -131,6 +134,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestsForPosition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WebChess" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestsForPosition" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestsForTestEvaluation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WebChess" />
       <option name="PACKAGE_NAME" value="" />
@@ -149,10 +161,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="xmlbeans-2.6.0.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/lib/xmlbeans-2.6.0.jar" />
-      <method v="2" />
     </configuration>
     <configuration name="TomcatServ" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.30" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="13">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/WebChess_war_exploded/" />
@@ -228,21 +236,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JAR Application.xmlbeans-2.6.0.jar" />
       <item itemvalue="JUnit.TestsForEvaluation" />
       <item itemvalue="JUnit.TestsForEvaluation (1)" />
       <item itemvalue="JUnit.TestsForTestEvaluation" />
       <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
       <item itemvalue="JUnit.TestsForMoveAndResultingPosition.testComparator" />
       <item itemvalue="Tomcat Server.TomcatServ" />
+      <item itemvalue="JUnit.TestsForPosition" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestsForPosition" />
         <item itemvalue="JUnit.TestsForMoveAndResultingPosition.testComparator" />
         <item itemvalue="JUnit.TestsForTestEvaluation" />
         <item itemvalue="JUnit.TestsForTestEvaluation.testCapturesPossible" />
         <item itemvalue="JUnit.TestsForEvaluation (1)" />
-        <item itemvalue="JAR Application.xmlbeans-2.6.0.jar" />
       </list>
     </recent_temporary>
   </component>
@@ -292,7 +300,7 @@
       <workItem from="1588284985471" duration="316000" />
       <workItem from="1588631276534" duration="4562000" />
       <workItem from="1589314457537" duration="4661000" />
-      <workItem from="1589474200337" duration="16260000" />
+      <workItem from="1589474200337" duration="18083000" />
     </task>
     <servers />
   </component>
@@ -307,9 +315,10 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="0" y="23" width="1440" height="822" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.822@0.23.1440.822" timestamp="1585600629858" />
-    <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1585617999814">
-      <screen x="0" y="23" width="1440" height="821" />
+    <state x="107" y="133" width="1200" height="579" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1589756655578">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
+    <state x="107" y="133" width="1200" height="579" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.814@0.23.1440.814" timestamp="1589756655578" />
     <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.821@0.23.1440.821" timestamp="1585617999814" />
     <state x="107" y="134" width="1200" height="583" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.822@0.23.1440.822" timestamp="1585601278915" />
     <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser" timestamp="1589601397675">
@@ -326,49 +335,53 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="475" y="140" key="DetectedRootsChooserDialog/0.23.1440.822@0.23.1440.822" timestamp="1585535305719" />
-    <state width="1400" height="204" key="GridCell.Tab.0.bottom" timestamp="1586050128467">
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom" timestamp="1589756782842">
       <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1586050128467" />
+    <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1589756782842" />
     <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1585619317174" />
     <state width="1400" height="204" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
     <state width="1400" height="256" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585795163909" />
-    <state width="1400" height="204" key="GridCell.Tab.0.center" timestamp="1586050128466">
+    <state width="1400" height="204" key="GridCell.Tab.0.center" timestamp="1589756782841">
       <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
+    <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1589756782841" />
     <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
     <state width="1400" height="204" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
     <state width="1400" height="256" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1585795163908" />
-    <state width="1400" height="204" key="GridCell.Tab.0.left" timestamp="1586050128466">
+    <state width="1400" height="204" key="GridCell.Tab.0.left" timestamp="1589756782840">
       <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
+    <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1589756782840" />
     <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1585619317172" />
     <state width="1400" height="204" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1585601348746" />
     <state width="1400" height="256" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1585795163907" />
-    <state width="1400" height="204" key="GridCell.Tab.0.right" timestamp="1586050128466">
+    <state width="1400" height="204" key="GridCell.Tab.0.right" timestamp="1589756782842">
       <screen x="0" y="23" width="1440" height="814" />
     </state>
-    <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1586050128466" />
+    <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1589756782842" />
     <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1585619317173" />
     <state width="1400" height="204" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1585601348747" />
     <state width="1400" height="256" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1585795163908" />
-    <state width="1400" height="256" key="GridCell.Tab.1.bottom" timestamp="1585795163911">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="256" key="GridCell.Tab.1.bottom" timestamp="1589756761345">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
+    <state width="1400" height="256" key="GridCell.Tab.1.bottom/0.23.1440.814@0.23.1440.814" timestamp="1589756761345" />
     <state width="1400" height="256" key="GridCell.Tab.1.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585795163911" />
-    <state width="1400" height="256" key="GridCell.Tab.1.center" timestamp="1585795163910">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="256" key="GridCell.Tab.1.center" timestamp="1589756761344">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
+    <state width="1400" height="256" key="GridCell.Tab.1.center/0.23.1440.814@0.23.1440.814" timestamp="1589756761344" />
     <state width="1400" height="256" key="GridCell.Tab.1.center/0.23.1440.823@0.23.1440.823" timestamp="1585795163910" />
-    <state width="1400" height="256" key="GridCell.Tab.1.left" timestamp="1585795163909">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="256" key="GridCell.Tab.1.left" timestamp="1589756761342">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
+    <state width="1400" height="256" key="GridCell.Tab.1.left/0.23.1440.814@0.23.1440.814" timestamp="1589756761342" />
     <state width="1400" height="256" key="GridCell.Tab.1.left/0.23.1440.823@0.23.1440.823" timestamp="1585795163909" />
-    <state width="1400" height="256" key="GridCell.Tab.1.right" timestamp="1585795163911">
-      <screen x="0" y="23" width="1440" height="823" />
+    <state width="1400" height="256" key="GridCell.Tab.1.right" timestamp="1589756761345">
+      <screen x="0" y="23" width="1440" height="814" />
     </state>
+    <state width="1400" height="256" key="GridCell.Tab.1.right/0.23.1440.814@0.23.1440.814" timestamp="1589756761345" />
     <state width="1400" height="256" key="GridCell.Tab.1.right/0.23.1440.823@0.23.1440.823" timestamp="1585795163910" />
     <state x="153" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1585600890575">
       <screen x="0" y="23" width="1440" height="822" />

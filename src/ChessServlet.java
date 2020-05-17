@@ -237,12 +237,15 @@ public class ChessServlet extends HttpServlet{
         if(currentPosition.getAllLegalMoves().size() == 0) {
             double score = currentPosition.getScore();
             if (score == 0) {
-                re.put("gameEnd", "Stalemate");
+                re.put("gameEnd", "Draw");
             } else if (score > 0) {
                 re.put("gameEnd", "WhiteWins");
             } else if (score < 0) {
                 re.put("gameEnd", "BlackWins");
             }
+        }
+        if (isDraw()) {
+            re.put("gameEnd", "Draw");
         }
     }
 
@@ -270,7 +273,16 @@ public class ChessServlet extends HttpServlet{
         re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
     }
 
-    private void checkForDraw() {
-        //TODO
+    private boolean isDraw() {
+        int numRepeat = 1;
+        for (int i = 0; i < positionList.size() - 1; i++) {
+            if (positionList.get(positionList.size()-1).equals(positionList.get(i))) {
+                numRepeat++;
+            }
+        }
+        if (numRepeat >= 3) {
+            return true;
+        }
+        return false;
     }
 }
