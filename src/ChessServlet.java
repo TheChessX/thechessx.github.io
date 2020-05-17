@@ -8,8 +8,6 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import chessLogic.*;
-
 
 public class ChessServlet extends HttpServlet{
 
@@ -244,7 +242,7 @@ public class ChessServlet extends HttpServlet{
                 re.put("gameEnd", "BlackWins");
             }
         }
-        if (isDraw()) {
+        if (isDrawByRepetition()) {
             re.put("gameEnd", "Draw");
         }
     }
@@ -273,7 +271,7 @@ public class ChessServlet extends HttpServlet{
         re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
     }
 
-    private boolean isDraw() {
+    private boolean isDrawByRepetition() {
         int numRepeat = 1;
         for (int i = 0; i < positionList.size() - 1; i++) {
             if (positionList.get(positionList.size()-1).equals(positionList.get(i))) {
