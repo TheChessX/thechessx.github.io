@@ -234,16 +234,16 @@ public class ChessServlet extends HttpServlet{
     private void checkGameFinished() {
         if(currentPosition.getAllLegalMoves().size() == 0) {
             double score = currentPosition.getScore();
-            if (score == 0) {
+            System.out.println(score);
+            if (!currentPosition.inCheck()) {
                 re.put("gameEnd", "Draw");
-            } else if (score > 0) {
+            }  else if (isDraw(currentPosition)) {
+                re.put("gameEnd", "Draw");
+            } else if (currentPosition.isBlackToMove()) {
                 re.put("gameEnd", "WhiteWins");
-            } else if (score < 0) {
+            } else if (!currentPosition.isBlackToMove()) {
                 re.put("gameEnd", "BlackWins");
             }
-        }
-        if (isDrawByRepetition()) {
-            re.put("gameEnd", "Draw");
         }
     }
 
@@ -269,6 +269,10 @@ public class ChessServlet extends HttpServlet{
         re.put("PieceMoved", currentPosition.getPieceNotation(currentPosition.getSquare(currentMove.getxInitial(), currentMove.getyInitial())));
         re.put("MoveNumber", moveNumber);
         re.put("MoveNotation", currentPosition.toHumanNotation(currentMove));
+    }
+
+    private boolean isDraw(Position pos) {
+        return isDrawByRepetition() || evaluate.isDrawByInsufficientMaterial(pos);
     }
 
     private boolean isDrawByRepetition() {

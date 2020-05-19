@@ -9,9 +9,9 @@
 <html>
   <head>
     <title>ChessX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?28">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/master.css?50">
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
-    <script src="master.js?35" type="text/javascript"></script>
+    <script src="master.js?42" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="headingID">ChessX</h1>
@@ -21,6 +21,7 @@
             <tr>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/10.png" class="piece blackRook"></img>
+                <div class="rowName">8</div>
               </td>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/8.png" class="piece blackKnight"></img>
@@ -47,6 +48,7 @@
             <tr>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
+                <div class="rowName">7</div>
               </td>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/7.png" class="piece blackPawn"></img>
@@ -71,7 +73,9 @@
               </td>
             </tr>
             <tr>
-              <td class="whiteSquare square"></td>
+              <td class="whiteSquare square">
+                <div class="rowName">6</div>
+              </td>
               <td class="blackSquare square"></td>
               <td class="whiteSquare square"></td>
               <td class="blackSquare square"></td>
@@ -81,7 +85,9 @@
               <td class="blackSquare square"></td>
             </tr>
             <tr>
-              <td class="blackSquare square"></td>
+              <td class="blackSquare square">
+                <div class="rowName">5</div>
+              </td>
               <td class="whiteSquare square"></td>
               <td class="blackSquare square"></td>
               <td class="whiteSquare square"></td>
@@ -91,7 +97,9 @@
               <td class="whiteSquare square"></td>
             </tr>
             <tr>
-              <td class="whiteSquare square"></td>
+              <td class="whiteSquare square">
+                <div class="rowName">4</div>
+              </td>
               <td class="blackSquare square"></td>
               <td class="whiteSquare square"></td>
               <td class="blackSquare square"></td>
@@ -101,7 +109,9 @@
               <td class="blackSquare square"></td>
             </tr>
             <tr>
-              <td class="blackSquare square"></td>
+              <td class="blackSquare square">
+                <div class="rowName">3</div>
+              </td>
               <td class="whiteSquare square"></td>
               <td class="blackSquare square"></td>
               <td class="whiteSquare square"></td>
@@ -113,6 +123,7 @@
             <tr>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
+                <div class="rowName">2</div>
               </td>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/1.png" class="piece whitePawn"></img>
@@ -139,27 +150,36 @@
             <tr>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
+                <div class="rowName">1</div>
+                <div class="colName">a</div>
               </td>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
+                <div class="colName">b</div>
               </td>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
+                <div class="colName">c</div>
               </td>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/5.png" class="piece whiteQueen"></img>
+                <div class="colName">d</div>
               </td>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/6.png" class="piece whiteKing"></img>
+                <div class="colName">e</div>
               </td>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/3.png" class="piece whiteBishop"></img>
+                  <div class="colName">f</div>
               </td>
               <td class="blackSquare square">
                 <img src="${pageContext.request.contextPath}/img/2.png" class="piece whiteKnight"></img>
+                <div class="colName">g</div>
               </td>
               <td class="whiteSquare square">
                 <img src="${pageContext.request.contextPath}/img/4.png" class="piece whiteRook"></img>
+                <div class="colName">h</div>
               </td>
             </tr>
           </table>

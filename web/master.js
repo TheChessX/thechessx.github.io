@@ -156,8 +156,11 @@ function parseRequest(data) {
         if (squares[i].className == "whiteSquare square") {
             squares[i].style.backgroundColor = "whitesmoke";
         }
-        if (squares[i].children[0] != null) {
-            squares[i].removeChild(squares[i].children[0]);
+        for (var j = 0; j < squares[i].children.length; j++) {
+            if (squares[i].children[j] != null && squares[i].children[j].className != "rowName" && squares[i].children[j].className != "colName") {
+                squares[i].removeChild(squares[i].children[j]);
+                j--;
+            }
         }
         var pieceAtPosI = data.position[Math.floor(i / 8)][i % 8];
         if (pieceAtPosI != 0) {
@@ -165,6 +168,7 @@ function parseRequest(data) {
             image.setAttribute('src', "/img/" + pieceAtPosI + ".png");
             image.setAttribute('height', "50px");
             image.setAttribute('width', '50px');
+            image.classList.add("piece");
             squares[i].appendChild(image);
         }
     }

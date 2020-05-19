@@ -193,8 +193,6 @@ public class Evaluation { // distanceScore is wrong in kingsafety?
 		return score;
 	}
 
-
-
 	public double evaluatePieceValue(Position pos) {
 		double score = 0.0;
 		for (int i = 0; i < 8; i++) {
@@ -767,7 +765,6 @@ public class Evaluation { // distanceScore is wrong in kingsafety?
 		return round(score/20, 2);
 	}
 
-
 	private ArrayList<Integer> findPiece(Position pos, byte id) {
 		ArrayList<Integer> pieceLocations = new ArrayList<Integer>();
 		for (int r = 0; r < 8; r++) {
@@ -786,5 +783,43 @@ public class Evaluation { // distanceScore is wrong in kingsafety?
 
 	public void setEndgame(boolean endgame) {
 		this.endgame = endgame;
+	}
+
+	public boolean isDrawByInsufficientMaterial(Position pos) {
+		ArrayList<Integer> pawns = findPiece(pos, (byte) 1);
+		pawns.addAll((findPiece(pos, (byte) 7)));
+		if (pawns.size() > 0) {
+			return false;
+		} else {
+			ArrayList<Integer> rooks = findPiece(pos, (byte) 4);
+			rooks.addAll((findPiece(pos, (byte) 10)));
+			if (rooks.size() > 0) {
+				return false;
+			} else {
+				ArrayList<Integer> queens = findPiece(pos, (byte) 5);
+				queens.addAll((findPiece(pos, (byte) 11)));
+				if (queens.size() > 0) {
+					return false;
+				} else {
+					int whiteKnights = findPiece(pos, (byte) 2).size();
+					int whiteBishops = findPiece(pos, (byte) 3).size();
+					int blackKnights = findPiece(pos, (byte) 8).size();
+					int blackBishops = findPiece(pos, (byte) 9).size();
+					if (whiteKnights <= 1 && whiteBishops == 0 && blackKnights == 0 && blackBishops == 0) {
+						return true;
+					}
+					if (blackKnights <= 1 && blackBishops == 0 && whiteKnights == 0 && whiteBishops == 0) {
+						return true;
+					}
+					if (whiteBishops <= 1 && whiteKnights == 0 && blackKnights == 0 && blackBishops == 0) {
+						return true;
+					}
+					if (blackBishops <= 1 && blackKnights == 0 && whiteKnights == 0 && whiteBishops == 0) {
+						return true;
+					}
+					return false;
+				}
+			}
+		}
 	}
 }
