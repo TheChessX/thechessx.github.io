@@ -715,7 +715,7 @@ public class Evaluation { // distanceScore is wrong in kingsafety?
 				score -= rSemiOpenFile;
 			}
 		}
-		return score;
+		return round(score, 2);
 	}
 
 	public double evaluateBishopPair(Position pos) {

@@ -26,6 +26,8 @@ public class TestEngine extends Engine{
 
     Evaluation eval;
     int hashCounter;
+    int counterMoveCounter;
+    Move[][] counterMoves = new Move[64][64];
 
     public TestEngine() {
         this.eval = new Evaluation();
@@ -45,8 +47,9 @@ public class TestEngine extends Engine{
     @Override
     public MoveAndExplanation playAndExplain(Position pos) {
         System.out.println("Test Engine Playing");
-
+        counterMoves = new Move[64][64];
         hashCounter = 0;
+        counterMoveCounter = 0;
 
         long startTime = System.currentTimeMillis();
         if (isTheory()) {
@@ -71,9 +74,9 @@ public class TestEngine extends Engine{
         Collections.sort(movesAndPos);
 
         int depth = 1;
-        while (System.currentTimeMillis() - startTime < MAX_TIME && depth <=5) {
+        while (System.currentTimeMillis() - startTime < MAX_TIME && depth <=4) {
             for (int i = 0; i < movesAndPos.size(); i++) {
-                movesAndPos.get(i).setScore(treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (depth - 1) - 2, 1000000 * (depth - 1) + 2, depth, startTime));
+                movesAndPos.get(i).setScore(treeEvalNX(movesAndPos.get(i).getPos(), -1000000 * (depth - 1) - 2, 1000000 * (depth - 1) + 2, depth, startTime, null));
                 if (!pos.isBlackToMove() && movesAndPos.get(i).getScore() == 1000000 * presetDepth || pos.isBlackToMove() && movesAndPos.get(i).getScore() == -1000000 * presetDepth) {
                     break;
                 }
@@ -154,8 +157,8 @@ public class TestEngine extends Engine{
                 "The evaluation breakdown for the final position is: " + getInformation(eval, positionsInSequence.get(positionsInSequence.size()-1)));
     }
 
-    @Override
-    public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis) {
+
+    public double treeEvalNX(Position pos, double alpha, double beta, int depth, long startTimeMillis, Move previousMove) {
         if (System.currentTimeMillis() - startTimeMillis > MAX_TIME) {
             return addToMap(pos, 0);
         }
@@ -201,6 +204,31 @@ public class TestEngine extends Engine{
         }
         Collections.sort(posList2);
 
+        if (previousMove != null) {
+            if (counterMoves[previousMove.fromSquare()][previousMove.toSquare()] != null) {
+                Move counterMove = null;
+                for (int i = 0; i < posList1.size(); i++) {
+                    if (posList1.get(i).getMove().equals(counterMoves[previousMove.fromSquare()][previousMove.toSquare()])) {
+                        counterMove = posList1.get(i).getMove();
+                        posList1.remove(i);
+                        break;
+                    }
+                }
+                if (counterMove != null) {
+                    if (hashMove == null) {
+                        posList1.add(0, new MoveAndResultingPosition(counterMove, pos.positionAfterMove(counterMove)));
+                    } else if (!posList1.isEmpty()) {
+                        posList1.add(1, new MoveAndResultingPosition(counterMove, pos.positionAfterMove(counterMove)));
+                    }
+                    counterMoveCounter++;
+                    if (counterMoveCounter % 100 == 0) {
+                        System.out.println("Countermove Used.");
+                    }
+                }
+            }
+        }
+
+
         posList1.addAll(posList2);
 
         if (hashMove != null) {
@@ -217,6 +245,7 @@ public class TestEngine extends Engine{
             posList1.add(0, new MoveAndResultingPosition(hashMove, pos.positionAfterMove(hashMove)));
         }
 
+
         double score;
         Move bestMove = null;
         if (pos.isBlackToMove()) {
@@ -229,7 +258,7 @@ public class TestEngine extends Engine{
 //				if (criticality > 2.5) {
 //					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
 //				} else {
-                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis, pos1AndMove.getMove());
                 //}
                 if (pos1Score < score) {
                     score = pos1Score;
@@ -239,6 +268,9 @@ public class TestEngine extends Engine{
                     beta = score;
                 }
                 if (alpha >= beta) {
+                    if (previousMove != null) {
+                        counterMoves[previousMove.fromSquare()][previousMove.toSquare()] = pos1AndMove.getMove();
+                    }
                     break;
                 }
             }
@@ -252,7 +284,7 @@ public class TestEngine extends Engine{
 //				if (criticality > 2.5) {
 //					pos1Score = treeEvalNX(pos1, alpha, beta, depth, startTimeMillis);
 //				} else {
-                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis);
+                pos1Score = treeEvalNX(pos1, alpha, beta, depth - 1, startTimeMillis, pos1AndMove.getMove());
                 //}
                 if (pos1Score > score) {
                     score = pos1Score;
@@ -262,6 +294,9 @@ public class TestEngine extends Engine{
                     alpha = score;
                 }
                 if (alpha >= beta) {
+                    if (previousMove != null) {
+                        counterMoves[previousMove.fromSquare()][previousMove.toSquare()] = pos1AndMove.getMove();
+                    }
                     break;
                 }
             }

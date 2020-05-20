@@ -103,4 +103,11 @@ public class Move {
     public void setPromotionID(byte PromotionID) {
         this.promotionID = PromotionID;
     }
+
+    public int fromSquare() {
+        return xInitial * 8 + yInitial;
+    }
+    public int toSquare() {
+        return xFinal * 8 + yFinal;
+    }
 }

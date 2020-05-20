@@ -193,8 +193,6 @@ public class ChessServlet extends HttpServlet{
                 }
             }
 
-            //System.out.println(engine.getWbRow() + " " + engine.getWbCol());
-
             if (!moveFound) {
                 engine.setTheory(false);
                 System.out.println("1 Theory");
@@ -232,12 +230,14 @@ public class ChessServlet extends HttpServlet{
     }
 
     private void checkGameFinished() {
+        if (isDraw(currentPosition)) {
+            re.put("gameEnd", "Draw");
+            return;
+        }
         if(currentPosition.getAllLegalMoves().size() == 0) {
             double score = currentPosition.getScore();
             System.out.println(score);
             if (!currentPosition.inCheck()) {
-                re.put("gameEnd", "Draw");
-            }  else if (isDraw(currentPosition)) {
                 re.put("gameEnd", "Draw");
             } else if (currentPosition.isBlackToMove()) {
                 re.put("gameEnd", "WhiteWins");
