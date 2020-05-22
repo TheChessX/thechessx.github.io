@@ -10,10 +10,9 @@
     <list default="true" id="bc5f984c-e586-45e1-84b0-741e41f238e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/WebChess_war/WebChess_war.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChessServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chessLogic/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chessLogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chessLogic/TestEngine.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +72,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
@@ -297,7 +297,7 @@
       <workItem from="1588631276534" duration="4562000" />
       <workItem from="1589314457537" duration="4661000" />
       <workItem from="1589474200337" duration="18387000" />
-      <workItem from="1589863196287" duration="12282000" />
+      <workItem from="1589863196287" duration="16362000" />
     </task>
     <servers />
   </component>
@@ -323,6 +323,10 @@
     </state>
     <state x="520" y="120" key="#com.intellij.ide.util.MemberChooser/0.23.1440.812@0.23.1440.812" timestamp="1589601397675" />
     <state x="520" y="121" key="#com.intellij.ide.util.MemberChooser/0.23.1440.823@0.23.1440.823" timestamp="1585796292699" />
+    <state x="1033" y="-895" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1590011733017">
+      <screen x="0" y="-1417" width="2560" height="1337" />
+    </state>
+    <state x="1033" y="-895" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.877/0.-1417.2560.1337@0.-1417.2560.1337" timestamp="1590011733017" />
     <state x="475" y="140" key="DetectedRootsChooserDialog" timestamp="1585535305719">
       <screen x="0" y="23" width="1440" height="822" />
     </state>

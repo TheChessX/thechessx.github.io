@@ -2,23 +2,23 @@ package chessLogic;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+//import java.util.HashMap;
 
 
-import chessLogic.*;
+//import chessLogic.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.sl.usermodel.Sheet;
+//import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.ss.usermodel.DataFormatter;
+//import org.apache.poi.ss.usermodel.FormulaEvaluator;
+//import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
@@ -293,7 +293,7 @@ public class TestEngine extends Engine{
                 if (score > alpha) {
                     alpha = score;
                 }
-                if (alpha >= beta) {
+                if (alpha >= beta) { // Cut Node?
                     if (previousMove != null) {
                         counterMoves[previousMove.fromSquare()][previousMove.toSquare()] = pos1AndMove.getMove();
                     }
@@ -344,5 +344,4 @@ public class TestEngine extends Engine{
     public void setTheory(boolean theory) {
         this.theory = theory;
     }
-
 }

@@ -34,7 +34,7 @@ public class Position implements Comparable<Position> {
 	ArrayList<Move> captureList = new ArrayList<Move>();
 	ArrayList<Move> otherList = new ArrayList<Move>();
 
-	private boolean[][] whiteProtectedSquares = new boolean[8][8]; // This holds a boolean chessboard array of all of the squares that white could attack.
+	//private boolean[][] whiteProtectedSquares = new boolean[8][8]; // This holds a boolean chessboard array of all of the squares that white could attack.
 
 	private int enPassantColumn = -1;
 

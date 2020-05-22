@@ -20,7 +20,7 @@ public class Engine {
 	protected int wbCol = 0;
 	protected HashMap<String, PosInfo> map = new HashMap();
 
-	protected int MAX_TIME = 10000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
+	protected int MAX_TIME = 5000; // Maximum time in millis that the engine is allowed to take. Cuts off at this time and returns search result.
 
 	//Opening Mode
 	//-1 Engine does not use theory
@@ -337,7 +337,7 @@ public class Engine {
 	}
 	public String getInformation(Evaluation eval, Position pos) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Evaluation: " + pos.getScore() + "\n");
+		sb.append("Evaluation: " + eval.evaluate(pos) + "\n");
 		if (eval.isEndgame()) {
 			sb.append("This is an endgame position. \n");
 			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
@@ -349,7 +349,7 @@ public class Engine {
 			sb.append("This is a middlegame position. \n");
 			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
 			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
-			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
+			//sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
 			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
 			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
 			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
@@ -360,7 +360,7 @@ public class Engine {
 	}
 	public String getInformation(TestEvaluation eval, Position pos) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Evaluation: " + pos.getScore() + "\n");
+		sb.append("Evaluation: " + eval.evaluate(pos) + "\n");
 		if (eval.isEndgame()) {
 			sb.append("This is an endgame position. \n");
 			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
@@ -374,7 +374,7 @@ public class Engine {
 			sb.append("This is a middlegame position. \n");
 			sb.append("Material: " + eval.evaluatePieceValue(pos) + "\n");
 			sb.append("Center Control: " + eval.evaluateCenterControl(pos) + "\n");
-			sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
+			//sb.append("King Safety: " + eval.evaluateKingSafety(pos) + "\n");
 			sb.append("Development: " + eval.round(eval.evaluateDevelopment(pos), 2) + "\n");
 			sb.append("Rooks: " + eval.evaluateRooks(pos) + "\n");
 			sb.append("Pawns: " + eval.round(eval.evaluatePawns(pos), 2)  + "\n");
